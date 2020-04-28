@@ -1,0 +1,2 @@
+audacious_position
+Position of current tune (MM:SS).

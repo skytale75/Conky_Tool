@@ -1,0 +1,2 @@
+diskio_write (device)
+Displays current disk IO for writes. Device as in diskio.

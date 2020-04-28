@@ -1,0 +1,1 @@
+Fan speed from therm_adt746x.

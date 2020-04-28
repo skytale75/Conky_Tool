@@ -1,0 +1,2 @@
+gw_iface
+Displays the default route's interface or "multiple"/"none" accordingly.

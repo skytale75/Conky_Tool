@@ -1,0 +1,2 @@
+battery_bar (height),(width) (num)
+Battery percentage remaining of ACPI battery in a bar. ACPI battery number can be given as argument (default is BAT0, use all to get the mean percentage remaining for all batteries).

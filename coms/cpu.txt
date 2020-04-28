@@ -1,0 +1,2 @@
+cpu (cpuN)
+CPU usage in percents. For SMP machines, the CPU number can be provided as an argument. ${cpu cpu0} is the total usage, and ${cpu cpuX} (X >= 1) are individual CPUs.

@@ -1,0 +1,2 @@
+entropy_avail
+Current entropy available for crypto freaks.

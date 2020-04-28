@@ -1,0 +1,2 @@
+fs_bar (height),(width) fs
+Bar that shows how much space is used on a file system. height is the height in pixels. fs is any file on that file system.

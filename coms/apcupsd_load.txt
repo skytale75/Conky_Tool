@@ -1,0 +1,1 @@
+Current load in percent.

@@ -1,0 +1,2 @@
+ apm_adapter
+Display APM AC adapter status. FreeBSD, OpenBSD only.

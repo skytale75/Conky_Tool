@@ -1,0 +1,2 @@
+fs_type (fs)
+File system type.

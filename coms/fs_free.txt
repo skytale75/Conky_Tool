@@ -1,0 +1,2 @@
+fs_free (fs)
+Free space on a file system available for users.

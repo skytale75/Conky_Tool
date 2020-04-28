@@ -1,0 +1,2 @@
+execigraph interval command (height),(width) (gradient color 1) (gradient color 2) (scale) (-t) (-l)
+Same as execgraph, but with an interval.

@@ -1,0 +1,2 @@
+downspeed (net)
+Download speed in suitable IEC units.

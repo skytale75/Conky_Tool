@@ -1,0 +1,2 @@
+i8k_buttons_status
+If running the i8k kernel driver for Inspiron laptops, displays the volume buttons status as listed in /proc/i8k.

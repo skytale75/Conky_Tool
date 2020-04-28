@@ -1,0 +1,2 @@
+cmus_progress (height),(width)
+cmus' progress bar.

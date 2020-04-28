@@ -1,0 +1,2 @@
+entropy_poolsize
+Total size of system entropy pool for crypto freaks.

@@ -1,0 +1,2 @@
+entropy_bar (height),(width)
+Normalized bar of available entropy for crypto freaks.

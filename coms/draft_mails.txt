@@ -1,0 +1,2 @@
+draft_mails (maildir) (interval)
+Number of mails marked as draft in the specified mailbox or mail spool if not. Only maildir type mailboxes are supported, mbox type will return -1. else: Text to show if any of the above are not true. endif: Ends an $if block.

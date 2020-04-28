@@ -1,0 +1,2 @@
+blink text_and_other_conky_vars
+Let 'text_and_other_conky_vars' blink on and off.

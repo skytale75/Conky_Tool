@@ -1,0 +1,2 @@
+cat file
+Reads a file and displays the contents in conky. This is useful if you have an independent process generating output that you want to include in conky.

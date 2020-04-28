@@ -1,0 +1,2 @@
+execibar interval (height),(width) command
+Same as execbar, but with an interval.

@@ -1,0 +1,2 @@
+execigauge interval (height),(width) command
+Same as execgauge, but with an interval.

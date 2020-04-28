@@ -1,0 +1,2 @@
+execgauge (height),(width) command
+Same as exec, except if the first value returned is a value between 0-100, it will use that number to draw a round gauge (much like a vehicle speedometer). The height and width parameters are optional, and default to the default_gauge_height and default_gauge_width config settings, respectively.

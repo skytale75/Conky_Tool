@@ -1,0 +1,1 @@
+Gauge that shows current load.

@@ -1,0 +1,2 @@
+apcupsd_name
+Prints the UPS user-defined name.

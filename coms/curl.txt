@@ -1,0 +1,2 @@
+curl url (interval_in_minutes)
+Download data from URI using Curl at the specified interval. The interval may be a positive floating point value (0 is allowed), otherwise defaults to 15 minutes. Most useful when used in conjunction with Lua and the Lua API. This object is threaded, and once a thread is created it can't be explicitly destroyed. One thread will run for each URI specified. You can use any protocol that Curl supports.

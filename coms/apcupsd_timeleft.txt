@@ -1,0 +1,2 @@
+apcupsd_timeleft
+Time left to run on battery.

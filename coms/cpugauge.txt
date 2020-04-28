@@ -1,0 +1,2 @@
+cpugauge (cpuN) (height),(width)
+Elliptical gauge that shows CPU usage, height and width are gauge's vertical and horizontal axis respectively. See $cpu for more info on SMP.

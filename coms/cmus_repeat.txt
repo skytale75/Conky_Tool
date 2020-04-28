@@ -1,0 +1,2 @@
+cmus_repeat
+Repeat status of cmus (song/all/off).

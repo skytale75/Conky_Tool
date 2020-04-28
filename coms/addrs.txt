@@ -1,0 +1,1 @@
+IP addresses for an interface (if one - works like addr). Linux only.

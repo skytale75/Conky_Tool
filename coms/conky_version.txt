@@ -1,0 +1,2 @@
+conky_version
+Conky version.

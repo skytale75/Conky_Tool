@@ -1,0 +1,2 @@
+cmdline_to_pid string
+PID of the first process that has string in its commandline.

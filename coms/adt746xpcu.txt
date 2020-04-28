@@ -1,0 +1,1 @@
+CPU temperature from therm_adt746x.

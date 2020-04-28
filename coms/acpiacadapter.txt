@@ -1,0 +1,1 @@
+ACPI ac adapter state. On linux, the adapter option specifies the subfolder of/sys/class/power_supply containing the stateinformation (tries "AC" and "ADP1" if there is  no argument given). Non-linux systems ignore it.

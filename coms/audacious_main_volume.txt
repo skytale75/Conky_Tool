@@ -1,0 +1,2 @@
+audacious_main_volume
+The current volume fetched from Audacious.

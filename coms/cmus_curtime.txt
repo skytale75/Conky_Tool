@@ -1,0 +1,2 @@
+cmus_curtime
+Current time of the current cmus song.

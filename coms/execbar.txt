@@ -1,0 +1,2 @@
+execbar (height),(width) command
+Same as exec, except if the first value returned is a value between 0-100, it will use that number to draw a horizontal bar. The height and width parameters are optional, and default to the default_bar_height and default_bar_width config settings, respectively.

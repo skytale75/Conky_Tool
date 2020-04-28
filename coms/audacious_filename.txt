@@ -1,0 +1,2 @@
+audacious_filename
+Full path and filename of current tune.

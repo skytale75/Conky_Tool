@@ -1,0 +1,2 @@
+freq2 (n)
+Returns CPU #n's clock speed from assembly in MHz. CPUs are counted from 1. If omitted, the parameter defaults to 1.

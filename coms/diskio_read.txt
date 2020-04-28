@@ -1,0 +1,2 @@
+diskio_read (device)
+displays current disk IO for reads. Device as in diskio.

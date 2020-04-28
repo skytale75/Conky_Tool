@@ -1,0 +1,2 @@
+cmus_artist
+Prints the artist of the current cmus song.

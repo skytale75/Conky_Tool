@@ -1,0 +1,2 @@
+colorN
+Change drawing color to colorN configuration option, where N is a digit between 0 and 9, inclusively.

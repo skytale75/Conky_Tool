@@ -1,0 +1,2 @@
+entropy_perc
+Percentage of entropy available in comparison to the poolsize.

@@ -1,0 +1,2 @@
+audacious_playlist_position
+Playlist position of current tune.

@@ -1,0 +1,2 @@
+hr (height)
+Horizontal line, height is the height in pixels.

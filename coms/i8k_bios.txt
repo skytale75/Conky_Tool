@@ -1,0 +1,2 @@
+i8k_bios
+If running the i8k kernel driver for Inspiron laptops, displays the bios version as listed in /proc/i8k.

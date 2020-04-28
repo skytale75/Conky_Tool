@@ -1,0 +1,2 @@
+cmus_totaltime
+Total length of the current cmus song.

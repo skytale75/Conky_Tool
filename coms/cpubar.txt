@@ -1,0 +1,2 @@
+cpubar (cpuN) (height),(width)
+Bar that shows CPU usage, height is bar's height in pixels. See $cpu for more info on SMP.

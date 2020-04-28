@@ -1,0 +1,1 @@
+Bar showing current load.

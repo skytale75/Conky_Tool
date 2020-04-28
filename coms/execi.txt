@@ -1,0 +1,2 @@
+execi interval command
+Same as exec, but with a specific interval in seconds. The interval can't be less than the update_interval in your configuration. See also $texeci.

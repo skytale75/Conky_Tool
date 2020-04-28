@@ -1,0 +1,2 @@
+i8k_ac_status
+If running the i8k kernel driver for Inspiron laptops, displays whether ac power is on, as listed in /proc/i8k (translated to human-readable). Beware that this is by default not enabled by i8k itself.

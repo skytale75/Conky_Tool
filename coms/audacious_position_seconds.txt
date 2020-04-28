@@ -1,0 +1,2 @@
+audacious_position_seconds
+Position of current tune in seconds.

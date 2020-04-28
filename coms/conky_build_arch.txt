@@ -1,0 +1,2 @@
+conky_build_arch
+CPU architecture Conky was built for.

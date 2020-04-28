@@ -1,0 +1,2 @@
+apm_battery_time
+Display remaining APM battery life in hh:mm:ss or "unknown" if AC adapterstatus is on-line or charging. FreeBSD, OpenBSD only.

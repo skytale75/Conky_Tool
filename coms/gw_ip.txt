@@ -1,0 +1,2 @@
+gw_ip
+Displays the default gateway's IP or "multiple"/"none" accordingly.

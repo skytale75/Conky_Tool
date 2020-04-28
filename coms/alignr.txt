@@ -1,0 +1,1 @@
+Right-justify text, with space of N.

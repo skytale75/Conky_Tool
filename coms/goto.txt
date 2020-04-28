@@ -1,0 +1,2 @@
+goto x
+The next element will be printed at position 'x'.

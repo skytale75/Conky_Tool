@@ -1,0 +1,2 @@
+downspeedf (net)
+Download speed in KiB with one decimal.

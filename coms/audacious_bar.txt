@@ -1,0 +1,2 @@
+audacious_bar (height),(width)
+Progress bar.

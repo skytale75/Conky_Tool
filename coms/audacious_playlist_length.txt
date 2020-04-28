@@ -1,0 +1,2 @@
+audacious_playlist_length
+Number of tunes in playlist.

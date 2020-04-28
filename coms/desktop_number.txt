@@ -1,0 +1,2 @@
+desktop_number
+Number of desktops or the message "Not running in X" if this is the case.

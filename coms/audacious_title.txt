@@ -1,0 +1,2 @@
+audacious_title (max length)
+Title of current tune with optional maximum length specifier.

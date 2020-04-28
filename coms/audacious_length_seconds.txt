@@ -1,0 +1,2 @@
+audacious_length_seconds
+Total length of current tune in seconds.

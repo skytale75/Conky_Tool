@@ -1,0 +1,2 @@
+conky_build_date
+Date Conky was built.

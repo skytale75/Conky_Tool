@@ -1,0 +1,2 @@
+battery_status (num)
+Battery status for ACPI battery. ACPI battery number can be given as argument (default is BAT0).

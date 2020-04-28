@@ -1,0 +1,2 @@
+audacious_bitrate
+Bitrate of current tune.

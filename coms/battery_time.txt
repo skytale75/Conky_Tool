@@ -1,0 +1,2 @@
+battery_time (num)
+Battery charge/discharge time remaining of ACPI battery. ACPI battery number can be given as argument (default is BAT0).

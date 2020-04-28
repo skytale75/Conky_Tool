@@ -1,0 +1,2 @@
+desktop_name
+Name of the desktop on which conky is running or the message "Not running in X" if this is the case.

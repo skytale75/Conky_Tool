@@ -1,0 +1,2 @@
+apcupsd_status
+Prints current status (on-line, on-battery).

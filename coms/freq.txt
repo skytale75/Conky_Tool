@@ -1,0 +1,2 @@
+freq (n)
+Returns CPU #n's frequency in MHz. CPUs are counted from 1. If omitted, the parameter defaults to 1.

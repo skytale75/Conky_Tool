@@ -1,0 +1,2 @@
+audacious_status
+Player status (Playing/Paused/Stopped/Not running).

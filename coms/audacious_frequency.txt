@@ -1,0 +1,2 @@
+audacious_frequency
+Sampling frequency of current tune.

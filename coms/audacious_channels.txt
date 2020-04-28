@@ -1,0 +1,2 @@
+audacious_channels
+Number of audio channels of current tune.

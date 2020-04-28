@@ -1,0 +1,2 @@
+apcupsd_loadgraph
+(height),(width) (gradient colour 1) (gradient colour 2) (scale) (-t) (-l)
