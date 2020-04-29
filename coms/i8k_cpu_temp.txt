@@ -1,0 +1,2 @@
+i8k_cpu_temp
+If running the i8k kernel driver for Inspiron laptops, displays the cpu temperature in Celsius, as reported by /proc/i8k.

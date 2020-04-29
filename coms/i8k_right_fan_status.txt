@@ -1,0 +1,2 @@
+i8k_right_fan_status
+If running the i8k kernel driver for Inspiron laptops, displays the right fan status as listed in /proc/i8k (translated to human-readable). Beware, some laptops i8k reports these fans in reverse order.

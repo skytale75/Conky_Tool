@@ -246,10 +246,12 @@ class Notebook:
         nb.image_entry.bind('<Return>', pic_size)
 
         def rs_x(self):
+            """resize y when x is changed"""
             resize_x(nb.size_x, nb.size_y)
         nb.size_x.bind('<Return>', rs_x)
 
         def rs_y(self):
+            """resize x when y is changed"""
             resize_x(nb.size_x, nb.size_y)
         nb.size_y.bind('<Return>', rs_y)
 
@@ -259,15 +261,25 @@ class Notebook:
             return 'break'
 
         def insert_command(self):
+            """inserts command into rc file"""
             add_command(nb.com_list_box, nb.file_display)
 
         def show_def(self):
             the_input = eval(str(nb.com_list_box.get("insert linestart", "insert lineend")))
             the_input.definition_out(nb.wiki_window)
             return 'break'
+
+        def search_com(self):
+            if nb.command_find.get() == '':
+                conky_stuff.results = []
+                nb.com_list_box.delete(0.0, END)
+                load_commands(nb.com_list_box)
+            else:
+                search(nb.command_find, nb.com_list_box)
         
         nb.com_list_box.bind('<Alt-Return>', show_def)
         nb.com_list_box.bind('<Control-Return>', command_line)
+        nb.command_find.bind('<Return>', search_com)
 
         open_file(nb.file_display, nb.presets_window)
 
@@ -278,6 +290,7 @@ class Notebook:
 nb = Notebook("Work in progress")
 com = Notebook
 nb.create_widgets('Conky Editor')
+load_commands(nb.com_list_box)
 font_list()
 theme_list()
 

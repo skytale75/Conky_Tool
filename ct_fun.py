@@ -6,11 +6,13 @@ class conky_stuff:
     # variables
     x = 0
     y = 0
+    results = []
 
 # setup dictionary function . . . functions = {"functon_name:" function}
 # call dictionary function . . . functions["function_name"]()
 
 class Commands:
+
 
     def __init__(self, com_name, com_des, unique_command):
         self.com_name = com_name
@@ -28,6 +30,7 @@ class Commands:
             print("make a custom command for "+self.com_name)
 
     def command_out(self, cl_output):
+        """puts conky command names in appropriate format"""
         cl_output.insert(INSERT, self.com_name+"\n")
 
     def definition_out(self, cd_output):
@@ -40,6 +43,7 @@ class Commands:
 
 
 def def_file(my_input):
+    """open definition file and return as a string"""
     open_file = open("./coms/"+my_input+".txt")
     read_file = open_file.read()
     open_file.close()
@@ -47,8 +51,7 @@ def def_file(my_input):
 
 cm = Commands
 # complete list of conky commands for text section
-# for long definitions there are coorisponding text files to keep
-# the lines of code down in number.
+# definitions are in file in coms folder, def_file() opens and returns them as a string.
 
 acpiacadapter = Commands("acpiacadapter (adapter)", def_file("acpiacadapter"), "false")
 functions = {"acpiacadapter (adapter)": acpiacadapter}

@@ -1,0 +1,2 @@
+ibm_thinklight
+If running the IBM ACPI, displays the status of your ThinkLight™. Value is either 'on', 'off' or 'unknown'.

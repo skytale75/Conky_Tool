@@ -1,0 +1,2 @@
+i8k_right_fan_rpm
+If running the i8k kernel driver for Inspiron laptops, displays the right fan's rate of rotation, in revolutions per minute as listed in /proc/i8k. Beware, some laptops i8k reports these fans in reverse order.

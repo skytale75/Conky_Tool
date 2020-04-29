@@ -1,0 +1,2 @@
+ical number file
+Shows title of event number 'number' in the ical (RFC 5545) file 'file'. The events are first ordered by starting time, events that started in the past are ignored. The events that are shown are the VEVENTS, the title that is shown is the SUMMARY and the starting time used for sorting is DTSTART.

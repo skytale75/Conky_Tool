@@ -1,0 +1,2 @@
+ibm_temps N
+If running the IBM ACPI, displays the temperatures from the IBM temperature sensors (N=0..7) Sensor 0 is on the CPU, 3 is on the GPU.

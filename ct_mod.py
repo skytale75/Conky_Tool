@@ -10,6 +10,8 @@ cs = conky_stuff
 path1 = path.expanduser('~/.config/conky/')
 path2 = path.expanduser('~/')
 theme_path = path.expanduser('~/Conky_Tool/Conky_Themes/')
+coms_path = path.expanduser('~/Conky_Tool/coms/')
+
 custom_atttributes = ("color0 =", "color1 =", "color2 =", "color3 =", "color4 =",\
 	"color5 =", "color6 =", "color7 =", "color8 =","color9 ="\
 		"font0 =", "font1 =", "font2 =", "font3 =", "font4 =", "font5 ="\
@@ -200,4 +202,42 @@ def color_ct(color_i, output_f):
 	color = "{color "+users_input+"}"
 	if len(users_input) == 6:
 		output_f.insert(INSERT, color)
-print(font_list())
+
+def search(csi, clo):
+	"""search for input from command search bar and
+	load filenames with matching results to command
+	list"""
+	if len(cs.results) == 0:
+		for file in Path(coms_path).glob('**/*.txt'):
+			open_file = open(file, 'r')
+			read_file = open_file.read()
+			open_file.close()
+			cf_str = str(file)
+			cf_spl = cf_str.split('/')
+			cf = str(cf_spl[-1])
+			cf = cf.replace('.txt', '')
+			cs.results.append(cf+" "+read_file)
+	clo.delete(0.0, END)
+	for l in cs.results:
+		x = str(l)
+		if str(csi.get()) in x:
+			humph = x.split()[0]
+			clo.insert(INSERT, humph+'\n')
+
+def load_commands(clo):
+	cs.results == []
+	for file in Path(coms_path).glob('**/*.txt'):
+		open_file = open(file, 'r')
+		read_file = open_file.read()
+		open_file.close()
+		cf_str = str(file)
+		cf_spl = cf_str.split('/')
+		cf = str(cf_spl[-1])
+		cf = cf.replace('.txt', '')
+		cs.results.append(cf+" "+read_file)
+	command_list = sorted(cs.results)
+	start = 0
+	while start < len(command_list):
+		command = str(command_list[start]).split()[0]
+		clo.insert(INSERT, command+'\n')
+		start += 1

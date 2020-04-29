@@ -1,2 +1,0 @@
-iface (number)
-Display interface names starting from 1, eg ${iface 1}.

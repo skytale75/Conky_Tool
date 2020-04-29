@@ -1,0 +1,2 @@
+i8k_version
+If running the i8k kernel driver for Inspiron laptops, displays the version formatting of /proc/i8k.
