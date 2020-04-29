@@ -1,0 +1,8 @@
+if_match expression
+Evaluates the given boolean expression, printing everything between $if_match and the matching $endif depending on whether the evaluation returns true or not. Valid expressions consist of a left side, an operator and a right side. Left and right sides are being parsed for contained text objects before evaluation. Recognised left and right side types are:
+doubleArgument consists of only digits and a single dot.
+longArgument consists of only digits.
+stringArgument is enclosed in quotation marks. (")
+
+Valid operands are: '>', '<', '>=', '<=', '==', '!='.
+

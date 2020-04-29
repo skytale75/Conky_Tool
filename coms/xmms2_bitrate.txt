@@ -1,0 +1,2 @@
+xmms2_bitrate
+Bitrate of current song.

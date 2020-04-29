@@ -1,0 +1,2 @@
+if_mpd_playing
+if mpd is playing or paused, display everything between $if_mpd_playing and the matching $endif.

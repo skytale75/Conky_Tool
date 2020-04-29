@@ -1,0 +1,2 @@
+iconv_stop
+Stop iconv codeset conversion.

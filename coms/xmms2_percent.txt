@@ -1,0 +1,2 @@
+xmms2_percent
+Percent of song's progress.

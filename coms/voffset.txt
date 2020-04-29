@@ -1,0 +1,2 @@
+voffset (pixels)
+Change vertical offset by N pixels. Negative values will cause text to overlap. See also $offset.

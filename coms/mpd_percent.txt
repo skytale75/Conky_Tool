@@ -1,0 +1,2 @@
+mpd_percent
+Percent of song's progress.

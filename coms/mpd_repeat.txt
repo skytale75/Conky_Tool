@@ -1,0 +1,2 @@
+mpd_repeat
+Repeat status (On/Off).

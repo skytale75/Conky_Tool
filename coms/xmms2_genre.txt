@@ -1,0 +1,2 @@
+xmms2_genre
+Genre in current XMMS2 song.

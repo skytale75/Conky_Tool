@@ -1,0 +1,2 @@
+pa_sink_volume
+Pulseaudio's default sink volume percentage.

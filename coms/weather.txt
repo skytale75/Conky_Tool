@@ -1,0 +1,14 @@
+weather URI locID data_type (interval_in_minutes)
+Download, parse and display METAR data.
+'URI' must be a valid METAR URI.
+
+http://tgftp.nws.noaa.gov/data/observations/metar/stations/
+
+'locID' must be a valid location identifier for the required uri. For the NOAA site this must be a valid ICAO (see for instance https://pilotweb.nas.faa.gov/qryhtml/icao/). For the weather.com site this must be a valid location ID (see for instance http://aspnetresources.com/tools/locid.aspx).
+
+'data_type' must be one of the following:
+
+last_update The date and time stamp of the data. The result depends on the URI used. For the NOAA site it is date (yyyy/mm/dd) and UTC time. For the weather.com one it is date ([m]m/[d]d/yy) and Local Time of the station.
+temperature
+
+Air temperature (you can use the 'temperature_unit' config setting to change units)

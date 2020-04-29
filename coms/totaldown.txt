@@ -1,0 +1,2 @@
+totaldown (net)
+Total download, overflows at 4 GB on Linux with 32-bit arch and there doesn't seem to be a way to know how many times it has already done that before conky has started.

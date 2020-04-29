@@ -1,0 +1,2 @@
+pid_time_kernelmode pid
+Amount of time that the process has been scheduled in kernel mode in seconds.

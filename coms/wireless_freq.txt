@@ -1,0 +1,2 @@
+wireless_freq (net)
+Frequency on which device 'net' is listening.

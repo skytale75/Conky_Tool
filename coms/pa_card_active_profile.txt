@@ -1,0 +1,2 @@
+ pa_card_active_profile
+Pulseaudio's default card active profile.

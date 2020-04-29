@@ -1,0 +1,2 @@
+pid_vmhwm pid
+Peak resident set size ("high water mark") of the process.

@@ -1,0 +1,2 @@
+stippled_hr (space)
+Stippled (dashed) horizontal line.

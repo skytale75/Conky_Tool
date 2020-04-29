@@ -1,0 +1,2 @@
+xmms2_title
+Title in current XMMS2 song.

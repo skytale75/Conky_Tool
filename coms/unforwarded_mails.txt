@@ -1,0 +1,2 @@
+unforwarded_mails (maildir) (interval)
+Number of mails not marked as forwarded in the specified mailbox or mail spool if not. Only maildir type mailboxes are supported, mbox type will return -1.

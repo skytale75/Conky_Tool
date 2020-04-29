@@ -1,0 +1,2 @@
+wireless_essid (net)
+Wireless access point ESSID. Linux only.

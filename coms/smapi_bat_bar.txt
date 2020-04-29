@@ -1,0 +1,2 @@
+smapi_bat_bar (INDEX),(height),(width)
+when using smapi, display the remaining capacity of the battery with index INDEX as a bar.

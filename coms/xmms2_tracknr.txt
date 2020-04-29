@@ -1,0 +1,2 @@
+xmms2_tracknr
+Track number in current XMMS2 song.

@@ -1,0 +1,2 @@
+mixerl (device)
+Prints the left channel mixer value as reported by the OS. See docs for $mixer for details on arguments.

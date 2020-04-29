@@ -1,0 +1,2 @@
+xmms2_bar (height),(width)
+Bar of XMMS2's progress.

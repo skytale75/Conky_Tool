@@ -1,0 +1,2 @@
+xmms2_duration
+Duration of current song.

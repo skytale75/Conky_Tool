@@ -1,0 +1,17 @@
+nvidiabar (height),(width) argument (GPU_ID)
+Same as nvidia, except it draws its output in a horizontal bar. The height and width parameters are optional, and default to the default_bar_height and default_bar_width config settings, respectively.
+
+GPU_ID:Optional parameter to choose the GPU to be used as 0,1,2,3,.. Default parameter is 0
+
+Note the following arguments are incompatible: gputempthreshold( threshold)
+gpufreqmin
+gpufreqmax
+memfreqmin
+memfreqmax
+mtrfreqmin
+mtrfreqmax
+perflevelmin
+perflevelmax
+perfmode
+memtotal( memmax)
+fanspeed

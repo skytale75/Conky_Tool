@@ -1,0 +1,2 @@
+user_time console
+Lists how long the user for the given console has been logged in for.

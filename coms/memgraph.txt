@@ -1,0 +1,2 @@
+memgraph (height),(width) (gradient colour 1) (gradient colour 2) (scale) (-t) (-l)
+Memory usage graph. Uses a logarithmic scale (to see small numbers) when you use the -l switch. Takes the switch '-t' to use a temperature gradient, which makes the gradient values change depending on the amplitude of a particular graph value (try it and see).

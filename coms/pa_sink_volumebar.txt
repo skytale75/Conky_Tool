@@ -1,0 +1,2 @@
+pa_sink_volumebar
+Pulseaudio's default sink volume bar.

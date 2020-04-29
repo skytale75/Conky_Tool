@@ -1,0 +1,2 @@
+loadgraph (height),(width) (gradient colour 1) (gradient colour 2) (scale) (-t) (-l)
+Load1 average graph, similar to xload, with optional colours in hex, minus the #. Uses a logarithmic scale (to see small numbers) when you use the -l switch. Takes the switch '-t' to use a temperature gradient, which makes the gradient values change depending on the amplitude of a particular graph value (try it and see).

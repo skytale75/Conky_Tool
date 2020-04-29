@@ -1,0 +1,2 @@
+monitor
+Number of the monitor on which conky is running or the message "Not running in X" if this is the case.

@@ -1,0 +1,2 @@
+cloud_cover
+The highest cloud cover status

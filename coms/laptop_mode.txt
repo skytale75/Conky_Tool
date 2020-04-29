@@ -1,0 +1,2 @@
+laptop_mode
+The value of /proc/sys/vm/laptop_mode.

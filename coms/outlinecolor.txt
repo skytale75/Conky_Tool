@@ -1,0 +1,2 @@
+outlinecolor (color)
+Change outline color.

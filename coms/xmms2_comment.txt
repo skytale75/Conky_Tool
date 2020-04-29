@@ -1,0 +1,2 @@
+xmms2_comment
+Comment in current XMMS2 song.

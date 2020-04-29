@@ -1,0 +1,2 @@
+smapi_bat_power INDEX
+when using smapi, display the current power of the battery with index INDEX in watt. This is a separate variable because the original read out value is being converted from mW. The sign of the output reflects charging (positive) or discharging (negative) state.

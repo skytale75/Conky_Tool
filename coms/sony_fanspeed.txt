@@ -1,0 +1,2 @@
+sony_fanspeed
+Displays the Sony VAIO fanspeed information if sony-laptop kernel support is enabled. Linux only.

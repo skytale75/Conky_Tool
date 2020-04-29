@@ -1,0 +1,2 @@
+pid_stdin pid
+Filedescriptor binded to the STDIN of the process.

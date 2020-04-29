@@ -1,0 +1,2 @@
+sysctlbyname (name)
+Print sysctl value by name. FreeBSD only.

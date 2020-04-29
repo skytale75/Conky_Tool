@@ -1,0 +1,2 @@
+pa_sink_active_port_name
+Pulseaudio's default sink active port name.

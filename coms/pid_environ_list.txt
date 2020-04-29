@@ -1,0 +1,2 @@
+pid_environ_list pid
+List of environment-vars that the process can see.

@@ -1,0 +1,2 @@
+read_udp (host) port
+Connects to a udp port on a host (default is localhost), reads every char available at the moment and shows them.

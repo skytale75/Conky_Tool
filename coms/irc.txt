@@ -1,0 +1,4 @@
+irc server(:port) #channel (max_msg_lines)
+Shows everything that's being told in #channel on IRCserver 'server'. TCP-port 6667 is used for the connection unless 'port' is specified. Shows everything since the last time or the last 'max_msg_lines' entries if specified.
+iconv_start codeset_from codeset_to
+Convert text from one codeset to another using GNU iconv. Needs to be stopped with iconv_stop.

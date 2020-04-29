@@ -1,0 +1,2 @@
+xmms2_timesplayed
+Number of times a song was played (presumably).

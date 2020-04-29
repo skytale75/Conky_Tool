@@ -1,0 +1,2 @@
+key_scroll_lock
+An indicator for Scrolling Lock key.

@@ -1,0 +1,2 @@
+moc_artist
+Artist of the current MOC song.

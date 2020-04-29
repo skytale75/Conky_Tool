@@ -1,0 +1,2 @@
+wireless_link_bar (height),(width) (net)
+Wireless link quality bar. Linux only.

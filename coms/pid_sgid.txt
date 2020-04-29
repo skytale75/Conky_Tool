@@ -1,0 +1,2 @@
+pid_sgid pid
+The saved set gid of the process.

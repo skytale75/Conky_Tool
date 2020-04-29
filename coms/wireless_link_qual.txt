@@ -1,0 +1,2 @@
+wireless_link_qual (net)
+Wireless link quality. Linux only.

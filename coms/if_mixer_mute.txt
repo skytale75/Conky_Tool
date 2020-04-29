@@ -1,0 +1,2 @@
+if_mixer_mute (mixer)
+If mixer exists, display everything between $if_mixer_mute and the matching $endif. If no mixer is specified, "Vol" is used.

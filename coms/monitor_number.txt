@@ -1,0 +1,2 @@
+monitor_number
+Number of monitors or the message "Not running in X" if this is the case.

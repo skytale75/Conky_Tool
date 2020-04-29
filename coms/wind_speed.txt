@@ -1,0 +1,2 @@
+wind_speed
+Wind speed in km/h

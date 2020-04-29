@@ -1,0 +1,2 @@
+ user_terms
+Lists the consoles in use.

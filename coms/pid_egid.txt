@@ -1,0 +1,2 @@
+pid_egid pid
+The effective gid of the process.

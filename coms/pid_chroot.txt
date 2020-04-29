@@ -1,0 +1,2 @@
+pid_chroot pid
+Directory used as rootdirectory by the process (this will be "/" unless the process did a chroot syscall).

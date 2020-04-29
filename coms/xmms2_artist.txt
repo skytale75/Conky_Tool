@@ -1,0 +1,2 @@
+xmms2_artist
+Artist in current XMMS2 song.

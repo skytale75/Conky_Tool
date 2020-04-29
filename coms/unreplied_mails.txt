@@ -1,0 +1,2 @@
+unreplied_mails (maildir) (interval)
+Number of mails not marked as replied in the specified mailbox or mail spool if not. Only maildir type mailboxes are supported, mbox type will return -1.

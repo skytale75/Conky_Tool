@@ -1,0 +1,2 @@
+pid_vmstk pid
+Stack segment size of the process.

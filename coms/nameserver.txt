@@ -1,0 +1,2 @@
+nameserver (index)
+Print a nameserver from /etc/resolv.conf. Index starts at and defaults to 0.

@@ -1,0 +1,2 @@
+pid_vmpte pid
+Page table entries size of the process.

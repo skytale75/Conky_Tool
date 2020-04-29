@@ -1,0 +1,2 @@
+xmms2_url
+Full path to current song.

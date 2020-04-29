@@ -1,0 +1,2 @@
+mails (mailbox) (interval)
+Mail count in the specified mailbox or your mail spool if not. Both mbox and maildir type mailboxes are supported. You can use a program like fetchmail to get mails from some server using your favourite protocol. See also new_mails.

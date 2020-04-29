@@ -1,0 +1,2 @@
+time (format)
+Local time, see "man strftime" to get more information about format.

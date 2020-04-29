@@ -1,0 +1,2 @@
+start_case text
+All words capitalized regardless.

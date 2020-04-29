@@ -1,0 +1,2 @@
+pa_card_name
+Pulseaudio's default card name.

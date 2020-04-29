@@ -1,0 +1,2 @@
+smapi_bat_perc (INDEX)
+when using smapi, display the remaining capacity in percent of the battery with index INDEX. This is a separate variable because it supports the 'use_spacer' configuration option.

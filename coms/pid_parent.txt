@@ -1,0 +1,2 @@
+pid_parent pid
+The pid of the parent of the process.

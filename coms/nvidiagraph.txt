@@ -1,0 +1,6 @@
+nvidiagraph argument (height),(width) (gradient color 1) (gradient color 2) (scale) (-t) (-l) GPU_ID
+Same as nvidiabar, except a horizontally scrolling graph with values from 0-100 plotted on the vertical axis. The height and width parameters are optional, and default to the default_graph_height and default_graph_width config settings, respectively.
+
+GPU_ID:NOT optional. This parameter allows to choose the GPU to be used as 0,1,2,3,..
+
+For possible arguments see nvidia and nvidiabar. To learn more about the -t -l and gradient color options, see execgraph.

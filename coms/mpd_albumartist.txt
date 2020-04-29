@@ -1,0 +1,2 @@
+mpd_albumartist
+Artist of the album of the current MPD song.

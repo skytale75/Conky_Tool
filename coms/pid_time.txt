@@ -1,0 +1,2 @@
+pid_time pid
+Sum of $pid_time_kernelmode and $pid_time_usermode.

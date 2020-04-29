@@ -1,0 +1,2 @@
+xmms2_size
+Size of current song.

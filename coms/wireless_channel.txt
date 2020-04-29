@@ -1,0 +1,2 @@
+wireless_channel (net)
+WLAN channel on which device 'net' is listening.

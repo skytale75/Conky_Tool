@@ -1,0 +1,2 @@
+mpd_elapsed
+Song's elapsed time.

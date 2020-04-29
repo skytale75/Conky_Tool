@@ -1,0 +1,2 @@
+unseen_mails (maildir) (interval)
+Number of new or unseen mails in the specified mailbox or mail spool if not. Only maildir type mailboxes are supported, mbox type will return -1.

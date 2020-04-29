@@ -1,0 +1,2 @@
+loadavg (1|2|3)
+System load average, 1 is for past 1 minute, 2 for past 5 minutes and 3 for past 15 minutes. Without argument, prints all three values separated by whitespace.

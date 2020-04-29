@@ -1,0 +1,2 @@
+pid_environ pid varname
+Contents of a environment-var of the process.

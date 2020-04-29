@@ -1,0 +1,2 @@
+v6addrs (-n) (-s) (interface)
+IPv6 addresses for an interface, followed by netmask if -n is specified and scope with -s. Scopes are Global(G), Host-local(H), Link-local(L), Site-local(S), Compat(C) and Unspecified(/). Linux only.

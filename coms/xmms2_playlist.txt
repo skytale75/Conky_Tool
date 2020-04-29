@@ -1,0 +1,2 @@
+xmms2_playlist
+Returns the XMMS2 playlist.

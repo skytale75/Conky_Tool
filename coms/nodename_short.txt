@@ -1,0 +1,2 @@
+nodename_short
+Short hostname (same as 'hostname -s' shell command).

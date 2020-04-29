@@ -1,0 +1,2 @@
+pid_priority pid
+The priority of the process (see 'priority' in "man 5 proc").

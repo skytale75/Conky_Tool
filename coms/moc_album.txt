@@ -1,0 +1,2 @@
+moc_album
+Album of the current MOC song.

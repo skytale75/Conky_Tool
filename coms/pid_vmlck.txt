@@ -1,0 +1,2 @@
+pid_vmlck pid
+Locked memory size of the process.

@@ -1,0 +1,2 @@
+mpd_bar (height),(width)
+Bar of mpd's progress.

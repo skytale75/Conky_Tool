@@ -1,0 +1,2 @@
+gputemp (temp)
+GPU temperature

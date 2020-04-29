@@ -1,0 +1,2 @@
+if_mounted (mountpoint)
+if MOUNTPOINT is mounted, display everything between $if_mounted and the matching $endif.

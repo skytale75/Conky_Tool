@@ -1,0 +1,6 @@
+nvidiagauge (height),(width) argument (GPU_ID)
+Same as nvidiabar, except a round gauge (much like a vehicle speedometer). The height and width parameters are optional, and default to the default_gauge_height and default_gauge_width config settings, respectively.
+
+GPU_ID:Optional parameter to choose the GPU to be used as 0,1,2,3,.. Default parameter is 0
+
+For possible arguments see nvidia and nvidiabar.

@@ -1,0 +1,24 @@
+tcp_portmon port_begin port_end item (index)
+TCP port (both IPv6 and IPv4) monitor for specified local ports. Port numbers must be in the range 1 to 65535. Valid items are:
+count Total number of connections in the range
+rip Remote ip address
+rhost Remote host name
+rport Remote port number
+rservice Remote service name from /etc/services
+lip Local ip address
+lhost Local host name
+lport Local port number
+lservice Local service name from /etc/services
+
+The connection index provides you with access to each connection in the port monitor. The monitor will return information for index values from 0 to n-1 connections. Values higher than n-1 are simply ignored. For the "count" item, the connection index must be omitted. It is required for all other items.
+
+Examples:
+
+${tcp_portmon 6881 6999 count} Displays the number of connections in the bittorrent port range
+${tcp_portmon 22 22 rip 0} Displays the remote host ip of the first sshd connection
+${tcp_portmon 22 22 rip 9} Displays the remote host ip of the tenth sshd connection
+${tcp_portmon 1 1024 rhost 0} Displays the remote host name of the first connection on a privileged port
+${tcp_portmon 1 1024 rport 4} Displays the remote host port of the fifth connection on a privileged port
+${tcp_portmon 1 65535 lservice 14} Displays the local service name of the fifteenth connection in the range of all ports
+
+Note that port monitor variables which share the same port range actually refer to the same monitor, so many references to a single port range for different items and different indexes all use the same monitor internally. In other words, the program avoids creating redundant monitors.

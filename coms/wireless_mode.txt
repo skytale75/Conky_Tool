@@ -1,0 +1,2 @@
+wireless_mode (net)
+Wireless mode (Managed/Ad-Hoc/Master). Linux only.

@@ -1,0 +1,2 @@
+smapi_bat_temp INDEX
+when using smapi, display the current temperature of the battery with index INDEX in degree Celsius. This is a separate variable because the original read out value is being converted from milli degree Celsius.

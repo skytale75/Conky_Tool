@@ -1,0 +1,2 @@
+if_smapi_bat_installed (INDEX)
+when using smapi, if the battery with index INDEX is installed, display everything between $if_smapi_bat_installed and the matching $endif.

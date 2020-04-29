@@ -1,0 +1,2 @@
+pa_sink_description
+Pulseaudio's default sink description.

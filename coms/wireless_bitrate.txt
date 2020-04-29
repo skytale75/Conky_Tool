@@ -1,0 +1,2 @@
+wireless_bitrate (net)
+Wireless bitrate (ie 11 Mb/s). Linux only.

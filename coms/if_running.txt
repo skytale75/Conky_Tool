@@ -1,0 +1,5 @@
+if_running (process)
+If PROCESS is running, display everything between $if_running and the corresponding $else or $endif. Note that PROCESS may be either a full command line with arguments (without the directory prefix), or simply the name of an executable. For example, either of the following will be true if there is a running process with the command line /usr/bin/conky -u 5:
+${if_running conky -u 5}or ${if_running conky}
+
+It is important not to include trailing spaces. For example, ${if_running conky }will be false.

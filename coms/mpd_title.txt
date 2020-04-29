@@ -1,0 +1,2 @@
+mpd_title (max length)
+Title of current MPD song.

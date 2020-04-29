@@ -1,0 +1,2 @@
+xmms2_date
+Returns song's date.

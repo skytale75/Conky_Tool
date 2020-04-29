@@ -1,0 +1,2 @@
+memeasyfree
+Amount of free memory including the memory that is very easily freed (buffers/cache).

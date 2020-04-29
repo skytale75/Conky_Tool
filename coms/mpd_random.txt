@@ -1,0 +1,2 @@
+mpd_random
+Random status (On/Off).

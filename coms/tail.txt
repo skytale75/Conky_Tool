@@ -1,0 +1,2 @@
+tail logfile lines (next_check)
+Displays last N lines of supplied text file. The file is checked every 'next_check' update. If next_check is not supplied, Conky defaults to 2. Max of 30 lines can be displayed, or until the text buffer is filled.

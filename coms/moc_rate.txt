@@ -1,0 +1,2 @@
+moc_rate
+Rate of the current MOC song.

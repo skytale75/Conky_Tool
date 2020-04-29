@@ -1,0 +1,2 @@
+wireless_link_qual_max (net)
+Wireless link quality maximum value. Linux only.

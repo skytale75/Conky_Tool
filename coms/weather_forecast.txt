@@ -1,0 +1,25 @@
+weather_forecast URI locID day data_type (interval_in_minutes)
+Download, parse  and display weather forecast data for a given day (daytime only).
+'locID', see 'weather' above.
+
+'day' is a number from 0 (today) to 4 (3 days after tomorrow).
+
+'data_type' must be one of the following:
+
+day Day of the week
+date Date, in the form MMM DD (ie. Jul 14)
+low Minimun temperature (you can use the 'temperature_unit' config setting to change units)
+hi Maximum temperature (you can use the 'temperature_unit' config setting to change units)
+icon Weather icon. Can be used together with the icon kit provided upon registering to the weather.com service
+forecast Weather forecast (sunny, rainy, etc.)
+wind_speed Wind speed in km/h
+wind_dir Wind direction
+wind_dir_DEG Compass wind direction
+humidity Relative humidity in %
+precipitation Probability of having a precipitation (in %)
+
+'delay_in_minutes' (optional, default 210) cannot be lower than 210 min.
+
+This object is threaded, and once a thread is created it can't be explicitly destroyed. One thread will run for each URI specified. You can use any protocol that Curl supports.
+
+Note that these variables are still EXPERIMENTAL and can be subject to many future changes.

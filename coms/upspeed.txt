@@ -1,0 +1,2 @@
+upspeed (net)
+Upload speed in suitable IEC units.

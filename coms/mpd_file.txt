@@ -1,0 +1,2 @@
+mpd_file
+Prints the file name of the current MPD song.

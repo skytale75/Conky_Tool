@@ -1,0 +1,35 @@
+nvidia argument (GPU_ID)
+Nvidia graphics card information via the XNVCtrl library.
+
+GPU_ID:Optional parameter to choose the GPU to be used as 0,1,2,3,.. Default parameter is 0
+
+Possible arguments:(Temperatures are printed as float, all other values as integer. Bracketed arguments are aliases)
+
+gputemp( temp) GPU temperature
+gputempthreshold( threshold) Temperature threshold where the GPU will reduce it's clock speed
+ambienttemp( ambient) Ambient temperature outside the graphics card
+gpufreqcur( gpufreq) Current GPU clock speed
+gpufreqmin Minimum GPU clock speed
+gpufreqmax Maximum GPU clock speed
+memfreqcur( memfreq) Current memory clock speed
+memfreqmin Minimum memory clock speed
+memfreqmax Maximum memory clock speed
+mtrfreqcur( mtrfreq) Current memory transfer rate clock speed
+mtrfreqmin Minimum memory transfer rate clock speed
+mtrfreqmax Maximum memory transfer rate clock speed
+perflevelcur( perflevel) Current performance level
+perflevelmin Lowest performance level
+perflevelmax Highest performance level
+perfmode Performance mode
+gpuutil GPU utilization %
+membwutil Memory bandwidth utilization %
+videoutil Video engine utilization %
+pcieutil PCIe bandwidth utilization %
+memused( mem) Amount of used memory
+memfree( memavail) Amount of free memory
+memmax( memtotal) Total amount of memory
+memutil( memperc) Memory utilization %
+fanspeed Fan speed
+fanlevel Fan level %
+imagequality Image quality
+modelname name of the GPU card

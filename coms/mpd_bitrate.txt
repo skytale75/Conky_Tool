@@ -1,0 +1,2 @@
+mpd_bitrate
+Bitrate of current song.

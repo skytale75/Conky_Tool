@@ -1,0 +1,4 @@
+Executes a Lua function with given parameters as per $lua, then parses and prints the result value as per the syntax for the conky.text section. See also 'lua_load' on how to load scripts. Conky puts 'conky_' in front of function_name to prevent accidental calls to the wrong function unless you put you place 'conky_' in front of it yourself.
+machine
+Machine, e.g. i686, x86_64.
+

@@ -1,0 +1,2 @@
+xmms2_status
+XMMS2 status (Playing, Paused, Stopped, or Disconnected).

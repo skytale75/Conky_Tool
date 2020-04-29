@@ -1,0 +1,2 @@
+if_empty (var)
+if conky variable VAR is empty, display everything between $if_empty and the matching $endif.

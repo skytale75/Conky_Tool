@@ -1,0 +1,2 @@
+xmms2_id
+XMMS2 id of current song.

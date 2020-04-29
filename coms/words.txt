@@ -1,0 +1,2 @@
+words textfile
+Displays the number of words in the given file.

@@ -1,0 +1,2 @@
+utime (format)
+Display time in UTC (universal coordinate time).

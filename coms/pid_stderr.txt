@@ -1,0 +1,2 @@
+pid_stderr pid
+Filedescriptor binded to the STDERR of the process.

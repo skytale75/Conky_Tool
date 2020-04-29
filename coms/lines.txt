@@ -1,0 +1,2 @@
+lines textfile
+Displays the number of lines in the given file.

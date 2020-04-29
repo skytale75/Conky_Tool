@@ -1,0 +1,2 @@
+top_mem type num
+Same as top, except sorted by mem usage instead of cpu.

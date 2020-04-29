@@ -1,0 +1,2 @@
+if_up (interface)
+if INTERFACE exists and is up, display everything between $if_up and the matching $endif.

@@ -1,0 +1,2 @@
+offset (pixels)
+Move text over by N pixels. See also $voffset.

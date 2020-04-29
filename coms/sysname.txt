@@ -1,0 +1,2 @@
+sysname
+System name, e.g. Linux.

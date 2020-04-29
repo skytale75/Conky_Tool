@@ -1,0 +1,2 @@
+ioscheduler disk
+Prints the current ioscheduler used for the given disk name (i.e. e.g. "hda" or "sdb").

@@ -1,0 +1,2 @@
+read_tcp (host) port
+Connects to a tcp port on a host (default is localhost), reads every char available at the moment and shows them.

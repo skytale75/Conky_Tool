@@ -1,0 +1,2 @@
+pid_euid pid
+The effective uid of the process.

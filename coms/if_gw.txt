@@ -1,0 +1,2 @@
+if_gw
+if there is at least one default gateway, display everything between $if_gw and the matching $endif.

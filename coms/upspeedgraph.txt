@@ -1,0 +1,2 @@
+upspeedgraph (netdev) (height),(width) (gradient colour 1) (gradient colour 2) (scale) (-t) (-l)
+Upload speed graph, colours defined in hex, minus the #. If scale is non-zero, it becomes the scale for the graph. Uses a logarithmic scale (to see small numbers) when you use the -l switch. Takes the switch '-t' to use a temperature gradient, which makes the gradient values change depending on the amplitude of a particular graph value (try it and see).

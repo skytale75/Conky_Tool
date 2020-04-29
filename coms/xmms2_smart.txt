@@ -1,0 +1,2 @@
+xmms2_smart
+Prints the song name in either the form "artist - title" or file name, depending on whats available.

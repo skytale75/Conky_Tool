@@ -1,0 +1,2 @@
+mixerbar (device)
+Displays mixer value in a bar as reported by the OS. See docs for $mixer for details on arguments.

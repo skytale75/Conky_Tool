@@ -1,0 +1,2 @@
+mpd_album
+Album in current MPD song.

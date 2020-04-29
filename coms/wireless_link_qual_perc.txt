@@ -1,0 +1,2 @@
+wireless_link_qual_perc (net)
+Wireless link quality in percents. Linux only.

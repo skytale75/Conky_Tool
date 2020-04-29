@@ -1,0 +1,2 @@
+mysql query
+Shows the first field of the first row of the result of the query.

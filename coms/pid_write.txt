@@ -1,0 +1,2 @@
+pid_write pid
+Total number of bytes written by the process.

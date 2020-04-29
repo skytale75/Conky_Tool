@@ -1,0 +1,2 @@
+pid_stdout pid
+Filedescriptor binded to the STDOUT of the process.

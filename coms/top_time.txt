@@ -1,0 +1,2 @@
+top_time type num
+Same as top, except sorted by total CPU time instead of current CPU usage.

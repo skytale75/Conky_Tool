@@ -1,0 +1,2 @@
+if_xmms2_connected
+Display everything between $if_xmms2_connected and the matching $endif if xmms2 is running.
