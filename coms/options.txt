@@ -1,0 +1,60 @@
+***for initiating changes at conky startup***
+
+Command line options override configurations defined in configuration file.
+
+-a | --alignment= ALIGNMENT
+Text alignment on screen, {top,bottom,middle}_{left,right,middle} or none. Can also be abbreviated with first chars of position, ie. tr for top_right. Only available with build flag BUILD_X11 enabled.
+
+-b | --double-buffer
+Use double buffering (eliminates "flicker"). Only available with build flag BUILD_X11 enabled.
+
+-c | --config= FILE
+Config file to load instead of ~/.config/conky/conky.conf.
+
+-C | --print-config
+Print builtin default config to stdout. See also the section Examples for more information. Only available with build flag BUILD_BUILTIN_CONFIG enabled.
+
+-d | --daemonize
+Daemonize Conky, aka fork to background.
+
+-D | --debug
+Increase debugging output, ie. -DD for more debugging.
+
+-f | --font= FONT
+Font to use. Only available with build flag BUILD_X11 enabled.
+
+-h | --help
+Prints command line help and exits.
+
+-i COUNT
+Number of times to update Conky (and quit).
+
+-o | --own-window
+Create own window to draw. Only available with build flag BUILD_X11 enabled.
+
+-p | --pause= SECONDS
+Time to pause/wait before actually starting Conky.
+
+-q | --quiet
+Run Conky in 'quiet mode' (ie. no output).
+
+-t | --text= TEXT
+Text to render, remember single quotes, like -t ' $uptime '.
+
+-u | --interval= SECONDS
+Update interval.
+
+-v | -V | --version
+Prints version, build information and general info. Exits after printing.
+
+-w | --window-id= WIN_ID
+Window id to draw. Only available with build flag BUILD_X11 enabled.
+
+-x X_COORDINATE
+X position.
+
+-X | --display= DISPLAY
+X11 display to use. Only available with build flag BUILD_X11 enabled.
+
+-y Y_COORDINATE
+Y position.
