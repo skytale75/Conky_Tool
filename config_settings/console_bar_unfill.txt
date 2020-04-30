@@ -1,0 +1,2 @@
+console_bar_unfill
+A character to unfill the console bars. (default: '.')

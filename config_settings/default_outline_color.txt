@@ -1,0 +1,2 @@
+default_outline_color
+Default outline color.

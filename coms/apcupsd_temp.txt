@@ -1,2 +1,2 @@
- apcupsd_temp
+apcupsd_temp
 Current internal temperature.

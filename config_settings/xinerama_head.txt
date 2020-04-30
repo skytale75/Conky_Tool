@@ -1,0 +1,2 @@
+xinerama_head
+Specify a Xinerama head.

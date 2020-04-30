@@ -1,1 +1,2 @@
+apcupsd_lastxfer
 Reason for last transfer from line to battery.

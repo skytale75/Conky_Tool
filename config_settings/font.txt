@@ -1,0 +1,2 @@
+font
+Font name in X, xfontsel can be used to get a nice font.

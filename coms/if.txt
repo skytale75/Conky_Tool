@@ -1,2 +1,0 @@
-if mpd is playing or paused, display everything between $if_mpd_playing and the matching $endif.
-If Pulseaudio's default sink is muted, display everything between $if_pa_sink_muted and the corresponding $else or $endif.

@@ -1,0 +1,2 @@
+pad_percents
+Pad percentages to this many decimals (0 = no padding).

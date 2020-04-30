@@ -1,0 +1,2 @@
+github_token
+Specify API token for GitHub notifications.

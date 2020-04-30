@@ -1,0 +1,8 @@
+templateN
+q
+templateN
+Define a template for later use inside conky.text segments. Substitute N by a digit between 0 and 9, inclusively. The value of the variable is being inserted into the stuff inside conky.text at the corresponding position, but before some substitutions are applied:
+'\n' -> newline
+'\\' -> backslash
+'\ ' -> space
+'\N' -> template argument N (starting from 1)

@@ -1,0 +1,2 @@
+draw_blended
+Boolean, blend when rendering drawn image? Some images blend incorrectly breaking alpha with ARBG visuals. This provides a possible work around by disabling blending. Defaults to true.

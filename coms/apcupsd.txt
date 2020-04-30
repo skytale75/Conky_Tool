@@ -1,1 +1,2 @@
+acpupsd
 Sets up the connection to apcupsd daemon. Prints nothing, defaults to localhost:3551.

@@ -1,0 +1,2 @@
+hddtemp_port
+Port to use for hddtemp connections. Defaults to 7634.

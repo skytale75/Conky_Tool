@@ -1,0 +1,2 @@
+console_bar_fill
+A character to fill the console bars. (default: '#')

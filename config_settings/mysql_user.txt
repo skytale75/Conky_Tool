@@ -1,0 +1,2 @@
+mysql_user
+MySQL user name to use when connecting to the server. Defaults to your username.

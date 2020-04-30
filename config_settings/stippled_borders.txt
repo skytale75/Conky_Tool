@@ -1,0 +1,2 @@
+stippled_borders
+Border stippling (dashing) in pixels.

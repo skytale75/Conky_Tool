@@ -1,0 +1,2 @@
+cpu_avg_samples
+The number of samples to average for CPU monitoring.

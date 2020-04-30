@@ -1,0 +1,2 @@
+default_graph_height
+Specify a default height for graphs. If not specified, the default value is 25.

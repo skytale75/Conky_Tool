@@ -1,0 +1,2 @@
+imlib_cache_size
+Imlib2 image cache size, in bytes. Defaults to 4MiB. Increase this value if you use $image lots. Set to 0 to disable the image cache.

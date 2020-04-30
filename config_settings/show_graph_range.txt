@@ -1,0 +1,2 @@
+show_graph_range
+Shows the time range covered by a graph.

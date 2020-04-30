@@ -1,0 +1,2 @@
+default_gauge_width
+Specify a default width for gauges. If not specified, the default value is 40.

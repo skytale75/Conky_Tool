@@ -1,0 +1,2 @@
+colorN
+Predefine a color for use inside conky.text segments. Substitute N by a digit between 0 and 9, inclusively. When specifying the color value in hex, omit the leading hash (#).

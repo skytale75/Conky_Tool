@@ -1,0 +1,2 @@
+total_run_times
+Total number of times for Conky to update before quitting. Zero makes Conky run forever.

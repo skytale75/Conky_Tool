@@ -1,0 +1,2 @@
+max_text_width width
+When a line in the output contains 'width' chars and the end isn't reached, the next char will start on a new line. If you want to make sure that lines don't get broken, set 'width' to 0.

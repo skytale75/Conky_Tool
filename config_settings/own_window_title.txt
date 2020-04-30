@@ -1,0 +1,2 @@
+own_window_title
+Manually set the window name. Defaults to "conky (<hostname>)".

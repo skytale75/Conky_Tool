@@ -1,1 +1,2 @@
+acpitemp
 ACPI temperature in C.

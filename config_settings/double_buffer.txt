@@ -1,0 +1,2 @@
+double_buffer
+Use the Xdbe extension? (eliminates flicker) It is highly recommended to use own window with this one so double buffer won't be so big.

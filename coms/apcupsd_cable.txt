@@ -1,1 +1,2 @@
+apcupsd_cable
 Prints the UPS connection type.

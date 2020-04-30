@@ -1,0 +1,2 @@
+default_bar_width
+Specify a default width for bars. If not specified, the default value is 0, which causes the bar to expand to fit the width of your Conky window. If you set out_to_console = true, the default value will be 10 for the text version of the bar.

@@ -1,0 +1,2 @@
+mpd_host
+Host of MPD server.

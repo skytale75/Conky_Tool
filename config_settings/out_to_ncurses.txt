@@ -1,0 +1,2 @@
+out_to_ncurses
+Print text in the console, but use ncurses so that conky can print the text of a new update over the old text. (In the future this will provide more useful things).

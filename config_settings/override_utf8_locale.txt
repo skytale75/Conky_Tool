@@ -1,0 +1,2 @@
+override_utf8_locale
+Force UTF8. Requires XFT.

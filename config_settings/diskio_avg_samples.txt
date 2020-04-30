@@ -1,0 +1,4 @@
+diskio_avg_samples
+The number of samples to average for disk I/O monitoring.
+display
+Specify an X display to connect to.

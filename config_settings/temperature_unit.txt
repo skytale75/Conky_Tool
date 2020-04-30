@@ -1,0 +1,2 @@
+temperature_unit
+Desired output unit of all objects displaying a temperature. Parameters are either "fahrenheit" or "celsius". The default unit is degree Celsius.

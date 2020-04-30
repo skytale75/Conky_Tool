@@ -1,0 +1,2 @@
+short_units
+Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.

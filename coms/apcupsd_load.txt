@@ -1,1 +1,2 @@
+apcupsd_load
 Current load in percent.

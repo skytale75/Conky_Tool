@@ -1,0 +1,2 @@
+music_player_interval
+Music player thread update interval (defaults to Conky's update interval).

@@ -1,0 +1,2 @@
+default_bar_height
+Specify a default height for bars. If not specified, the default value is 6.

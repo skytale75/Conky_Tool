@@ -1,2 +1,2 @@
+addr
 IP address for an interface, or "No Address" if no address is assigned.
-

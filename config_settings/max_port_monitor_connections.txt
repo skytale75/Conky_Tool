@@ -1,0 +1,2 @@
+max_port_monitor_connections
+Allow each port monitor to track at most this many connections (if 0 or not set, default is 256).

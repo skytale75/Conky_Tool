@@ -1,0 +1,2 @@
+use_xft
+Use Xft (anti-aliased font and stuff).

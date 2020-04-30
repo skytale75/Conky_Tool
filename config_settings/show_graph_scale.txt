@@ -1,0 +1,2 @@
+show_graph_scale
+Shows the maximum value in scaled graphs.

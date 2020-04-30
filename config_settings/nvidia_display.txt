@@ -1,0 +1,2 @@
+nvidia_display
+The display that the nvidia variable will use (defaults to the value of the display variable).

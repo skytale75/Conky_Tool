@@ -1,0 +1,2 @@
+extra_newline
+Put an extra newline at the end when writing to stdout, useful for writing to awesome's wiboxes.

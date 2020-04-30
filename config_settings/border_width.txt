@@ -1,0 +1,2 @@
+border_width
+Border width in pixels.

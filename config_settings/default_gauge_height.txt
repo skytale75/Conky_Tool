@@ -1,0 +1,2 @@
+default_gauge_height
+Specify a default height for gauges. If not specified, the default value is 25.

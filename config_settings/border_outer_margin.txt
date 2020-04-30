@@ -1,0 +1,2 @@
+border_outer_margin
+Outer border margin in pixels (the margin between the border and the edge of the window).

@@ -1,1 +1,2 @@
+apcupsd_linev
 Nominal input voltage.

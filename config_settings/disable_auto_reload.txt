@@ -1,0 +1,2 @@
+disable_auto_reload
+Enable to disable the inotify-based auto config reload feature.

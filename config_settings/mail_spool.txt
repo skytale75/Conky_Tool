@@ -1,0 +1,2 @@
+mail_spool
+Mail spool for mail checking.

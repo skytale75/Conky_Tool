@@ -1,0 +1,2 @@
+own_window
+Boolean, create own window to draw.

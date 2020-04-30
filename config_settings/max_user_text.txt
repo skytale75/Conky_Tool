@@ -1,0 +1,2 @@
+max_user_text bytes
+Maximum size of user text buffer, i.e. text inside conky.text section in config file (default is 16384 bytes).

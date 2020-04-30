@@ -1,0 +1,2 @@
+top_name_verbose
+If true, top name shows the full command line of each process, including arguments (whenever possible). Otherwise, only the basename is displayed. Default value is false.

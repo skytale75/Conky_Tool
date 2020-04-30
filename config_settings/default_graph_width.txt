@@ -1,0 +1,2 @@
+default_graph_width
+Specify a default width for graphs. If not specified, the default value is 0, which causes the graph to expand to fit the width of your Conky window. If you set out_to_console = true, the text version of the graph will actually have no width and you will need to set a sensible default or set the height and width of each graph individually.

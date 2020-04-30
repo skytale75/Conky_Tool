@@ -1,1 +1,2 @@
+alignc
 Align text to center.

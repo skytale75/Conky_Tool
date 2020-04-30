@@ -1,0 +1,2 @@
+out_to_http
+Let conky act as a small http-server serving its text.

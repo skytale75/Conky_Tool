@@ -1,0 +1,2 @@
+imlib_cache_flush_interval
+Interval (in seconds) to flush Imlib2 cache.

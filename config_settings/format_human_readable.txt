@@ -1,0 +1,2 @@
+format_human_readable
+If enabled, values which are in bytes will be printed in human readable format (i.e., KiB, MiB, etc). If disabled, the number of bytes is printed instead.

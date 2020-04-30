@@ -1,0 +1,2 @@
+xftalpha
+Alpha of Xft font. Must be a value at or between 1 and 0.

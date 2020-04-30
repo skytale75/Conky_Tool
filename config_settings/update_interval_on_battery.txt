@@ -1,0 +1,2 @@
+update_interval_on_battery seconds
+Update interval when running on battery power.

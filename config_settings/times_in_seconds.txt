@@ -1,0 +1,2 @@
+times_in_seconds
+If true, variables that output times output a number that represents seconds. This doesn't affect $time, $tztime and $utime.

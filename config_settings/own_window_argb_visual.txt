@@ -1,0 +1,2 @@
+own_window_argb_visual
+Boolean, use ARGB visual? ARGB can be used for real transparency, note that a composite manager is required for real transparency. This option will not work as desired (in most cases) in conjunction with 'own_window_type override'.

@@ -225,7 +225,6 @@ def search(csi, clo):
 			clo.insert(INSERT, humph+'\n')
 
 def load_commands(clo):
-	cs.results == []
 	for file in Path(coms_path).glob('**/*.txt'):
 		open_file = open(file, 'r')
 		read_file = open_file.read()

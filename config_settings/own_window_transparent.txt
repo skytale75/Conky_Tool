@@ -1,0 +1,2 @@
+own_window_transparent
+Boolean, set transparency? If ARGB visual is enabled, sets background opacity to 0%.

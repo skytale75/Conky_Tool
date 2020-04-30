@@ -1,0 +1,2 @@
+gap_y
+Gap, in pixels, between top or bottom border of screen, same as passing -y at command line, e.g. gap_y 10. For other position related stuff, see 'alignment'.

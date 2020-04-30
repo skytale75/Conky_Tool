@@ -1,0 +1,2 @@
+top_name_width
+Width for $top name value (defaults to 15 characters).

@@ -1,0 +1,2 @@
+ border_inner_margin
+Inner border margin in pixels (the margin between the border and text).

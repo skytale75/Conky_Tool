@@ -1,0 +1,2 @@
+out_to_console
+Print text to stdout.

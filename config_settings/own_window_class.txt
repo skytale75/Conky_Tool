@@ -1,0 +1,2 @@
+own_window_class
+Manually set the WM_CLASS name. Defaults to "Conky".

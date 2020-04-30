@@ -1,0 +1,2 @@
+console_graph_ticks
+A comma-separated list of strings to use as the bars of a graph output to console/shell. The first list item is used for the minimum bar height and the last item is used for the maximum, e.g. " ,_,=,#".

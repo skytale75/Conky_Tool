@@ -1,0 +1,6 @@
+append_file
+
+Append the file given as argument.
+background
+Boolean value, if true, Conky will be forked to background when started.
+

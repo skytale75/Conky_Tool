@@ -1,0 +1,2 @@
+gap_x
+Gap, in pixels, between right or left border of screen, same as passing -x at command line, e.g. gap_x 10. For other position related stuff, see 'alignment'.

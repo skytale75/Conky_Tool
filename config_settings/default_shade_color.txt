@@ -1,0 +1,2 @@
+default_shade_color
+Default shading color and border's shading color.

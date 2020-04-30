@@ -1,0 +1,2 @@
+http_refresh
+When this is set the page generated with out_to_http will automatically refresh each interval. Default value is no.

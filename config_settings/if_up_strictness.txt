@@ -1,0 +1,2 @@
+if_up_strictness
+How strict should if_up be when testing an interface for being up? The value is one of up, link or address, to check for the interface being solely up, being up and having link or being up, having link and an assigned IP address.
