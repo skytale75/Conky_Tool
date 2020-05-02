@@ -35,28 +35,42 @@ class Notebook:
         nb.frame.columnconfigure(1, weight = 0)
         nb.frame.columnconfigure(2, weight = 0)
         nb.frame.columnconfigure(3, weight = 0)
-        nb.frame.columnconfigure(17, weight = 10)
+        nb.frame.columnconfigure(19, weight = 10)
         nb.frame.rowconfigure(1, weight = 0)
         nb.frame.rowconfigure(5, weight = 10)
         nb.frame.rowconfigure(3, weight = 2)
 
-        nb.find_label = tk.Label(nb.frame, text="Search Commands:", justify='center', width=20)
-        nb.find_label.grid_configure(row=0, column=0, columnspan=8)
+        nb.find_label = tk.Label(nb.frame, text="Search:", justify='center')
+        nb.find_label.grid_configure(row=1, column=0, columnspan=1)
 
         # row 0 column 8
 
-        nb.theme_label = tk.Label(nb.frame, text="Themes:", justify='center', width=30)
-        nb.theme_label.grid_configure(row=0, column=8, columnspan=10)
+        nb.theme_label = tk.Label(nb.frame, text="Themes:", justify='center')
+        nb.theme_label.grid_configure(row=0, column=12, columnspan=1, sticky="W")
 
+        nb.v =IntVar()
+
+        nb.com_radio = tk.Radiobutton(nb.frame, text='commands', variable=nb.v, value=1)
+        nb.com_radio.grid_configure(row=0, column=0, sticky="NSW", columnspan=2)
+
+        nb.com_radio = tk.Radiobutton(nb.frame, text='configs', variable=nb.v, value=2)
+        nb.com_radio.grid_configure(row=0, column=1, sticky="NSW", columnspan=2)
+
+        nb.com_radio = tk.Radiobutton(nb.frame, text='lua', variable=nb.v, value=3)
+        nb.com_radio.grid_configure(row=0, column=3, sticky="NSW", columnspan=2)
+
+        nb.com_radio = tk.Radiobutton(nb.frame, text='options', variable=nb.v, value=4)
+        nb.com_radio.grid_configure(row=0, column=5, sticky="NSW")
+        
         # row 0 column 10
 
         nb.Logo = tk.Text(nb.frame, height=3, width=20)
-        nb.Logo.grid_configure(row=0, column=18, columnspan=3, rowspan=3, sticky="NSEW")
+        nb.Logo.grid_configure(row=0, column=22, columnspan=3, rowspan=3, sticky="NSE")
 
         # row 1 coumn 0
 
-        nb.command_find = tk.Entry(nb.frame, width=20)
-        nb.command_find.grid_configure(row=1, column=0, columnspan=8, sticky="NSEW")
+        nb.command_find = tk.Entry(nb.frame)
+        nb.command_find.grid_configure(row=1, column=1, columnspan=11, sticky="NSEW")
 
         # row 1 column 8'
 
@@ -66,82 +80,82 @@ class Notebook:
         nb.option_header.set(nb.theme_list[0])
 
         nb.themes_list = tk.OptionMenu(nb.frame, nb.option_header, *nb.theme_list)
-        nb.themes_list.grid_configure(row=1, column=8, columnspan=8, sticky="NSEW")
+        nb.themes_list.grid_configure(row=1, column=12, columnspan=4, sticky="NSEW")
 
         # row 1 column 10
 
         nb.theme_button = tk.Button(nb.frame, text="Load")
-        nb.theme_button.grid_configure(row=1, column=16, columnspan=2, sticky="NSEW")
+        nb.theme_button.grid_configure(row=1, column=17, columnspan=2, sticky="NSEW")
 
         # row 2 column 0
 
-        nb.com_label = tk.Label(nb.frame, text="Commands:", justify='center', width=20)
-        nb.com_label.grid_configure(row=2, column=0, columnspan=8)
+        nb.com_label = tk.Label(nb.frame, text="Commands:", justify="left", width=18)
+        nb.com_label.grid_configure(row=2, column=0, columnspan=1)
 
         # row 2 column 10
 
         nb.conky_label = tk.Label(nb.frame, text="~/.config/conky/conky.conf", justify='left')
-        nb.conky_label.grid_configure(row=2, column=8)
+        nb.conky_label.grid_configure(row=2, column=12)
 
         # row 3 column 0
 
-        nb.com_list_box = tk.Text(nb.frame, height=5, width=20)
-        nb.com_list_box.grid_configure(row=3, column=0, columnspan=8, sticky="NSEW")
+        nb.com_list_box = tk.Text(nb.frame, height=15, width = 10)
+        nb.com_list_box.grid_configure(row=3, column=0, rowspan=3, sticky="NSEW")
 
-        nb.file_display = tk.Text(nb.frame, width=50, wrap = 'word')
-        nb.file_display.grid_configure(row=3, column=8, columnspan=13, rowspan=15, sticky="NSEW")
+        nb.file_display = tk.Text(nb.frame, width=40, wrap = 'word')
+        nb.file_display.grid_configure(row=3, column=12, columnspan=13, rowspan=15, sticky="NSEW")
         nb.file_display.config(bg="darkblue", fg="lightblue")
 
         # row 4
 
-        nb.wiki_label = tk.Label(nb.frame, text="Description and Usage:", width=20)
-        nb.wiki_label.grid_configure(row=4, column=0, columnspan=8)
+        nb.wiki_label = tk.Label(nb.frame, text="Description")
+        nb.wiki_label.grid_configure(row=2, column=1, columnspan=1)
 
         # row 5
 
-        nb.wiki_window = tk.Text(nb.frame, height=15, width=30, wrap=WORD)
-        nb.wiki_window.grid_configure(row=5, column=0, columnspan=8, sticky="NSEW")
+        nb.wiki_window = tk.Text(nb.frame, height=5, wrap=WORD, width=15)
+        nb.wiki_window.grid_configure(row=3, column=1, columnspan=5, sticky="NSEW")
 
         # row 6
 
         nb.image_path_label = tk.Label(nb.frame, text="Image Path:")
-        nb.image_path_label.grid_configure(row=6, column=0, columnspan=8)
+        nb.image_path_label.grid_configure(row=6, column=0, columnspan=1, sticky="E")
 
         # row 7
 
-        nb.image_entry = tk.Entry(nb.frame)
-        nb.image_entry.grid_configure(row=7, column=0, columnspan=6, sticky="NSEW")
+        nb.image_entry = tk.Entry(nb.frame, width=15)
+        nb.image_entry.grid_configure(row=6, column=1, columnspan=3, sticky="NSEW")
 
         nb.image_button = tk.Button(nb.frame, text="Submit")
-        nb.image_button.grid_configure(row=7, column=6, columnspan=2, sticky="NSEW")
+        nb.image_button.grid_configure(row=8, column=3, columnspan=1, sticky="NSEW")
 
         # row 8
 
-        nb.size_label = tk.Label(nb.frame, text="img\nsize", width=10)
-        nb.size_label.grid_configure(row=8, column=0, columnspan=2)
+        nb.size_label = tk.Label(nb.frame, text="size", width=10, justify="left")
+        nb.size_label.grid_configure(row=7, column=0, columnspan=1, sticky="E")
 
-        nb.im_align = tk.Label(nb.frame, text="img\nalign", width=10)
-        nb.im_align.grid_configure(row=8, column=2, columnspan=2)
+        nb.im_align = tk.Label(nb.frame, text="align", width=10, justify="left")
+        nb.im_align.grid_configure(row=8, column=0, columnspan=1, sticky="E")
 
-        nb.presets = tk.Label(nb.frame, text="custom\nattributes")
-        nb.presets.grid_configure(row=8, column=4, columnspan=4)
+        nb.presets = tk.Label(nb.frame, text="custom:")
+        nb.presets.grid_configure(row=4, column=1, columnspan=1, sticky="W")
 
         # row 9
         
         nb.size_x = tk.Entry(nb.frame, width=5)
-        nb.size_x.grid_configure(row=9, column=0, sticky='N')
+        nb.size_x.grid_configure(row=7, column=1, sticky='NSE')
 
         nb.size_y = tk.Entry(nb.frame, width=5)
-        nb.size_y.grid_configure(row=9, column=1, sticky='N')
+        nb.size_y.grid_configure(row=7, column=2, sticky='NSW')
 
         nb.align_image_x = tk.Entry(nb.frame, width=5)
-        nb.align_image_x.grid_configure(row=9, column=2, sticky='N')
+        nb.align_image_x.grid_configure(row=8, column=1, sticky='NSE')
 
         nb.align_image_y = tk.Entry(nb.frame, width=5)
-        nb.align_image_y.grid_configure(row=9, column=3, sticky='N')
+        nb.align_image_y.grid_configure(row=8, column=2, sticky='NSW')
 
-        nb.presets_window = tk.Text(nb.frame, height=9, width=30)
-        nb.presets_window.grid_configure(row=9, column=4, columnspan=4, rowspan=9, sticky="NSEW")
+        nb.presets_window = tk.Text(nb.frame, height=15, width=20)
+        nb.presets_window.grid_configure(row=5, column=1, columnspan=6, sticky="NWSE")
 
         # row 10
 
@@ -168,24 +182,10 @@ class Notebook:
         nb.color_button = tk.Button(nb.frame, text="Enter")
         nb.color_button.grid_configure(row=13, column=3, sticky="EW")
 
-        # row 14 Align
-
-        nb.align_label = tk.Label(nb.frame, text="Align:")
-        nb.align_label.grid_configure(row=14, columnspan=4, sticky="EW")
-
-        nb.align_x = tk.Entry(nb.frame, width=5)
-        nb.align_x.grid_configure(row=15, columnspan=1, sticky="EW")
-
-        nb.align_y = tk.Entry(nb.frame, width=5)
-        nb.align_y.grid_configure(row=15, column=1, columnspan=1, sticky="EW")
-
-        nb.align_submit = tk.Button(nb.frame, text="Enter")
-        nb.align_submit.grid_configure(row=15, column=2, columnspan=2, sticky="E")
-
         # row 16 Font
 
         nb.font_label = tk.Label(nb.frame, text="Font Name:")
-        nb.font_label.grid_configure(row=16, columnspan=3, sticky="NSEW")
+        nb.font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
 
         nb.fs_label = tk.Label(nb.frame, text="Size:")
         nb.fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
@@ -196,30 +196,30 @@ class Notebook:
         nb.font_list_header.set(nb.font_list[0])
 
         nb.fn_entry = tk.OptionMenu(nb.frame, nb.font_list_header, *nb.font_list)
-        nb.fn_entry.grid_configure(row=18, columnspan=3, sticky="NSEW")
+        nb.fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
 
         nb.fs_entry = tk.Entry(nb.frame, width=5)
-        nb.fs_entry.grid_configure(row=18, column=3, columnspan=1, sticky="NSEW")
+        nb.fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NSEW")
 
         nb.font_submit = tk.Button(nb.frame, text="Enter")
-        nb.font_submit.grid_configure(row=18, column=4, columnspan=1, sticky="NSEW")
+        nb.font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NSEW")
 
         nb.save_button = tk.Button(nb.frame, text="save", command=lambda: save_file(nb.file_display))
-        nb.save_button.grid_configure(row=18, column=18, columnspan=2, sticky="NSEW")
+        nb.save_button.grid_configure(row=18, column=23, columnspan=1, sticky="NSEW")
 
         nb.save_theme_button = tk.Button(nb.frame, text="save theme", command=lambda: save_theme(nb.theme_display, nb.file_display))
-        nb.save_theme_button.grid_configure(row=18, column=16, columnspan=2, sticky="NSEW")
+        nb.save_theme_button.grid_configure(row=18, column=22, columnspan=1, sticky="NSEW")
 
         nb.theme_name = tk.Label(nb.frame, text="Theme Name:")
-        nb.theme_name.grid_configure(row=18, column=8, columnspan=2)
+        nb.theme_name.grid_configure(row=18, column=17, columnspan=2)
 
         nb.theme_display = tk.Entry(nb.frame)
-        nb.theme_display.grid_configure(row=18, column=10, columnspan=2, sticky="NSEW")
+        nb.theme_display.grid_configure(row=18, column=19, columnspan=2, sticky="NSEW")
 
         # final row
 
         nb.quit = tk.Button(nb.frame, text="QUIT", fg="red", command=self.root.destroy)
-        nb.quit.grid_configure(row=18, column=20, sticky="WE")
+        nb.quit.grid_configure(row=18, column=24, sticky="WE")
 
         # imported modules / binds
 

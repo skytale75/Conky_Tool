@@ -1,5 +1,5 @@
 from tkinter import *
-# 593
+
 class conky_stuff:
     '''variables to carry throughout execution of commands'''
         
