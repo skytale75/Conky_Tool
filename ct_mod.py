@@ -20,7 +20,6 @@ custom_atttributes = ("color0 =", "color1 =", "color2 =", "color3 =", "color4 ="
 def add_command(get_command, file_display):
 	"""format text command into conky command and
 	add to script at cursor location"""
-
 	start_with = get_command.get("insert linestart", "end-1c")
 	then_format = "${"+start_with+"}"
 	file_display.insert(INSERT, then_format)

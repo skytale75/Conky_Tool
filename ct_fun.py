@@ -7,6 +7,8 @@ class conky_stuff:
     x = 0
     y = 0
     results = []
+    selected = 'commands'
+    bgc = "#6B959E"
 
 # setup dictionary function . . . functions = {"functon_name:" function}
 # call dictionary function . . . functions["function_name"]()

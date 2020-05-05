@@ -28,7 +28,7 @@ class Notebook:
 
     def create_widgets(self, title):
         """create all widgets"""
-        nb.frame = ttk.Frame(self.notebook)
+        nb.frame = tk.Frame(self.notebook)
         nb.frame.grid(row = 1, sticky='NSEW')
         self.notebook.add(nb.frame,text=title)
         nb.frame.columnconfigure(0, weight = 0)
@@ -39,28 +39,37 @@ class Notebook:
         nb.frame.rowconfigure(1, weight = 0)
         nb.frame.rowconfigure(5, weight = 10)
         nb.frame.rowconfigure(3, weight = 2)
+        nb.frame.config(bg=cs.bgc)
 
-        nb.find_label = tk.Label(nb.frame, text="Search:", justify='center')
+        nb.find_label = tk.Label(nb.frame, bg=cs.bgc, text="Search:", justify='center')
         nb.find_label.grid_configure(row=1, column=0, columnspan=1)
 
         # row 0 column 8
 
-        nb.theme_label = tk.Label(nb.frame, text="Themes:", justify='center')
+        nb.theme_label = tk.Label(nb.frame, bg=cs.bgc, text="Themes:", justify='center')
         nb.theme_label.grid_configure(row=0, column=12, columnspan=1, sticky="W")
 
         nb.v =IntVar()
 
-        nb.com_radio = tk.Radiobutton(nb.frame, text='commands', variable=nb.v, value=1)
+        def cr_com():
+            cs.selected = "commands"
+
+        def cr_con():
+            cs.selected = "configs"
+            print(cs.selected)
+        
+        nb.com_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='commands', variable=nb.v, value=1, command = cr_com)
         nb.com_radio.grid_configure(row=0, column=0, sticky="NSW", columnspan=2)
+        nb.com_radio.select()
 
-        nb.com_radio = tk.Radiobutton(nb.frame, text='configs', variable=nb.v, value=2)
-        nb.com_radio.grid_configure(row=0, column=1, sticky="NSW", columnspan=2)
+        nb.con_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='configs', variable=nb.v, value=2, command = cr_con)
+        nb.con_radio.grid_configure(row=0, column=1, sticky="NSW", columnspan=2)
 
-        nb.com_radio = tk.Radiobutton(nb.frame, text='lua', variable=nb.v, value=3)
-        nb.com_radio.grid_configure(row=0, column=3, sticky="NSW", columnspan=2)
+        nb.lua_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='lua', variable=nb.v, value=3)
+        nb.lua_radio.grid_configure(row=0, column=3, sticky="NSW", columnspan=2)
 
-        nb.com_radio = tk.Radiobutton(nb.frame, text='options', variable=nb.v, value=4)
-        nb.com_radio.grid_configure(row=0, column=5, sticky="NSW")
+        nb.options_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='options', variable=nb.v, value=4)
+        nb.options_radio.grid_configure(row=0, column=5, sticky="NSW")
         
         # row 0 column 10
 
@@ -89,12 +98,12 @@ class Notebook:
 
         # row 2 column 0
 
-        nb.com_label = tk.Label(nb.frame, text="Commands:", justify="left", width=18)
+        nb.com_label = tk.Label(nb.frame, bg=cs.bgc, text="Commands:", justify="left", width=18)
         nb.com_label.grid_configure(row=2, column=0, columnspan=1)
 
         # row 2 column 10
 
-        nb.conky_label = tk.Label(nb.frame, text="~/.config/conky/conky.conf", justify='left')
+        nb.conky_label = tk.Label(nb.frame, bg=cs.bgc, text="~/.config/conky/conky.conf", justify='left')
         nb.conky_label.grid_configure(row=2, column=12)
 
         # row 3 column 0
@@ -104,11 +113,11 @@ class Notebook:
 
         nb.file_display = tk.Text(nb.frame, width=40, wrap = 'word')
         nb.file_display.grid_configure(row=3, column=12, columnspan=13, rowspan=15, sticky="NSEW")
-        nb.file_display.config(bg="darkblue", fg="lightblue")
+        nb.file_display.config(bg="#323638", fg="#D3D8DA")
 
         # row 4
 
-        nb.wiki_label = tk.Label(nb.frame, text="Description")
+        nb.wiki_label = tk.Label(nb.frame, bg=cs.bgc, text="Description")
         nb.wiki_label.grid_configure(row=2, column=1, columnspan=1)
 
         # row 5
@@ -118,7 +127,7 @@ class Notebook:
 
         # row 6
 
-        nb.image_path_label = tk.Label(nb.frame, text="Image Path:")
+        nb.image_path_label = tk.Label(nb.frame, bg=cs.bgc, text="Image Path:")
         nb.image_path_label.grid_configure(row=6, column=0, columnspan=1, sticky="E")
 
         # row 7
@@ -131,13 +140,13 @@ class Notebook:
 
         # row 8
 
-        nb.size_label = tk.Label(nb.frame, text="size", width=10, justify="left")
+        nb.size_label = tk.Label(nb.frame, bg=cs.bgc, text="size", width=10, justify="left")
         nb.size_label.grid_configure(row=7, column=0, columnspan=1, sticky="E")
 
-        nb.im_align = tk.Label(nb.frame, text="align", width=10, justify="left")
+        nb.im_align = tk.Label(nb.frame, bg=cs.bgc, text="align", width=10, justify="left")
         nb.im_align.grid_configure(row=8, column=0, columnspan=1, sticky="E")
 
-        nb.presets = tk.Label(nb.frame, text="custom:")
+        nb.presets = tk.Label(nb.frame, bg=cs.bgc, text="custom:")
         nb.presets.grid_configure(row=4, column=1, columnspan=1, sticky="W")
 
         # row 9
@@ -154,12 +163,12 @@ class Notebook:
         nb.align_image_y = tk.Entry(nb.frame, width=5)
         nb.align_image_y.grid_configure(row=8, column=2, sticky='NSW')
 
-        nb.presets_window = tk.Text(nb.frame, height=15, width=20)
+        nb.presets_window = tk.Text(nb.frame, height=15, width=20, wrap="word")
         nb.presets_window.grid_configure(row=5, column=1, columnspan=6, sticky="NWSE")
 
         # row 10
 
-        nb.txt_label = tk.Label(nb.frame, text="Text:")
+        nb.txt_label = tk.Label(nb.frame, bg=cs.bgc, text="Text:")
         nb.txt_label.grid_configure(row=10, columnspan=4, sticky="N")
 
         # row 11
@@ -172,7 +181,7 @@ class Notebook:
 
         # row 12
 
-        nb.color_label = tk.Label(nb.frame, text="Color:")
+        nb.color_label = tk.Label(nb.frame, bg=cs.bgc, text="Color:")
         nb.color_label.grid_configure(row=12, columnspan=4, sticky="EW")
 
         # row 13
@@ -184,10 +193,10 @@ class Notebook:
 
         # row 16 Font
 
-        nb.font_label = tk.Label(nb.frame, text="Font Name:")
+        nb.font_label = tk.Label(nb.frame, bg=cs.bgc, text="Font Name:")
         nb.font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
 
-        nb.fs_label = tk.Label(nb.frame, text="Size:")
+        nb.fs_label = tk.Label(nb.frame, bg=cs.bgc, text="Size:")
         nb.fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
 
         # row 18
@@ -210,7 +219,7 @@ class Notebook:
         nb.save_theme_button = tk.Button(nb.frame, text="save theme", command=lambda: save_theme(nb.theme_display, nb.file_display))
         nb.save_theme_button.grid_configure(row=18, column=22, columnspan=1, sticky="NSEW")
 
-        nb.theme_name = tk.Label(nb.frame, text="Theme Name:")
+        nb.theme_name = tk.Label(nb.frame, bg=cs.bgc, text="Theme Name:")
         nb.theme_name.grid_configure(row=18, column=17, columnspan=2)
 
         nb.theme_display = tk.Entry(nb.frame)
@@ -256,12 +265,14 @@ class Notebook:
         nb.size_y.bind('<Return>', rs_y)
 
         def command_line(self):
-            the_input = str(nb.com_list_box.get("insert linestart", "insert lineend"))
-            functions[the_input](nb.file_display)
+            if cs.selected == "commands":
+                the_input = str(nb.com_list_box.get("insert linestart", "insert lineend"))
+                functions[the_input](nb.file_display)
             return 'break'
 
         def insert_command(self):
             """inserts command into rc file"""
+            print(cs.selected)
             add_command(nb.com_list_box, nb.file_display)
 
         def show_def(self):
@@ -286,7 +297,7 @@ class Notebook:
     def run(self):
         self.root.mainloop()
 
-
+cs = conky_stuff
 nb = Notebook("Work in progress")
 com = Notebook
 nb.create_widgets('Conky Editor')
