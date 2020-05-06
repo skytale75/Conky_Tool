@@ -1,4 +1,8 @@
 from tkinter import *
+from os import listdir, path
+from pathlib import Path
+
+main_path = path.expanduser('~/Conky_Tool/')
 
 class conky_stuff:
     '''variables to carry throughout execution of commands'''
@@ -46,7 +50,7 @@ class Commands:
 
 def def_file(my_input):
     """open definition file and return as a string"""
-    open_file = open("./coms/"+my_input+".txt")
+    open_file = open(main_path+"/coms/"+my_input+".txt")
     read_file = open_file.read()
     open_file.close()
     return str(read_file)

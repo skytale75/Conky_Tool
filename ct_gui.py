@@ -52,11 +52,25 @@ class Notebook:
         nb.v =IntVar()
 
         def cr_com():
+            search_path = coms_path
             cs.selected = "commands"
+            load_commands(nb.com_list_box)
 
         def cr_con():
+            search_path = configs_path
             cs.selected = "configs"
-            print(cs.selected)
+            load_configs(nb.com_list_box)
+
+        def cr_lua():
+            search_path = lua_path
+            cs.selected = "lua"
+            load_lua(nb.com_list_box)
+
+        def cr_options():
+            search_path = options_path
+            cs.selected = "options"
+            nb.com_list_box.delete(0.0, END)
+            load_options(nb.wiki_window)
         
         nb.com_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='commands', variable=nb.v, value=1, command = cr_com)
         nb.com_radio.grid_configure(row=0, column=0, sticky="NSW", columnspan=2)
@@ -65,10 +79,10 @@ class Notebook:
         nb.con_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='configs', variable=nb.v, value=2, command = cr_con)
         nb.con_radio.grid_configure(row=0, column=1, sticky="NSW", columnspan=2)
 
-        nb.lua_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='lua', variable=nb.v, value=3)
+        nb.lua_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='lua', variable=nb.v, value=3, command = cr_lua)
         nb.lua_radio.grid_configure(row=0, column=3, sticky="NSW", columnspan=2)
 
-        nb.options_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='options', variable=nb.v, value=4)
+        nb.options_radio = tk.Radiobutton(nb.frame, bg=cs.bgc, text='options', variable=nb.v, value=4, command = cr_options)
         nb.options_radio.grid_configure(row=0, column=5, sticky="NSW")
         
         # row 0 column 10
@@ -108,7 +122,7 @@ class Notebook:
 
         # row 3 column 0
 
-        nb.com_list_box = tk.Text(nb.frame, height=15, width = 10)
+        nb.com_list_box = tk.Text(nb.frame, height=15, width = 23)
         nb.com_list_box.grid_configure(row=3, column=0, rowspan=3, sticky="NSEW")
 
         nb.file_display = tk.Text(nb.frame, width=40, wrap = 'word')
@@ -122,7 +136,7 @@ class Notebook:
 
         # row 5
 
-        nb.wiki_window = tk.Text(nb.frame, height=5, wrap=WORD, width=15)
+        nb.wiki_window = tk.Text(nb.frame, height=12, wrap=WORD, width=15)
         nb.wiki_window.grid_configure(row=3, column=1, columnspan=5, sticky="NSEW")
 
         # row 6
@@ -163,7 +177,7 @@ class Notebook:
         nb.align_image_y = tk.Entry(nb.frame, width=5)
         nb.align_image_y.grid_configure(row=8, column=2, sticky='NSW')
 
-        nb.presets_window = tk.Text(nb.frame, height=15, width=20, wrap="word")
+        nb.presets_window = tk.Text(nb.frame, height=8, width=20, wrap="word")
         nb.presets_window.grid_configure(row=5, column=1, columnspan=6, sticky="NWSE")
 
         # row 10
@@ -200,7 +214,7 @@ class Notebook:
         nb.fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
 
         # row 18
-        nb.font_list = open(".fontlist.txt", 'r').read().splitlines()
+        nb.font_list = open(main_path+".fontlist.txt", 'r').read().splitlines()
         nb.font_list_header = tk.StringVar()
         nb.font_list_header.set(nb.font_list[0])
 
@@ -267,17 +281,36 @@ class Notebook:
         def command_line(self):
             if cs.selected == "commands":
                 the_input = str(nb.com_list_box.get("insert linestart", "insert lineend"))
-                functions[the_input](nb.file_display)
+                if "..." not in the_input:
+                    functions[the_input](nb.file_display)
+                if "..." in the_input:
+                    for l in too_long:
+                        if the_input[0:-3] in str(l):
+                            functions[l](nb.file_display)
             return 'break'
 
-        def insert_command(self):
-            """inserts command into rc file"""
-            print(cs.selected)
-            add_command(nb.com_list_box, nb.file_display)
-
         def show_def(self):
-            the_input = eval(str(nb.com_list_box.get("insert linestart", "insert lineend")))
-            the_input.definition_out(nb.wiki_window)
+            if cs.selected == "commands":
+                x = str(nb.com_list_box.get("insert linestart", "insert lineend"))
+                if "..." not in x:
+                    the_input = eval(x)
+                    the_input.definition_out(nb.wiki_window)
+                if "..." in x:
+                    for l in too_long:
+                        if x[0:-3] in str(l):
+                            the_input = eval(l)
+                            the_input.definition_out(nb.wiki_window)
+            if cs.selected == "configs":
+                x = str(nb.com_list_box.get("insert linestart", "insert lineend"))
+                defi_open = open(configs_path+x+".txt", 'r')
+                defi = defi_open.read()
+                defi_open.close()
+                nb.wiki_window.delete(0.0, END)
+                nb.wiki_window.insert(INSERT, defi)
+            if cs.selected == "lua":
+                pass
+            if cs.selected == "options":
+                pass
             return 'break'
 
         def search_com(self):

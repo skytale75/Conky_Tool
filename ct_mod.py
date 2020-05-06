@@ -1,4 +1,4 @@
-from ct_fun import conky_stuff
+from ct_fun import *
 from tkinter import *
 from os import listdir, path
 from PIL import Image
@@ -11,6 +11,11 @@ path1 = path.expanduser('~/.config/conky/')
 path2 = path.expanduser('~/')
 theme_path = path.expanduser('~/Conky_Tool/Conky_Themes/')
 coms_path = path.expanduser('~/Conky_Tool/coms/')
+configs_path = path.expanduser('~/Conky_Tool/configs/')
+lua_path = path.expanduser('~/Conky_Tool/lua/')
+options_path = path.expanduser('~/Conky_Tool/options/')
+too_long = []
+search_path = coms_path
 
 custom_atttributes = ("color0 =", "color1 =", "color2 =", "color3 =", "color4 =",\
 	"color5 =", "color6 =", "color7 =", "color8 =","color9 ="\
@@ -21,8 +26,14 @@ def add_command(get_command, file_display):
 	"""format text command into conky command and
 	add to script at cursor location"""
 	start_with = get_command.get("insert linestart", "end-1c")
-	then_format = "${"+start_with+"}"
-	file_display.insert(INSERT, then_format)
+	if "..." in start_with:
+		for l in too_long:
+			if start_with[0:-3] in str(l):
+				then_format = "${"+l+"}"
+				file_display.insert(INSERT, then_format)
+	else:
+		then_format = "${"+start_with+"}"
+		file_display.insert(INSERT, then_format)
 
 def add_CA(input_file, Custom_AB):
 	"""find custom attributes in file and list them in the
@@ -207,7 +218,7 @@ def search(csi, clo):
 	load filenames with matching results to command
 	list"""
 	if len(cs.results) == 0:
-		for file in Path(coms_path).glob('**/*.txt'):
+		for file in Path(search_path).glob('**/*.txt'): # change coms_path to search_path, change search path based on radiobuttn selection
 			open_file = open(file, 'r')
 			read_file = open_file.read()
 			open_file.close()
@@ -224,6 +235,8 @@ def search(csi, clo):
 			clo.insert(INSERT, humph+'\n')
 
 def load_commands(clo):
+	cs.results = []
+	clo.delete(0.0, END)
 	for file in Path(coms_path).glob('**/*.txt'):
 		open_file = open(file, 'r')
 		read_file = open_file.read()
@@ -237,5 +250,59 @@ def load_commands(clo):
 	start = 0
 	while start < len(command_list):
 		command = str(command_list[start]).split()[0]
-		clo.insert(INSERT, command+'\n')
+		if len(command) > 23:
+			if command not in too_long:
+				too_long.append(command)
+			clo.insert(INSERT, command[0:20]+"..."+'\n')
+		if len(command) <= 23:
+			clo.insert(INSERT, command+'\n')
 		start += 1
+
+def load_configs(clo):
+	cs.results = []
+	clo.delete(0.0, END)
+	for file in Path(main_path+"/configs").glob('**/*.txt'):
+		open_file = open(file, 'r')
+		read_file = open_file.read()
+		open_file.close()
+		cf_str = str(file)
+		cf_spl = cf_str.split('/')
+		cf = str(cf_spl[-1])
+		cf = cf.replace('.txt', '')
+		cs.results.append(cf+" "+read_file)
+	configs_list = sorted(cs.results)
+	start = 0
+	while start < len(configs_list):
+		config = str(configs_list[start]).split()[0]
+		clo.insert(INSERT, config+"\n")
+		start += 1
+
+def load_lua(clo):
+	cs.results = []
+	clo.delete(0.0, END)
+	for file in Path(lua_path).glob('**/*.txt'):
+		open_file = open(file, 'r')
+		read_file = open_file.read()
+		open_file.close()
+		cf_str = str(file)
+		cf_spl = cf_str.split('/')
+		cf = str(cf_spl[-1])
+		cf = cf.replace('.txt', '')
+		cs.results.append(cf+" "+read_file)
+	lua_list = sorted(cs.results)
+	start = 0
+	while start < len(lua_list):
+		lua = str(lua_list[start]).split()[0]
+		clo.insert(INSERT, lua+"\n")
+		start += 1
+
+def load_options(clo):
+	clo.delete(0.0, END)
+	open_file = open(options_path+"options.txt", 'r')
+	read_file = open_file.read()
+	open_file.close()
+	clo.insert(INSERT, read_file)
+
+def fd_syntax_highlighting(fd):
+	"""syntax highlightin for file display"""
+	
