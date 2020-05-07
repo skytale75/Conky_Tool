@@ -303,6 +303,40 @@ def load_options(clo):
 	open_file.close()
 	clo.insert(INSERT, read_file)
 
+def search_for(fd, word, tag):
+	"""syntax highlighter template"""
+	offset = '+%dc' % len(word)
+	pos_start = fd.search(word, '1.0', END)
+	while pos_start:
+		pos_end = pos_start + offset
+		fd.tag_add(tag, pos_start, pos_end)
+		pos_start = fd.search(word, pos_end, END)
+
+def search_for2(fd, word, tag):
+	"""syntax highlighter template for
+	complete commands from { to }"""
+	term = str(fd.get(0.0, END)).split("$")
+	for t in term[1:len(term)]:
+		if word in str(t):
+			offset = '+%dc' % len(t)
+			pos_start = fd.search(t, '1.0', END)
+			while pos_start:
+				pos_end = pos_start + offset
+				fd.tag_add(tag, pos_start, pos_end)
+				pos_start = fd.search(t, pos_end, END)
+
+
 def fd_syntax_highlighting(fd):
-	"""syntax highlightin for file display"""
-	
+	"""syntax highlighting for file display"""
+	fd.tag_config("image", foreground = 'lightgreen')
+	fd.tag_config("color", foreground = 'yellow')
+	fd.tag_config("font", foreground = 'magenta')
+	fd.tag_config("$", foreground = 'red')
+	fd.tag_config("voffset", foreground = 'cyan')
+
+	search_for(fd, "$", "$")
+
+	search_for2(fd, "color", "color")
+	search_for2(fd, "font", "font")
+	search_for2(fd, "image", "image")
+	search_for2(fd, "offset", "voffset")

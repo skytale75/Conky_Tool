@@ -127,7 +127,7 @@ class Notebook:
 
         nb.file_display = tk.Text(nb.frame, width=40, wrap = 'word')
         nb.file_display.grid_configure(row=3, column=12, columnspan=13, rowspan=15, sticky="NSEW")
-        nb.file_display.config(bg="#323638", fg="#D3D8DA")
+        nb.file_display.config(bg="black", fg="white")
 
         # row 4
 
@@ -335,6 +335,7 @@ nb = Notebook("Work in progress")
 com = Notebook
 nb.create_widgets('Conky Editor')
 load_commands(nb.com_list_box)
+fd_syntax_highlighting(nb.file_display)
 font_list()
 theme_list()
 
