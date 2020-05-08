@@ -1,8 +1,10 @@
 from tkinter import *
+import tkinter as tk
 from os import listdir, path
 from pathlib import Path
 
 main_path = path.expanduser('~/Conky_Tool/')
+coms_path = path.expanduser('~/Conky_Tool/coms/')
 
 class conky_stuff:
     '''variables to carry throughout execution of commands'''
@@ -33,7 +35,15 @@ class Commands:
             com_out = "${"+self.com_name+"}"
             file_display.insert(INSERT, com_out)
         if self.unique_command == "true":
-            print("make a custom command for "+self.com_name)
+            file_open = open(coms_path+self.com_name+".txt", 'r')
+            fo_read = file_open.read().splitlines()
+            cn = str(fo_read[0])
+            cd = str(fo_read[1])
+            file_open.close()
+
+            generic(self.com_name, cn, cd, file_display)
+        if self.unique_command != "true" and self.unique_command != "false":
+            eval(self.unique_command)
 
     def command_out(self, cl_output):
         """puts conky command names in appropriate format"""
@@ -44,16 +54,42 @@ class Commands:
         cd_output.insert(INSERT, self.com_des)
 
 
-    def dummy(self):
-        print("make function")
-
-
 def def_file(my_input):
     """open definition file and return as a string"""
     open_file = open(main_path+"/coms/"+my_input+".txt")
     read_file = open_file.read()
     open_file.close()
     return str(read_file)
+
+def generic(window_title, command_name, definition_name, file_display):
+    window = Tk()
+    window.grid()
+    window.title(window_title)
+    com_label = tk.Label(window, text=command_name)
+    com_label.grid_configure(row=0, column=0, sticky="W")
+
+    com_entry = tk.Entry(window)
+    com_entry.grid_configure(row=1, column=0, columnspan=4, sticky="NESW")
+    com_entry.insert(INSERT, command_name)
+
+    def enter_button():
+        get_contents = com_entry.get()
+        output_to_file = "${"+get_contents+"}"
+        file_display.insert(INSERT, output_to_file)
+
+    com_button = tk.Button(window, text="Enter", command=enter_button)
+    com_button.grid_configure(row=1, column=4, sticky="NESW")
+
+    def_text = tk.Text(window, width=50, height=10, wrap='word')
+    def_text.grid_configure(row=2, column=0, columnspan=5)
+    def_text.insert(INSERT, definition_name)
+
+    def_exit = tk.Button(window, text='Exit', command=window.destroy)
+    def_exit.grid_configure(row=3, column=4, sticky="NESW")
+
+
+    window.mainloop()
+    
 
 cm = Commands
 # complete list of conky commands for text section
@@ -62,7 +98,7 @@ cm = Commands
 acpiacadapter = Commands('acpiacadapter', def_file('acpiacadapter'), 'false')
 functions = {"acpiacadapter": acpiacadapter}
 
-Eval = Commands('eval', def_file('eval'), 'true')
+Eval = Commands('eval', def_file('eval'), "true")
 functions.update({'eval': Eval.command})
 
 Exec = Commands('exec', def_file('exec'), 'true')

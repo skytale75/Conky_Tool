@@ -1,4 +1,5 @@
-test
 test2
 My_Theme
 theme3
+main_theme
+main_theme2

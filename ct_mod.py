@@ -122,8 +122,12 @@ def save_theme(get_theme_name, file_display):
 
 	theme_name = get_theme_name.get()
 	theme_file = open(theme_path+".themes.txt", "a")
+	theme_check = open(theme_path+".themes.txt", "r")
+	check = theme_check.read()
+	theme_check.close()
 	if len(theme_name) != 0:
-		theme_file.write("\n"+theme_name)
+		if theme_name not in check:
+			theme_file.write("\n"+theme_name)
 		save_theme = open(theme_path+theme_name, 'w')
 		the_script = file_display.get(0.0, "end -1c")
 		save_theme.write(the_script)
@@ -134,7 +138,8 @@ def save_theme(get_theme_name, file_display):
 
 def save_file(output_window):
 	"""open file and save to .conkyrc"""
-
+	syntax_basic(output_window)
+	fd_syntax_highlighting(output_window)
 	open_file = open(path1+"conky.conf", "w")
 	write_this = output_window.get(0.0, "end-1c")
 	open_file.write(write_this)
@@ -235,6 +240,7 @@ def search(csi, clo):
 			clo.insert(INSERT, humph+'\n')
 
 def load_commands(clo):
+	"""load commands list to commands window"""
 	cs.results = []
 	clo.delete(0.0, END)
 	for file in Path(coms_path).glob('**/*.txt'):
@@ -259,6 +265,7 @@ def load_commands(clo):
 		start += 1
 
 def load_configs(clo):
+	"""load configs to commands window"""
 	cs.results = []
 	clo.delete(0.0, END)
 	for file in Path(main_path+"/configs").glob('**/*.txt'):
@@ -278,6 +285,7 @@ def load_configs(clo):
 		start += 1
 
 def load_lua(clo):
+	"""load lua commands to commands window"""
 	cs.results = []
 	clo.delete(0.0, END)
 	for file in Path(lua_path).glob('**/*.txt'):
@@ -297,6 +305,7 @@ def load_lua(clo):
 		start += 1
 
 def load_options(clo):
+	"""load options text to wiki window"""
 	clo.delete(0.0, END)
 	open_file = open(options_path+"options.txt", 'r')
 	read_file = open_file.read()
@@ -312,12 +321,35 @@ def search_for(fd, word, tag):
 		fd.tag_add(tag, pos_start, pos_end)
 		pos_start = fd.search(word, pos_end, END)
 
+def syntax_basic(fd):
+	"""generic syntax highlight for all commands"""
+	fd.tag_config("{", foreground = "grey")
+	file = fd.get(0.0, END).split("$", 1)
+	term = file[1].split("$")
+	for t in term[1:len(term)]:
+		if "{" in str(t):
+			a = t[t.find("{"):t.find("}")+1]
+			offset = '+%dc' % len(a)
+			pos_start = fd.search(a, '1.0', END)
+			while pos_start:
+				pos_end = pos_start + offset
+				fd.tag_add("{", pos_start, pos_end)
+				pos_start = fd.search(a, pos_end, END)
+
 def search_for2(fd, word, tag):
 	"""syntax highlighter template for
 	complete commands from { to }"""
 	term = str(fd.get(0.0, END)).split("$")
 	for t in term[1:len(term)]:
-		if word in str(t):
+		if word in str(t) and "{" in str(t):
+			a = t[t.find("{"):t.find("}")+1]
+			offset = '+%dc' % len(a)
+			pos_start = fd.search(a, '1.0', END)
+			while pos_start:
+				pos_end = pos_start + offset
+				fd.tag_add(tag, pos_start, pos_end)
+				pos_start = fd.search(a, pos_end, END)
+		if word in str(t) and "{" not in str(t):
 			offset = '+%dc' % len(t)
 			pos_start = fd.search(t, '1.0', END)
 			while pos_start:
@@ -340,3 +372,5 @@ def fd_syntax_highlighting(fd):
 	search_for2(fd, "font", "font")
 	search_for2(fd, "image", "image")
 	search_for2(fd, "offset", "voffset")
+	search_for2(fd, "alignc", "voffset")
+	search_for2(fd, "alignr", "voffset")

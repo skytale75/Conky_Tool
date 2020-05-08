@@ -24,8 +24,6 @@ class Notebook:
             self.root.columnconfigure(rows, weight = 1)
             rows += 1
 
-################################### tab_note ##########################################
-
     def create_widgets(self, title):
         """create all widgets"""
         nb.frame = tk.Frame(self.notebook)
@@ -92,7 +90,7 @@ class Notebook:
 
         # row 1 coumn 0
 
-        nb.command_find = tk.Entry(nb.frame)
+        nb.command_find = tk.Entry(nb.frame, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
         nb.command_find.grid_configure(row=1, column=1, columnspan=11, sticky="NSEW")
 
         # row 1 column 8'
@@ -122,12 +120,12 @@ class Notebook:
 
         # row 3 column 0
 
-        nb.com_list_box = tk.Text(nb.frame, height=15, width = 23)
+        nb.com_list_box = tk.Text(nb.frame, height=15, width = 23, bg="lightblue", font= ('Deja Vu Serif', 10))
         nb.com_list_box.grid_configure(row=3, column=0, rowspan=3, sticky="NSEW")
 
         nb.file_display = tk.Text(nb.frame, width=40, wrap = 'word')
         nb.file_display.grid_configure(row=3, column=12, columnspan=13, rowspan=15, sticky="NSEW")
-        nb.file_display.config(bg="black", fg="white")
+        nb.file_display.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
 
         # row 4
 
@@ -136,7 +134,7 @@ class Notebook:
 
         # row 5
 
-        nb.wiki_window = tk.Text(nb.frame, height=12, wrap=WORD, width=15)
+        nb.wiki_window = tk.Text(nb.frame, height=12, wrap=WORD, width=15, bg = "lightyellow", font= ('Deja Vu Serif', 10))
         nb.wiki_window.grid_configure(row=3, column=1, columnspan=5, sticky="NSEW")
 
         # row 6
@@ -177,7 +175,7 @@ class Notebook:
         nb.align_image_y = tk.Entry(nb.frame, width=5)
         nb.align_image_y.grid_configure(row=8, column=2, sticky='NSW')
 
-        nb.presets_window = tk.Text(nb.frame, height=8, width=20, wrap="word")
+        nb.presets_window = tk.Text(nb.frame, height=8, width=20, wrap="word", bg="darkgrey", fg="cyan")
         nb.presets_window.grid_configure(row=5, column=1, columnspan=6, sticky="NWSE")
 
         # row 10
@@ -331,10 +329,11 @@ class Notebook:
         self.root.mainloop()
 
 cs = conky_stuff
-nb = Notebook("Work in progress")
+nb = Notebook("Utilize Conky")
 com = Notebook
 nb.create_widgets('Conky Editor')
 load_commands(nb.com_list_box)
+syntax_basic(nb.file_display)
 fd_syntax_highlighting(nb.file_display)
 font_list()
 theme_list()
