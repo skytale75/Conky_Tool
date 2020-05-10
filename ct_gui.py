@@ -212,6 +212,7 @@ class Notebook:
         nb.fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
 
         # row 18
+
         nb.font_list = open(main_path+".fontlist.txt", 'r').read().splitlines()
         nb.font_list_header = tk.StringVar()
         nb.font_list_header.set(nb.font_list[0])
@@ -309,6 +310,10 @@ class Notebook:
                 pass
             if cs.selected == "options":
                 pass
+
+        def ps_command(self):
+            """tie into add_custom"""
+            add_custom(nb.presets_window, nb.file_display)
             return 'break'
 
         def search_com(self):
@@ -318,11 +323,20 @@ class Notebook:
                 load_commands(nb.com_list_box)
             else:
                 search(nb.command_find, nb.com_list_box)
-        
-        nb.com_list_box.bind('<Alt-Return>', show_def)
-        nb.com_list_box.bind('<Control-Return>', command_line)
-        nb.command_find.bind('<Return>', search_com)
 
+        def force_def(self):
+            Commands.force_file(self, nb.wiki_window, nb.file_display)
+        
+        nb.com_list_box.bind('<KeyRelease-Down>', show_def)
+        nb.com_list_box.bind('<KeyRelease-Up>', show_def)
+        nb.com_list_box.bind('<Control-Return>', command_line)
+        nb.file_display.bind('<Control-Return>', command_line)
+        nb.com_list_box.bind('<Button-1>', show_def)
+        nb.wiki_window.bind('<Control-Return>', force_def)
+        nb.wiki_window.bind('<Control-Button-1>', force_def)
+        nb.command_find.bind('<Return>', search_com)
+        nb.presets_window.bind('<Shift-Control-Return>', ps_command)
+        nb.file_display.bind('<Shift-Control-Return>', ps_command)
         open_file(nb.file_display, nb.presets_window)
 
     def run(self):
@@ -335,6 +349,7 @@ nb.create_widgets('Conky Editor')
 load_commands(nb.com_list_box)
 syntax_basic(nb.file_display)
 fd_syntax_highlighting(nb.file_display)
+cb_syntax(nb.presets_window)
 font_list()
 theme_list()
 

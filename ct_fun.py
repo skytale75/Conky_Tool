@@ -27,21 +27,31 @@ class Commands:
         self.com_des = com_des
         self.unique_command = unique_command
 
+    def force_file(self, ww, file_display):
+            get_name = ww.get(0.0, END)
+            file_name = get_name.split()[0]
+            file_open = open(coms_path+file_name+".txt", 'r')
+            fo_read = file_open.read()
+            fo_sl = fo_read.splitlines()
+            cn = str(fo_sl[0])
+            file_open.close()
+
+            generic(file_name, cn, fo_read, file_display)
+
     def command(self, file_display):
         """translate command name to command and insert
         unless command has custom command 'unique_command'"""
-        print("running command")
         if self.unique_command == "false":
             com_out = "${"+self.com_name+"}"
             file_display.insert(INSERT, com_out)
         if self.unique_command == "true":
             file_open = open(coms_path+self.com_name+".txt", 'r')
-            fo_read = file_open.read().splitlines()
-            cn = str(fo_read[0])
-            cd = str(fo_read[1])
+            fo_read = file_open.read()
+            fo_sl = fo_read.splitlines()
+            cn = str(fo_sl[0])
             file_open.close()
 
-            generic(self.com_name, cn, cd, file_display)
+            generic(self.com_name, cn, fo_read, file_display)
         if self.unique_command != "true" and self.unique_command != "false":
             eval(self.unique_command)
 
@@ -65,10 +75,14 @@ def generic(window_title, command_name, definition_name, file_display):
     window = Tk()
     window.grid()
     window.title(window_title)
+    window.config(bg='white')
+    window.wait_visibility(window)
+    window.wm_attributes("-alpha", .1)
     com_label = tk.Label(window, text=command_name)
     com_label.grid_configure(row=0, column=0, sticky="W")
 
-    com_entry = tk.Entry(window)
+    com_entry = tk.Entry(window, bg="lightblue")
+    com_entry.wm_attributes("-alpha", 1)
     com_entry.grid_configure(row=1, column=0, columnspan=4, sticky="NESW")
     com_entry.insert(INSERT, command_name)
 
@@ -80,9 +94,19 @@ def generic(window_title, command_name, definition_name, file_display):
     com_button = tk.Button(window, text="Enter", command=enter_button)
     com_button.grid_configure(row=1, column=4, sticky="NESW")
 
-    def_text = tk.Text(window, width=50, height=10, wrap='word')
+    def_text = tk.Text(window, width=100, height=20, wrap='word')
     def_text.grid_configure(row=2, column=0, columnspan=5)
     def_text.insert(INSERT, definition_name)
+
+
+    def save_file(def_text):
+        new_file = def_text.get(0.0, "end-1c")
+        file_open = open(coms_path+window_title+".txt", 'w')
+        file_open.write(new_file)
+        file_open.close()
+
+    def_sc = tk.Button(window, text="Save Changes", command=lambda: save_file(def_text))
+    def_sc.grid_configure(row=3, column=0, sticky="NESW")
 
     def_exit = tk.Button(window, text='Exit', command=window.destroy)
     def_exit.grid_configure(row=3, column=4, sticky="NESW")

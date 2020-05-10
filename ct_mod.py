@@ -205,7 +205,7 @@ def font_list():
 def make_font(font_n, font_s, to_file):
 	name = font_n.get()
 	size = font_s.get()
-	font_output = ("{font "+name+":size="+size+"}")
+	font_output = ("${font "+name+":size="+size+"}")
 	to_file.insert(INSERT, font_output)
 
 def color_ct(color_i, output_f):
@@ -214,7 +214,7 @@ def color_ct(color_i, output_f):
 
 	users_input = color_i.get()
 	users_input = users_input.replace('#', '')
-	color = "{color "+users_input+"}"
+	color = "${color "+users_input+"}"
 	if len(users_input) == 6:
 		output_f.insert(INSERT, color)
 
@@ -325,16 +325,19 @@ def syntax_basic(fd):
 	"""generic syntax highlight for all commands"""
 	fd.tag_config("{", foreground = "grey")
 	file = fd.get(0.0, END).split("$", 1)
-	term = file[1].split("$")
-	for t in term[1:len(term)]:
-		if "{" in str(t):
-			a = t[t.find("{"):t.find("}")+1]
-			offset = '+%dc' % len(a)
-			pos_start = fd.search(a, '1.0', END)
-			while pos_start:
-				pos_end = pos_start + offset
-				fd.tag_add("{", pos_start, pos_end)
-				pos_start = fd.search(a, pos_end, END)
+	if len(file) != 1:
+		term = file[1].split("$")
+		for t in term[1:len(term)]:
+			if "{" in str(t):
+				a = t[t.find("{"):t.find("}")+1]
+				offset = '+%dc' % len(a)
+				pos_start = fd.search(a, '1.0', END)
+				while pos_start:
+					pos_end = pos_start + offset
+					fd.tag_add("{", pos_start, pos_end)
+					pos_start = fd.search(a, pos_end, END)
+	if len(file) == 1:
+		pass
 
 def search_for2(fd, word, tag):
 	"""syntax highlighter template for
@@ -357,7 +360,6 @@ def search_for2(fd, word, tag):
 				fd.tag_add(tag, pos_start, pos_end)
 				pos_start = fd.search(t, pos_end, END)
 
-
 def fd_syntax_highlighting(fd):
 	"""syntax highlighting for file display"""
 	fd.tag_config("image", foreground = 'lightgreen')
@@ -374,3 +376,26 @@ def fd_syntax_highlighting(fd):
 	search_for2(fd, "offset", "voffset")
 	search_for2(fd, "alignc", "voffset")
 	search_for2(fd, "alignr", "voffset")
+
+def add_custom(attribute, file_display):
+	"""get custom command and add it to the file"""
+	line = attribute.get("insert linestart", "insert lineend")
+	com = line.split()[0]
+	file_display.insert(INSERT, "${"+com+"}")
+
+def cb_syntax(attributes_box):
+	the_color = ''
+	get_list = attributes_box.get(0.0, END).splitlines()
+	x = 1
+	for l in get_list:
+		if len(l) != 0 and x == 1:
+			offset = '+%dc' % len(l)
+			pos_start = attributes_box.search(l, '0.0', END)
+			name = str(str(l).split()[0])
+			attributes_box.tag_config(name, background=the_color)
+			pos_end = pos_start + offset
+			color = str(l).split()[2].replace("'", '')
+			the_color = "#"+color[0:-1]
+			attributes_box.tag_add(name, pos_start+"-1l", pos_end+"-1l")
+			if "font" in str(l):
+				x = 0

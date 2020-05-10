@@ -65,16 +65,15 @@ conky.config = {
     use_xft = true,
     override_utf8_locale = true,
     xftalpha = 0.5,
-    color1 = '4D291B',
-    color2 = 'FFF17E',
-    color3 = 'F7953E',
-    color4 = '00AAFF',
-    font1 = 'Deja Vu Sans Mono:size=10'
+    color1 = '5E6FAA',
+    color2 = '63971D',
+    color3 = 'D4601F',
+    color4 = 'B8AF30',
+    font1 = 'Deja Vu Serif:size=10'
 }
 
 conky.text = [[
 
-${image ~/Pictures/rect10.png (-p 103,-3 ) (-s 306x150 )}
 ${color 000000}${font Deja Vu Serif:size=12}${alignc}${time %A}, ${time %d %B %Y}
 ${voffset 4}${font Deja Vu Serif:size=30:style=Bold}${alignc}${voffset 0}${time %l}${voffset -9}${font Deja Vu Serif:size=20}${time %M}
 ${voffset -8}${color1}${font1}SYSTEM ${color2}${font}${hr 5}
@@ -87,7 +86,7 @@ ${color3}${font 'Deja Vu Sans Mono:size=8.5}Used: ${color2}${font} ${mem} of ${m
 ${color3}${font 'Deja Vu Sans Mono:size=8.5}Free: ${color2}${font} ${memeasyfree}
 ${color3}${font 'Deja Vu Sans Mono:size=8.5}Buffers / Cached:$font${alignr}${color2}${buffers} / ${cached}
 
-${voffset -10}${color2}------------------------------------------------- ${font1}${color3}${voffset 0}RAM${font}${voffset 0}${color2} ---- ${font1}${color3}CPU${color3}${font}${voffset -1}${color2} -
+${voffset -10}${color2}--------------------------------------------------- ${font1}${color3}${voffset 0}RAM${font}${voffset 0}${color2}----${font1}${color3}CPU${color3}${font}${voffset -1}${color2} -
 ${top_mem name 1}${alignr}${top_mem cpu 1} %
 ${voffset -13}${alignr}${offset -60}${top_mem mem 1} %
 ${top_mem name 2}${alignr}${top_mem cpu 2} %
@@ -101,11 +100,11 @@ ${color3}${font Deja Vu Sans Mono:size=8.5}Free: ${color2}${font} ${swapfree}
 
 ${voffset -18}${font1}${color1}CPU ${color2}${cpubar 4}
 ${color1}${font}Intel® Core™ i5-4670K @ ${freq_g cpu0}GHz ${alignr} ${cpu}% @ ${execi 2 sensors | grep 'Physical id 0' | cut -c18-19}°C
-${color3}${font}Core 0 - ${color2}${execi 2 sensors | grep 'Core 0' | cut -c18-19}°C ${alignc 60}${cpubar cpu1}
-${color3}${font}Core 1 - ${color2}${execi 2 sensors | grep 'Core 1' | cut -c18-19}°C ${alignc 60}${color2}${cpubar cpu2}${color}
-${color3}${font}Core 2 - ${color2}${execi 2 sensors | grep 'Core 2' | cut -c18-19}°C ${alignc 60}${cpubar cpu3}${color}
-${color3}${font}Core 3 - ${color2}${execi 2 sensors | grep 'Core 3' | cut -c18-19}°C ${alignc 60}${color2}${cpubar cpu4}${color0}
-${voffset -5}${color2}------------------------------------------------- ${font1}${color3}${voffset 0}RAM${color}${font}${voffset 0}${color2} ---- ${font1}${color3}CPU${color}${font}${voffset -1}${color2} -
+${color3}${font}Core 0 - ${color2}${cpubar cpu1}
+${color3}${font}Core 1 - ${color2}${cpubar cpu2}
+${color3}${font}Core 2 - ${color2}${cpubar cpu3}
+${color3}${font}Core 3 - ${color2}${cpubar cpu4}
+${voffset -5}---------------------------------------------------- ${font1}${color3}${voffset 0}RAM${color}${font}${voffset 0}${color2} -- ${font1}${color3}CPU${color}${font}${voffset -1}${color2}-
 ${top name 1}${alignr}${top cpu 1} %
 ${voffset -13}${alignr}${offset -60}${top mem 1} %
 ${top name 2}${alignr}${top cpu 2} %
@@ -128,7 +127,5 @@ ${voffset -15}${font1}${color1}BATTERY${hr 5}
 ${font}${color3}State: ${font}${color2}${battery}
 ${color3}Time: $color2${battery_time}
 ${battery_bar}
-${image ~/Pictures/note1.png (-p 75,675 ) (-s 128x128 )}
-${image ~/Pictures/note3.png (-p 0,675 ) (-s 510x255 )}
 
 ]]

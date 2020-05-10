@@ -1,2 +1,6 @@
 cpugraph (cpuN) (height),(width) (gradient colour 1) (gradient colour 2) (scale) (-t) (-l)
 CPU usage graph, with optional colours in hex, minus the #. See $cpu for more info on SMP. Uses a logarithmic scale (to see small numbers) when you use the -l switch. Takes the switch '-t' to use a temperature gradient, which makes the gradient values change depending on the amplitude of a particular graph value (try it and see).
+
+example: (replace contents of blue entry box)
+
+cpugraph 0 420,420 BB1114 11BBB8 -l -t
