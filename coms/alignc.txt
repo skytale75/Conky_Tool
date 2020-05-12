@@ -1,2 +1,9 @@
 alignc
 Align text to center.
+
+<(Utilize Conky)>
+
+Aligns text, and conky commands (not images) to center of defined window area (see "minimum width", "minimum height", and "maximum_width" in the conky.config section).
+
+related commands:
+alignr, offset, voffset

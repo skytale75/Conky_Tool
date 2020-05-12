@@ -17,10 +17,10 @@ options_path = path.expanduser('~/Conky_Tool/options/')
 too_long = []
 search_path = coms_path
 
-custom_atttributes = ("color0 =", "color1 =", "color2 =", "color3 =", "color4 =",\
-	"color5 =", "color6 =", "color7 =", "color8 =","color9 ="\
-		"font0 =", "font1 =", "font2 =", "font3 =", "font4 =", "font5 ="\
-			"font6 =", "font7 =", "font8 =", "font9 =")
+custom_atttributes = ("color0 =", "color1 =", "color2 =", "color3 =", "color4 =",
+"color5 =", "color6 =", "color7 =", "color8 =","color9 ="
+"font0 =", "font1 =", "font2 =", "font3 =", "font4 =", "font5 ="
+"font6 =", "font7 =", "font8 =", "font9 =")
 
 def add_command(get_command, file_display):
 	"""format text command into conky command and
@@ -83,16 +83,25 @@ def open_file(output_window, custom_AB):
 	else:
 		print("nothing found")
 
-def load_theme(get_theme_list, file_display):
+def load_theme(get_theme_list, file_display, presets_window):
 	"""get theme name from options menu and
 	open corrisponding theme file in Conky_Themes"""
-
 	theme = get_theme_list.get()
 	theme_open = open(theme_path+theme, 'r')
 	theme_read = theme_open.read()
 	theme_open.close()
+	presets_window.delete(0.0, END)
 	file_display.delete(0.0, END)
 	file_display.insert(INSERT, theme_read)
+
+	theme_split = str(theme_read.split("$")[0])
+	check_line = theme_split.splitlines()
+	for l in custom_atttributes:
+		for t in check_line:
+			if l in t:
+				presets_window.insert(INSERT, t+"\n")
+	cb_syntax(presets_window)
+
 
 
 def theme_list():
@@ -106,7 +115,7 @@ def theme_list():
 		pass
 
 def read_theme_list():
-	"""create theme list fro .themes.txt file and
+	"""create theme list from .themes.txt file and
 	apply to themes option menu"""
 
 	open_theme_list = open(theme_path+".themes.txt", 'r')
@@ -380,6 +389,7 @@ def fd_syntax_highlighting(fd):
 def add_custom(attribute, file_display):
 	"""get custom command and add it to the file"""
 	line = attribute.get("insert linestart", "insert lineend")
+	print(line)
 	com = line.split()[0]
 	file_display.insert(INSERT, "${"+com+"}")
 
@@ -399,3 +409,151 @@ def cb_syntax(attributes_box):
 			attributes_box.tag_add(name, pos_start+"-1l", pos_end+"-1l")
 			if "font" in str(l):
 				x = 0
+
+def get_theme(file_display, option_header, presets_window):
+	load_theme(option_header, file_display, presets_window)
+	syntax_basic(file_display)
+	fd_syntax_highlighting(file_display)
+	cb_syntax(presets_window)
+
+def image_window(file_display):
+    def rs_x(self):
+        """resize y when x is changed"""
+        resize_x(size_x, size_y)
+
+    def rs_y(self):
+        """resize x when y is changed"""
+        resize_y(size_x, size_y)
+
+    def pic_size(self):
+        image_dimensions(image_entry, size_x, size_y)
+        align_image_x.insert(INSERT, '0')
+        align_image_y.insert(INSERT, '0')
+
+    window = Tk()
+    window.title("Add Image")
+    window.grid()
+    window.config(bg="white")
+    window.attributes("-topmost", True)
+
+    image_path_label = tk.Label(window, bg=cs.bgc, text="Image Path:")
+    image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
+
+    image_entry = tk.Entry(window, width=15)
+    image_entry.grid_configure(row=1, column=0, columnspan=3, sticky="NSEW")
+
+    size_label = tk.Label(window, bg=cs.bgc, text="size", justify="left", width=20)
+    size_label.grid_configure(row=2, column=0, columnspan=1, sticky="NSEW")
+
+    size_x = tk.Entry(window, width=5)
+    size_x.grid_configure(row=2, column=1, sticky='NSE')
+
+    size_y = tk.Entry(window, width=5)
+    size_y.grid_configure(row=2, column=2, sticky='NSW')
+
+    im_align = tk.Label(window, bg=cs.bgc, text="align", justify="left")
+    im_align.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
+
+    align_image_x = tk.Entry(window, width=5)
+    align_image_x.grid_configure(row=3, column=1, sticky='NSE')
+
+    align_image_y = tk.Entry(window, width=5)
+    align_image_y.grid_configure(row=3, column=2, sticky='NSW')
+
+    enter_button = tk.Button(window, text="Enter")
+    enter_button.grid_configure(row=4, column=0, sticky="W")
+
+    exit_button = tk.Button(window, text="Exit", command=window.destroy)
+    exit_button.grid_configure(row=4, column=2, sticky="E")
+
+    enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, file_display))
+
+    image_entry.bind('<Return>', pic_size)
+    size_x.bind('<Return>', rs_x)
+    size_y.bind('<Return>', rs_y)
+
+    window.mainloop()
+
+def add_color_window():
+	x=0
+	color_name = ["color", "color0", "color1", "color2", "color3", "color4", "color5", "color6",
+	"color7", "color8", "color9"]
+	window = Tk()
+	window.grid()
+	window.title("Manage Colors")
+	window.attributes("-topmost", True)
+	for l in color_name:
+		label = (l+"_label")
+		win = (l+"_window")
+
+		label = tk.Label(window, text=l+":")
+		label.grid_configure(row=x, column=0)
+
+		win = tk.Entry(window, width=8)
+		win.grid_configure(row=x, column=1)
+
+		x += 1
+	update_button = tk.Button(window, text="update")
+	update_button.grid_configure(row=11, column=0, columnspan=2, sticky='NSEW')
+	window.mainloop()
+
+def themes_window(file_display, presets_window):
+	window = Tk()
+	window.grid()
+	window.title('Themes')
+	window.attributes("-topmost", True)
+
+	theme_name = tk.Label(window, bg=cs.bgc, text="Theme Name:")
+	theme_name.grid_configure(row=0, column=0, columnspan=1)
+
+	theme_display = tk.Entry(window)
+	theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
+
+	save_theme_button = tk.Button(window, text="save theme", command=lambda: save_theme(theme_display, file_display))
+	save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
+
+	open_theme_label = tk.Label(window, text="Open Theme:")
+	open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
+
+	theme_list = read_theme_list()
+	option_header = tk.StringVar(window)
+	option_header.set(theme_list[0])
+
+	themes_list = tk.OptionMenu(window, option_header, *theme_list)
+	themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
+
+	theme_button = tk.Button(window, text="Load")
+	theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
+	theme_button.config(command=lambda: get_theme(file_display, option_header, presets_window))
+
+	window.mainloop()
+
+def font_window(file_display):
+	window = Tk()
+	window.grid()
+	window.title('Fonts')
+	window.attributes("-topmost", True)
+
+	font_label = tk.Label(window, bg=cs.bgc, text="Font Name:")
+	font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
+
+	fs_label = tk.Label(window, bg=cs.bgc, text="Size:")
+	fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
+
+	open_font_list = open(main_path+".fontlist.txt", 'r')
+	font_list = open_font_list.read().splitlines()
+	open_font_list.close()
+	font_list_header = tk.StringVar(window)
+	font_list_header.set(font_list[0])
+
+	fn_entry = tk.OptionMenu(window, font_list_header, *font_list)
+	fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
+
+	fs_entry = tk.Entry(window, width=5)
+	fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NSEW")
+
+	font_submit = tk.Button(window, text="Enter")
+	font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NSEW")
+	font_submit.config(command=lambda: make_font(font_list_header, fs_entry, file_display))
+
+	window.mainloop()

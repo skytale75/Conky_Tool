@@ -1,2 +1,9 @@
 alignr
 Right-justify text, with space of N.
+
+<(Utilize Conky)>
+
+Aligns text, and conky commands (not images) to right border of defined window area (see "minimum width", "minimum height", and "maximum_width" in the conky.config section).
+
+related commands:
+alignc, offset, voffset

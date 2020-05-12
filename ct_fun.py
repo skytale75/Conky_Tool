@@ -35,7 +35,6 @@ class Commands:
             fo_sl = fo_read.splitlines()
             cn = str(fo_sl[0])
             file_open.close()
-
             generic(file_name, cn, fo_read, file_display)
 
     def command(self, file_display):
@@ -45,7 +44,7 @@ class Commands:
             com_out = "${"+self.com_name+"}"
             file_display.insert(INSERT, com_out)
         if self.unique_command == "true":
-            file_open = open(coms_path+self.com_name+".txt", 'r')
+            file_open = open(coms_path+self.com_name.lower()+".txt", 'r')
             fo_read = file_open.read()
             fo_sl = fo_read.splitlines()
             cn = str(fo_sl[0])
@@ -66,7 +65,7 @@ class Commands:
 
 def def_file(my_input):
     """open definition file and return as a string"""
-    open_file = open(main_path+"/coms/"+my_input+".txt")
+    open_file = open(main_path+"coms/"+my_input+".txt")
     read_file = open_file.read()
     open_file.close()
     return str(read_file)
@@ -77,12 +76,11 @@ def generic(window_title, command_name, definition_name, file_display):
     window.title(window_title)
     window.config(bg='white')
     window.wait_visibility(window)
-    window.wm_attributes("-alpha", .1)
+    window.attributes("-topmost", True)
     com_label = tk.Label(window, text=command_name)
     com_label.grid_configure(row=0, column=0, sticky="W")
 
     com_entry = tk.Entry(window, bg="lightblue")
-    com_entry.wm_attributes("-alpha", 1)
     com_entry.grid_configure(row=1, column=0, columnspan=4, sticky="NESW")
     com_entry.insert(INSERT, command_name)
 
