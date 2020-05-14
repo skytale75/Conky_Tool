@@ -2,19 +2,7 @@ from tkinter import *
 import tkinter as tk
 from os import listdir, path
 from pathlib import Path
-
-main_path = path.expanduser('~/Conky_Tool/')
-coms_path = path.expanduser('~/Conky_Tool/coms/')
-
-class conky_stuff:
-    '''variables to carry throughout execution of commands'''
-        
-    # variables
-    x = 0
-    y = 0
-    results = []
-    selected = 'commands'
-    bgc = "#6B959E"
+from common_stuff import Common_Stuff as cs
 
 # setup dictionary function . . . functions = {"functon_name:" function}
 # call dictionary function . . . functions["function_name"]()
@@ -28,14 +16,14 @@ class Commands:
         self.unique_command = unique_command
 
     def force_file(self, ww, file_display):
-            get_name = ww.get(0.0, END)
-            file_name = get_name.split()[0]
-            file_open = open(coms_path+file_name+".txt", 'r')
-            fo_read = file_open.read()
-            fo_sl = fo_read.splitlines()
-            cn = str(fo_sl[0])
-            file_open.close()
-            generic(file_name, cn, fo_read, file_display)
+        get_name = ww.get(0.0, END)
+        file_name = get_name.split()[0]
+        file_open = open(cs.coms_path+file_name+".txt", 'r')
+        fo_read = file_open.read()
+        fo_sl = fo_read.splitlines()
+        cn = str(fo_sl[0])
+        file_open.close()
+        generic(file_name, cn, fo_read, file_display)
 
     def command(self, file_display):
         """translate command name to command and insert
@@ -43,8 +31,9 @@ class Commands:
         if self.unique_command == "false":
             com_out = "${"+self.com_name+"}"
             file_display.insert(INSERT, com_out)
+            active_highlighting(file_display, com_out)
         if self.unique_command == "true":
-            file_open = open(coms_path+self.com_name.lower()+".txt", 'r')
+            file_open = open(cs.coms_path+self.com_name.lower()+".txt", 'r')
             fo_read = file_open.read()
             fo_sl = fo_read.splitlines()
             cn = str(fo_sl[0])
@@ -65,7 +54,7 @@ class Commands:
 
 def def_file(my_input):
     """open definition file and return as a string"""
-    open_file = open(main_path+"coms/"+my_input+".txt")
+    open_file = open(cs.coms_path+my_input+".txt")
     read_file = open_file.read()
     open_file.close()
     return str(read_file)
@@ -99,7 +88,7 @@ def generic(window_title, command_name, definition_name, file_display):
 
     def save_file(def_text):
         new_file = def_text.get(0.0, "end-1c")
-        file_open = open(coms_path+window_title+".txt", 'w')
+        file_open = open(cs.coms_path+window_title+".txt", 'w')
         file_open.write(new_file)
         file_open.close()
 
@@ -111,6 +100,14 @@ def generic(window_title, command_name, definition_name, file_display):
 
 
     window.mainloop()
+
+def active_highlighting(widget_name, tag_command):
+    """syntax highlighting for new command"""
+    widget_name.tag_config("active", background='purple', foreground='white')
+    word_length = len(tag_command)
+    pos_start = (f"insert-{word_length}c")
+    print(pos_start)
+    widget_name.tag_add("active", pos_start, INSERT)
     
 
 cm = Commands
