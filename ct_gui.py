@@ -12,6 +12,7 @@ class Notebook:
     def __init__(self, title):
         self.root = Tk()
         self.root.title(title)
+        self.root.geometry("1024x768")
         self.root.bind('<Control-q>', exit)
         self.notebook = ttk.Notebook(self.root)
         self.notebook.grid(row = 1, column = 0, rowspan = 50,

@@ -449,9 +449,21 @@ def image_window(file_display):
 
 def add_color_window(file_display, custom):
     """color management window"""
-    color_entrys = []
-    x=0
-    color_name = cs.aliases
+    def update(color_alias, field_entry, file_display):
+
+        config_window = file_display.get(0.0, END)
+        file_display.delete(0.0, END)
+        file_split = config_window.split("conky.text")
+        config_split = file_split[0].splitlines()
+        the_rest = file_split[1]
+        for line in config_split:
+            if str(color_alias) not in str(line):
+                file_display.insert(INSERT, line+"\n")
+            if str(color_alias) in str(line):
+                file_display.insert(INSERT, "    "+color_alias+" = '"+field_entry.get()+"',\n")
+        file_display.insert(INSERT, "conky.text"+the_rest)
+        save_file(file_display)
+
     window = Tk()
     window.grid()
     window.title("Manage Colors")
@@ -462,77 +474,107 @@ def add_color_window(file_display, custom):
     default_color_label.grid_configure(row=0, column=0, sticky="E")
 
     default_color_entry = tk.Entry(window, width=8)
-    default_color_entry.grid_configure(row=0, column=1)
+    default_color_entry.grid_configure(row=0, column=1)    
 
+    default_color_button = tk.Button(window, width=8, text="update", command=lambda: update("default_color", default_color_entry, file_display))
+    default_color_button.grid_configure(row=0, column=2)
+    
     color0_label = tk.Label(window, text="color0")
     color0_label.grid_configure(row=1, column=0, sticky="E")
 
     color0_entry = tk.Entry(window, width=8)
     color0_entry.grid_configure(row=1, column=1)
+
+    color0_button = tk.Button(window, width=8, text="update", command=lambda: update("color0", color0_entry, file_display))
+    color0_button.grid_configure(row=1, column=2)
  
     color1_label = tk.Label(window, text="color1")
     color1_label.grid_configure(row=2, column=0, sticky="E")
 
     color1_entry = tk.Entry(window, width=8)
     color1_entry.grid_configure(row=2, column=1)
+
+    color1_button = tk.Button(window, width=8, text="update", command=lambda: update("color1", color1_entry, file_display))
+    color1_button.grid_configure(row=2, column=2)
   
     color2_label = tk.Label(window, text="color2")
     color2_label.grid_configure(row=3, column=0, sticky="E")
 
     color2_entry = tk.Entry(window, width=8)
     color2_entry.grid_configure(row=3, column=1)
+
+    color2_button = tk.Button(window, width=8, text="update", command=lambda: update("color2", color2_entry, file_display))
+    color2_button.grid_configure(row=3, column=2)
    
     color3_label = tk.Label(window, text="color3")
     color3_label.grid_configure(row=4, column=0, sticky="E")
 
     color3_entry = tk.Entry(window, width=8)
     color3_entry.grid_configure(row=4, column=1)
+
+    color3_button = tk.Button(window, width=8, text="update", command=lambda: update("color3", color3_entry, file_display))
+    color3_button.grid_configure(row=4, column=2)
    
     color4_label = tk.Label(window, text="color4")
     color4_label.grid_configure(row=5, column=0, sticky="E")
 
     color4_entry = tk.Entry(window, width=8)
     color4_entry.grid_configure(row=5, column=1)
+
+    color4_button = tk.Button(window, width=8, text="update", command=lambda: update("color4", color4_entry, file_display))
+    color4_button.grid_configure(row=5, column=2)
     
     color5_label = tk.Label(window, text="color5")
     color5_label.grid_configure(row=6, column=0, sticky="E")
 
     color5_entry = tk.Entry(window, width=8)
     color5_entry.grid_configure(row=6, column=1)
+
+    color5_button = tk.Button(window, width=8, text="update", command=lambda: update("color5", color5_entry, file_display))
+    color5_button.grid_configure(row=6, column=2)
     
     color6_label = tk.Label(window, text="color6")
     color6_label.grid_configure(row=7, column=0, sticky="E")
 
     color6_entry = tk.Entry(window, width=8)
     color6_entry.grid_configure(row=7, column=1)
+
+    color6_button = tk.Button(window, width=8, text="update", command=lambda: update("color6", color6_entry, file_display))
+    color6_button.grid_configure(row=7, column=2)
     
     color7_label = tk.Label(window, text="color7")
     color7_label.grid_configure(row=8, column=0, sticky="E")
 
     color7_entry = tk.Entry(window, width=8)
     color7_entry.grid_configure(row=8, column=1)
+
+    color7_button = tk.Button(window, width=8, text="update", command=lambda: update("color7", color7_entry, file_display))
+    color7_button.grid_configure(row=8, column=2)
     
     color8_label = tk.Label(window, text="color8")
     color8_label.grid_configure(row=9, column=0, sticky="E")
 
     color8_entry = tk.Entry(window, width=8)
     color8_entry.grid_configure(row=9, column=1)
+
+    color8_button = tk.Button(window, width=8, text="update", command=lambda: update("color8", color8_entry, file_display))
+    color8_button.grid_configure(row=9, column=2)
     
     color9_label = tk.Label(window, text="color9")
     color9_label.grid_configure(row=10, column=0, sticky="E")
 
     color9_entry = tk.Entry(window, width=8)
     color9_entry.grid_configure(row=10, column=1)
- 
+
+    color9_button = tk.Button(window, width=8, text="update", command=lambda: update("color9", color9_entry, file_display))
+    color9_button.grid_configure(row=10, column=2)
+
     for color in file_colors:
-        print(color)
         name = color.split()[0]
         value = str(color.split()[2]).replace("'", '')
         entry_name = eval(name+"_entry")
         entry_name.insert(INSERT, value[0:-1])
 
-    update_button = tk.Button(window, text="update")
-    update_button.grid_configure(row=11, column=0, columnspan=2, sticky='NSEW')
     window.mainloop()
 
 def themes_window(file_display, presets_window):

@@ -11,6 +11,8 @@ class Common_Stuff:
     selected = 'commands'
     bgc = "#6B959E"
 
+    temp_color = ''
+
     # paths
     the_color = ''
     uc_home_path = path.expanduser('~/Conky_Tool/')
@@ -35,6 +37,10 @@ class Common_Stuff:
     clean_list = []
     results = []
     current_colors = []
+    color_aliass = ["default_color", "color0", "color1", "color2", "color3", "color4",
+    "color5", "color6", "color7", "color8", "color9"]
+    font_aliass = ["font0", "font1", "font2", "font3", "font4", "font5"
+    "font6", "font7", "font8", "font9"]
 
     # file pieces
 
