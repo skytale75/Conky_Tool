@@ -54,6 +54,7 @@ Copy that to the ~/bin direcory. Copy and paste the following 2 lines
 into the terminal, one at a time.
 
 cd ~/Conky_Tool
+
 cp utilise ~/bin/utilise
 
 3) Navigate to the bin file and execute chmod +x utilise,
@@ -61,6 +62,7 @@ copy and paste the following 2 lines into the terminal one at
 a time.
 
 cd ~/bin
+
 chmod +x utilise
 
 4) Copy the "Utilise_Conky" folder from inside of the "Conky_Tool"
@@ -68,6 +70,7 @@ folder by copying and pasting the next 2 lines into your terminal,
 one at a time. Press enter after each.
 
 cd ~/Conky_Tool
+
 cp -r Utilise_Conky ~/.config/Utilise_Conky
 
 5) Type utilise into the terminal window to launch Utilise Conky.
