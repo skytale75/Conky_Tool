@@ -1,8 +1,0 @@
-test2
-My_Theme
-theme3
-main_theme
-main_theme2
-poison_tree
-flowers
-new_transparent

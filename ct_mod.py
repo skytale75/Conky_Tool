@@ -87,9 +87,14 @@ def load_theme(get_theme_list, file_display, presets_window):
     """get theme name from options menu and
     open corrisponding theme file in Conky_Themes"""
     theme = get_theme_list.get()
-    theme_open = open(cs.theme_path+theme, 'r')
-    theme_read = theme_open.read()
-    theme_open.close()
+    if "Utilise_Conky" in listdir(cs.config_path):
+        theme_open = open(cs.user_theme_path+theme, 'r')
+        theme_read = theme_open.read()
+        theme_open.close()
+    if "Utilise_Conky" not in listdir(cs.config_path):
+        theme_open = open(cs.theme_path+theme, 'r')
+        theme_read = theme_open.read()
+        theme_open.close()
     presets_window.delete(0.0, END)
     file_display.delete(0.0, END)
     file_display.insert(INSERT, theme_read)
@@ -117,10 +122,22 @@ def theme_list():
 def read_theme_list():
     """create theme list from .themes.txt file and
     apply to themes option menu"""
-
-    open_theme_list = open(cs.theme_path+".themes.txt", 'r')
-    read_theme_list = open_theme_list.read()
-    open_theme_list.close()
+    if "Utilise_Conky" in str(listdir(cs.config_path)):
+        print("user config file found . . .")
+        open_theme_list = open(cs.user_theme_path+".themes.txt", 'r')
+        read_theme_list = open_theme_list.read()
+        open_theme_list.close()
+        open_theme_list = open(cs.user_theme_path+".themes.txt", 'r')
+        read_theme_list = open_theme_list.read()
+        open_theme_list.close()
+    if "Utilise_Conky" not in str(listdir(cs.config_path)):
+        print("user config file not found . . .")
+        open_theme_list = open(cs.theme_path+".themes.txt", 'r')
+        read_theme_list = open_theme_list.read()
+        open_theme_list.close()
+        open_theme_list = open(cs.theme_path+".themes.txt", 'r')
+        read_theme_list = open_theme_list.read()
+        open_theme_list.close()
     end_theme_list = read_theme_list.split()
     return end_theme_list
 

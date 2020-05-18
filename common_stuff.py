@@ -31,7 +31,9 @@ class Common_Stuff:
     coms_path = path.expanduser('~/Conky_Tool/languages/'+language+'/coms/')
     conky_config_path = path.expanduser('~/.config/conky/')
     user_home_path = path.expanduser('~/')
-    theme_path = path.expanduser('~/Conky_Tool/Conky_Themes/')
+    theme_path = path.expanduser('~/Conky_Tool/Utilise_Conky/Conky_Themes/')
+    user_theme_path = path.expanduser('~/.config/Utilise_Conky/Conky_Themes/')
+    config_path = path.expanduser('~/.config/')
 
     help_path = path.expanduser('~/Conky_Tool/languages/'+language+'/help/')    
     config_file = conky_config_path+"conky.conf"
