@@ -41,6 +41,27 @@ package manager to install git. In apt you would type . . .
 
 sudo apt install git
 
+***updated***
+
+2 things i forgot . . .
+open terminal
+type 'ls' (no quotes) and hit enter, look for a folder named 'bin'.
+if the folder is not there, type copy and paste the next line.
+
+mkdir bin
+
+next, copy and paste the next line
+
+cd ~/.config
+
+type 'ls -a' and hit enter, if you do not see a conky file then do the following
+one line at a time
+
+mkdir conky
+cd ~/Conky_Tool/Utilise_Conky/Conkey_Themes
+cp basic_example ~/.config/conky/conky.conf
+
+
 Install
 in the terminal . . .
 make sure you are in the home directory, if not, just type cd and
