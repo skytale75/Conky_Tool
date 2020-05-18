@@ -3,6 +3,7 @@ import tkinter as tk
 from os import listdir, path
 from pathlib import Path
 from common_stuff import Common_Stuff as cs
+from gui_names import gui_names as gn
 
 # setup dictionary function . . . functions = {"functon_name:" function}
 # call dictionary function . . . functions["function_name"]()
@@ -80,7 +81,7 @@ def generic(window_title, command_name, definition_name, file_display):
         output_to_file = "${"+get_contents+"}"
         file_display.insert(INSERT, output_to_file)
 
-    com_button = tk.Button(window, text="Enter", command=enter_button)
+    com_button = tk.Button(window, text=gn.btn_enter, command=enter_button)
     com_button.grid_configure(row=1, column=4, sticky="NESW")
 
     def_text = tk.Text(window, width=100, height=20, wrap='word')
@@ -94,10 +95,10 @@ def generic(window_title, command_name, definition_name, file_display):
         file_open.close()
 
     if cs.editable == 'on':
-        def_sc = tk.Button(window, text="Save Changes", command=lambda: save_file(def_text))
+        def_sc = tk.Button(window, text=gn.btn_save, command=lambda: save_file(def_text))
         def_sc.grid_configure(row=3, column=0, sticky="NESW")
 
-    def_exit = tk.Button(window, text='Exit', command=window.destroy)
+    def_exit = tk.Button(window, text=gn.btn_exit, command=window.destroy)
     def_exit.grid_configure(row=3, column=4, sticky="NESW")
 
 
