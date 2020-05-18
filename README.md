@@ -29,7 +29,7 @@ easy as possible for you to write your own file.
 Every graphical eliment on the main window has a help file.
 All you need to do to open it is press 'Controll + h'.
 
-Download (Clone repository)
+***Download (Clone repository)***
 
 open terminal in home directory, copy/paste next line into
 terminal and press enter.
@@ -48,21 +48,23 @@ open terminal
 type 'ls' (no quotes) and hit enter, look for a folder named 'bin'.
 if the folder is not there, type copy and paste the next line.
 
-mkdir bin
+***mkdir bin***
 
 next, copy and paste the next line
 
-cd ~/.config
+***cd ~/.config***
 
 type 'ls -a' and hit enter, if you do not see a conky file then do the following
 one line at a time
 
-mkdir conky
-cd ~/Conky_Tool/Utilise_Conky/Conkey_Themes
-cp basic_example ~/.config/conky/conky.conf
+***mkdir conky***
+
+***cd ~/Conky_Tool/Utilise_Conky/Conky_Themes***
+
+***cp basic_example ~/.config/conky/conky.conf***
 
 
-Install
+***Install***
 in the terminal . . .
 make sure you are in the home directory, if not, just type cd and
 press enter.
@@ -74,24 +76,24 @@ If it doesn't (I am new to the github repository) move it there.
 Copy that to the ~/bin direcory. Copy and paste the following 2 lines
 into the terminal, one at a time.
 
-cd ~/Conky_Tool
+***cd ~/Conky_Tool***
 
-cp utilise ~/bin/utilise
+***cp utilise ~/bin/utilise***
 
 3) Navigate to the bin file and execute chmod +x utilise,
 copy and paste the following 2 lines into the terminal one at
 a time.
 
-cd ~/bin
+***cd ~/bin***
 
-chmod +x utilise
+***chmod +x utilise***
 
 4) Copy the "Utilise_Conky" folder from inside of the "Conky_Tool"
 folder by copying and pasting the next 2 lines into your terminal,
 one at a time. Press enter after each.
 
-cd ~/Conky_Tool
+***cd ~/Conky_Tool***
 
-cp -r Utilise_Conky ~/.config/Utilise_Conky
+***cp -r Utilise_Conky ~/.config/Utilise_Conky***
 
 5) Type utilise into the terminal window to launch Utilise Conky.
