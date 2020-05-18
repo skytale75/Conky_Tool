@@ -1,2 +1,0 @@
-apcupsd_loadbar
-Bar showing current load.

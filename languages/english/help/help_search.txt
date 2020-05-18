@@ -1,0 +1,14 @@
+Type a word you want to search for within the commands, and it will return all the commands with that word within it's definition in the Commands window (light blue).
+
+change language (not functional yet)
+
+type: -l "language" (example: -l english)
+This will redirect the entire program to get it's definitions and gui element names from that languages folder. As of yet, there is only english.
+
+note
+
+for those interested in translating the program to another language, i have a few tools i am working on to streamline the process as much as possible.
+
+Make Files Editable
+-e on (adds a save function to the definitions pop up window)
+-e (removes the save function from the definitions pop up menu)

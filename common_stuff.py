@@ -2,7 +2,8 @@ from os import listdir, path
 from pathlib import Path
 
 class Common_Stuff:
-    '''variables to carry throughout execution of commands'''
+    '''variables and other stuff to carry
+    throughout execution of commands'''
         
     # variables
 
@@ -12,19 +13,30 @@ class Common_Stuff:
     bgc = "#6B959E"
 
     temp_color = ''
+    hold_command = ''
+    hold_color = ''
+    duplicate_hold = ''
+
+    # switches
+
+    editable = 'on'
+    language = "english"
 
     # paths
+
+    gui_names = path.expanduser('~/Conky_Tool/languages/'+language+"/gui_names.txt")
+
     the_color = ''
     uc_home_path = path.expanduser('~/Conky_Tool/')
-    coms_path = path.expanduser('~/Conky_Tool/coms/')
+    coms_path = path.expanduser('~/Conky_Tool/languages/'+language+'/coms/')
     conky_config_path = path.expanduser('~/.config/conky/')
     user_home_path = path.expanduser('~/')
     theme_path = path.expanduser('~/Conky_Tool/Conky_Themes/')
- 
-    configs_path = path.expanduser('~/Conky_Tool/configs/')
+
+    help_path = path.expanduser('~/Conky_Tool/languages/'+language+'/help/')    
     config_file = conky_config_path+"conky.conf"
-    lua_path = path.expanduser('~/Conky_Tool/lua/')
-    options_path = path.expanduser('~/Conky_Tool/options/')
+    lua_path = path.expanduser('~/Conky_Tool/languages/'+language+'/lua/')
+    options_path = path.expanduser('~/Conky_Tool/languages/'+language+'/options/')
     search_path = coms_path
 
     # lists
@@ -52,3 +64,8 @@ class Common_Stuff:
     text_section = split_open_file[1]
     text_split = text_section.split("$")
     open_file.close()
+
+    color_names = []
+    color_codes = []
+
+    color_dict = {}

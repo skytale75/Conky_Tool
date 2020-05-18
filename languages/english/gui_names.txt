@@ -1,0 +1,34 @@
+Utilise Conky
+Manage Colors
+Fonts
+Add Image
+Themes
+Commands
+Configs
+Lua
+Options
+Search
+Custom
+Description
+Colors
+Fonts
+Add Image
+Themes
+Save
+Quit
+Editor Help
+Description Help
+Commands Help
+Custom Help
+Searchbar Help
+Conky Editor
+Exit
+Enter
+size:
+align:
+update
+Theme Name:
+Save Theme
+Open Theme
+Load
+Font Name:

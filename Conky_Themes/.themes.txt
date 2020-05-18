@@ -5,3 +5,4 @@ main_theme
 main_theme2
 poison_tree
 flowers
+new_transparent

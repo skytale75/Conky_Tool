@@ -1,0 +1,3 @@
+This is simply a list of custom colors. The colors can be updated using the "Colors" button in the main windows' GUI.
+
+Every color alias has an update button, after you add a hex number (#FFFFFF) and hit update, the file will update, and this box will update with the new colors text represented in the chosen color.

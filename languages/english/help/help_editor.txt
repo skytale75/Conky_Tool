@@ -1,0 +1,26 @@
+Add highlighted command to cursor location
+Control + left mouse click
+Control + Enter
+
+Add highlighted Color to cursor location
+Shift + Control + left mouse click
+Shift + Control + Enter
+
+Duplicate line
+Control + d
+
+Undo
+Control + z
+
+redu
+Shift + Control + z
+
+The "save" button saves only the concky.conf file, to update the conky window. To save file as a theme, or override an existing theme, click on the themes button and type the new theme name and click "Save Theme".
+
+Syntax Highlighting
+Yellow = colors
+Pink = fonts
+blue = alignment and offset
+light green = images
+grey = the rest of the commands
+white = Plain text, unrelated to commands.

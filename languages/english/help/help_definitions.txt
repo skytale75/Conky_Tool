@@ -1,0 +1,5 @@
+Open Description in own Window
+
+Control + left mouse click
+
+if editable is set to true, will open a window where you can read and adjust contents. Default at this point is 'on', default will be 'off' in later versions.

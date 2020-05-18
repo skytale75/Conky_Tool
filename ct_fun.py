@@ -16,6 +16,7 @@ class Commands:
         self.unique_command = unique_command
 
     def force_file(self, ww, file_display):
+        """open definition file for any command"""
         get_name = ww.get(0.0, END)
         file_name = get_name.split()[0]
         file_open = open(cs.coms_path+file_name+".txt", 'r')
@@ -60,6 +61,7 @@ def def_file(my_input):
     return str(read_file)
 
 def generic(window_title, command_name, definition_name, file_display):
+    """generic options window for individual commands"""
     window = Tk()
     window.grid()
     window.title(window_title)
@@ -85,15 +87,15 @@ def generic(window_title, command_name, definition_name, file_display):
     def_text.grid_configure(row=2, column=0, columnspan=5)
     def_text.insert(INSERT, definition_name)
 
-
     def save_file(def_text):
         new_file = def_text.get(0.0, "end-1c")
         file_open = open(cs.coms_path+window_title+".txt", 'w')
         file_open.write(new_file)
         file_open.close()
 
-    def_sc = tk.Button(window, text="Save Changes", command=lambda: save_file(def_text))
-    def_sc.grid_configure(row=3, column=0, sticky="NESW")
+    if cs.editable == 'on':
+        def_sc = tk.Button(window, text="Save Changes", command=lambda: save_file(def_text))
+        def_sc.grid_configure(row=3, column=0, sticky="NESW")
 
     def_exit = tk.Button(window, text='Exit', command=window.destroy)
     def_exit.grid_configure(row=3, column=4, sticky="NESW")
@@ -106,7 +108,6 @@ def active_highlighting(widget_name, tag_command):
     widget_name.tag_config("active", background='purple', foreground='white')
     word_length = len(tag_command)
     pos_start = (f"insert-{word_length}c")
-    print(pos_start)
     widget_name.tag_add("active", pos_start, INSERT)
     
 
