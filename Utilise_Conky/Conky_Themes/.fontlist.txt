@@ -1,0 +1,275 @@
+Abyssinica SILR
+Anjali Old Lipi
+Chilanka Regular
+Deja Vu Math Te XGyre
+Deja Vu Sans
+Deja Vu Sans Condensed
+Deja Vu Sans Extra Light
+Deja Vu Sans Mono
+Deja Vu Serif
+Deja Vu Serif Condensed
+Droid Sans Fallback Full
+Dyuthi
+Free Mono
+Free Sans
+Free Serif
+Gargi
+Garuda
+Gubbi
+Jamrul Normal
+Kacst Art
+Kacst Book
+Kacst Decorative
+Kacst Digital
+Kacst Farsi
+Kacst Letter
+Kacst Naskh
+Kacst Office
+Kacst One
+Kacst Pen
+Kacst Poster
+Kacst Qurn
+Kacst Screen
+Kacst Title
+Kacst Title L
+Kalapi
+Karumbi
+Keraleeyam
+Khmer OS
+Khmer OSsys
+Kinnari
+Laksaman
+Liberation Mono
+Liberation Mono Regular
+Liberation Sans
+Liberation Sans Narrow
+Liberation Sans Narrow Regular
+Liberation Sans Regular
+Liberation Serif
+Liberation Serif Regular
+Likhan Normal
+Lohit Assamese
+Lohit Bengali
+Lohit Devanagari
+Lohit Gujarati
+Lohit Gurmukhi
+Lohit Kannada
+Lohit Malayalam
+Lohit Odia
+Lohit Tamil
+Lohit Tamil Classical
+Lohit Telugu
+Loma
+Meera
+Mukti Narrow
+Navilu
+Norasi
+Noto Color Emoji
+Noto Kufi Arabic
+Noto Kufi Arabic Regular
+Noto Mono Regular
+Noto Naskh Arabic
+Noto Naskh Arabic Regular
+Noto Naskh Arabic UI
+Noto Naskh Arabic UIRegular
+Noto Sans
+Noto Sans Adlam Regular
+Noto Sans Adlam Unjoined Regular
+Noto Sans Arabic
+Noto Sans Arabic Regular
+Noto Sans Arabic UI
+Noto Sans Arabic UIRegular
+Noto Sans Armenian
+Noto Sans Armenian Regular
+Noto Sans Avestan Regular
+Noto Sans Bamum Regular
+Noto Sans Bengali
+Noto Sans Bengali Regular
+Noto Sans Bengali UI
+Noto Sans Bengali UIRegular
+Noto Sans Buhid Regular
+Noto Sans Carian Regular
+Noto Sans Chakma Regular
+Noto Sans Cherokee
+Noto Sans Cherokee Regular
+Noto Sans Cypriot Regular
+Noto Sans Deseret Regular
+Noto Sans Devanagari
+Noto Sans Devanagari Regular
+Noto Sans Devanagari UI
+Noto Sans Devanagari UIRegular
+Noto Sans Display
+Noto Sans Display Regular
+Noto Sans Ethiopic
+Noto Sans Ethiopic Regular
+Noto Sans Georgian
+Noto Sans Georgian Regular
+Noto Sans Glagolitic Regular
+Noto Sans Gothic Regular
+Noto Sans Gujarati
+Noto Sans Gujarati Regular
+Noto Sans Gujarati UI
+Noto Sans Gujarati UIRegular
+Noto Sans Gurmukhi
+Noto Sans Gurmukhi Regular
+Noto Sans Gurmukhi UI
+Noto Sans Gurmukhi UIRegular
+Noto Sans Hebrew
+Noto Sans Hebrew Regular
+Noto Sans Kannada
+Noto Sans Kannada Regular
+Noto Sans Kannada UI
+Noto Sans Kannada UIRegular
+Noto Sans Kayah Li Regular
+Noto Sans Khmer
+Noto Sans Khmer Regular
+Noto Sans Khmer UI
+Noto Sans Khmer UIRegular
+Noto Sans Lao
+Noto Sans Lao Regular
+Noto Sans Lao UI
+Noto Sans Lao UIRegular
+Noto Sans Lisu Regular
+Noto Sans Malayalam
+Noto Sans Malayalam Regular
+Noto Sans Malayalam UI
+Noto Sans Malayalam UIRegular
+Noto Sans Mandaic Regular
+Noto Sans Mono
+Noto Sans Mono Regular
+Noto Sans Myanmar
+Noto Sans Myanmar Regular
+Noto Sans Myanmar UI
+Noto Sans Myanmar UIRegular
+Noto Sans NKo Regular
+Noto Sans Ol Chiki Regular
+Noto Sans Old Turkic Regular
+Noto Sans Oriya
+Noto Sans Oriya Regular
+Noto Sans Oriya UI
+Noto Sans Oriya UIRegular
+Noto Sans Osage Regular
+Noto Sans Osmanya Regular
+Noto Sans Regular
+Noto Sans Shavian Regular
+Noto Sans Sinhala
+Noto Sans Sinhala Regular
+Noto Sans Sinhala UI
+Noto Sans Sinhala UIRegular
+Noto Sans Symbols
+Noto Sans Symbols Regular
+Noto Sans Tamil
+Noto Sans Tamil Regular
+Noto Sans Tamil UI
+Noto Sans Tamil UIRegular
+Noto Sans Telugu
+Noto Sans Telugu Regular
+Noto Sans Telugu UI
+Noto Sans Telugu UIRegular
+Noto Sans Thaana
+Noto Sans Thaana Regular
+Noto Sans Thai
+Noto Sans Thai Regular
+Noto Sans Thai UI
+Noto Sans Thai UIRegular
+Noto Sans Tibetan
+Noto Sans Tibetan Regular
+Noto Sans Tifinagh Regular
+Noto Sans Vai Regular
+Noto Serif
+Noto Serif Armenian
+Noto Serif Armenian Regular
+Noto Serif Bengali
+Noto Serif Bengali Regular
+Noto Serif Devanagari
+Noto Serif Devanagari Regular
+Noto Serif Display
+Noto Serif Display Regular
+Noto Serif Ethiopic
+Noto Serif Ethiopic Regular
+Noto Serif Georgian
+Noto Serif Georgian Regular
+Noto Serif Gujarati
+Noto Serif Gujarati Regular
+Noto Serif Hebrew
+Noto Serif Hebrew Regular
+Noto Serif Kannada
+Noto Serif Kannada Regular
+Noto Serif Khmer
+Noto Serif Khmer Regular
+Noto Serif Lao
+Noto Serif Lao Regular
+Noto Serif Malayalam
+Noto Serif Malayalam Regular
+Noto Serif Myanmar
+Noto Serif Myanmar Regular
+Noto Serif Regular
+Noto Serif Sinhala
+Noto Serif Sinhala Regular
+Noto Serif Tamil
+Noto Serif Tamil Regular
+Noto Serif Telugu
+Noto Serif Telugu Regular
+Noto Serif Thai
+Noto Serif Thai Regular
+Padauk
+Padauk Book
+Padauk Book Regular
+Padauk Regular
+Pagul
+Phetsarath_OT
+Pothana2000
+Purisa
+Rachana
+Rachana Regular
+Raghu Malayalam Sans Regular
+Rekha
+Saab
+Samyak Devanagari
+Samyak Gujarati
+Samyak Malayalam
+Samyak Tamil
+Sarai
+Sawasdee
+Suruma
+System San Francisco Text
+System San Francisco Text Medium
+System San Francisco Text Regular
+Tibetan Machine Uni
+Tlwg Mono
+Tlwg Typewriter
+Tlwg Typist
+Tlwg Typo
+Ubuntu B
+Ubuntu BI
+Ubuntu C
+Ubuntu L
+Ubuntu LI
+Ubuntu M
+Ubuntu MI
+Ubuntu Mono B
+Ubuntu Mono BI
+Ubuntu Mono R
+Ubuntu Mono RI
+Ubuntu R
+Ubuntu RI
+Umpush
+Umpush Light
+Uroob
+Waree
+aakarmedium
+ani
+chandas12
+kalimati
+lklug
+mitra
+mry_Kacst Qurn
+nakula
+opens___
+padmaa
+padmaa Medium0.5
+padmaa.1.1
+sahadeva
+samanata
+utkal
+vemana2000
