@@ -52,7 +52,7 @@ if "utilise" not in os.listdir(bin_path):
     os.chmod(user_utilise, 0o777)
 
 utilise_path = os.path.expanduser("~/.config/Utilise_Conky/")
-conky_themes_path = os.path.expanduser(utilise_path+"/Conky_Themes/")
+conky_themes_path = os.path.expanduser(utilise_path+"Conky_Themes/")
 template_path = os.path.expanduser("~/Conky_Tool/Utilise_Conky/Conky_Themes/")
 
 def the_copy(s_file):

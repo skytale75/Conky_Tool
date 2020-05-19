@@ -145,14 +145,14 @@ def save_theme(get_theme_name, file_display):
     add it to the .themes.txt file, and save file
     to the cs.theme_path"""
     theme_name = get_theme_name.get()
-    theme_file = open(cs.theme_path+".themes.txt", "a")
-    theme_check = open(cs.theme_path+".themes.txt", "r")
+    theme_file = open(cs.user_theme_path+".themes.txt", "a")
+    theme_check = open(cs.user_theme_path+".themes.txt", "r")
     check = theme_check.read()
     theme_check.close()
     if len(theme_name) != 0:
         if theme_name not in check:
             theme_file.write("\n"+theme_name)
-        save_theme = open(cs.theme_path+theme_name, 'w')
+        save_theme = open(cs.user_theme_path+theme_name, 'w')
         the_script = file_display.get(0.0, "end -1c")
         save_theme.write(the_script)
         save_theme.close()
