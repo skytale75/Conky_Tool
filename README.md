@@ -41,59 +41,25 @@ package manager to install git. In apt you would type . . .
 
 sudo apt install git
 
-***updated***
+***install***
 
-2 things i forgot . . .
-open terminal
-type 'ls' (no quotes) and hit enter, look for a folder named 'bin'.
-if the folder is not there, type copy and paste the next line.
-
-***mkdir bin***
-
-next, copy and paste the next line
-
-***cd ~/.config***
-
-type 'ls -a' and hit enter, if you do not see a conky file then do the following
-one line at a time
-
-***mkdir conky***
-
-***cd ~/Conky_Tool/Utilise_Conky/Conky_Themes***
-
-***cp basic_example ~/.config/conky/conky.conf***
+1) Navigate to the Conky_Tool folder in your terminal and run the
+the python script by copying the following 2 lines and executing
+one at a time.
 
 
-***Install***
-in the terminal . . .
-make sure you are in the home directory, if not, just type cd and
-press enter.
+***cd Conky_Tool***
 
-1) The Conky_Tool file should have cloned directly into your home file.
-If it doesn't (I am new to the github repository) move it there.
+***python3 setup.py***
 
-2) Inside the Conky_Tool directory, there is a file called "utilise".
-Copy that to the ~/bin direcory. Copy and paste the following 2 lines
-into the terminal, one at a time.
-
-***cd ~/Conky_Tool***
-
-***cp utilise ~/bin/utilise***
-
-3) Navigate to the bin file and execute chmod +x utilise,
-copy and paste the following 2 lines into the terminal one at
-a time.
+2) Change permissions on your launcher script to allow you to
+run it from anywhere in the terminal by copying the following
+2 lines and executing one at a time.
 
 ***cd ~/bin***
 
 ***chmod +x utilise***
 
-4) Copy the "Utilise_Conky" folder from inside of the "Conky_Tool"
-folder by copying and pasting the next 2 lines into your terminal,
-one at a time. Press enter after each.
+3) Type utilise into the terminal window to launch Utilise Conky.
 
-***cd ~/Conky_Tool***
-
-***cp -r Utilise_Conky ~/.config/Utilise_Conky***
-
-5) Type utilise into the terminal window to launch Utilise Conky.
+***utilise***
