@@ -82,6 +82,10 @@ class Notebook:
         nb.command_find = tk.Entry(nb.frame, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
         nb.command_find.grid_configure(row=0, column=5, columnspan=5, sticky="NSEW")
 
+        nb.in_button = tk.Button(nb.frame, text=gn.how_to, command=lambda: instructions_window())
+        nb.in_button.grid_configure(row=1, column=5, sticky="NESW")
+
+
         nb.com_label = tk.Label(nb.frame, bg=cs.bgc, text=gn.rb_commands, justify="left")
         nb.com_label.grid_configure(row=4, column=0, columnspan=5)
 

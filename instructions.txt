@@ -1,0 +1,56 @@
+Search Bar Instructions (Dark Blue Bar)
+
+Type a word you want to search for within the commands, and it will return all the commands with that word within it's definition in the Commands window (light blue).
+
+-e on (adds a save function to the definitions pop up window)
+-e (removes the save function from the definitions pop up menu)
+
+Command Box (light blue box on the left)
+
+Enter Command to Editor
+Control + Enter
+
+Commands that require no options will automatically enter the editor wherever the cursor is located. Any command that has options, will appear in a special window, with the wiki description and a sample of the format written above the entry widget.
+
+Custom Box (Grey Box in middle)
+
+This is simply a list of custom colors. The colors can be updated using the "Colors" button in the main windows' GUI.
+
+Every color alias has an update button, after you add a hex number (#FFFFFF) and hit update, the file will update, and this box will update with the new colors text represented in the chosen color.
+
+Description Box
+
+Open Description in own Window
+
+Control + left mouse click
+
+if editable is set to true, will open a window where you can read and adjust contents. Default at this point is 'on', default will be 'off' in later versions.
+
+Editor Box (Black box on the right)
+
+Add highlighted command to cursor location
+Control + left mouse click
+Control + Enter
+
+Add highlighted Color to cursor location
+Shift + Control + left mouse click
+Shift + Control + Enter
+
+Duplicate line
+Control + d
+
+Undo
+Control + z
+
+redu
+Shift + Control + z
+
+The "save" button saves only the concky.conf file, to update the conky window. To save file as a theme, or override an existing theme, click on the themes button and type the new theme name and click "Save Theme".
+
+Syntax Highlighting
+Yellow = colors
+Pink = fonts
+blue = alignment and offset
+light green = images
+grey = the rest of the commands
+white = Plain text, unrelated to commands.

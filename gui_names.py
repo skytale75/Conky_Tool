@@ -53,3 +53,5 @@ class gui_names:
 	lbl_open_theme = name[31]
 	btn_load_theme = name[32]
 	lbl_font_name = name[33]
+	win_ins = name[34]
+	how_to = name[35]

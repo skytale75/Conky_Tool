@@ -7,6 +7,7 @@ from PIL import Image
 from re import sub
 from pathlib import Path
 from gui_names import gui_names as gn
+ 
 
 def duplicate_press(file_display):
     """duplicate line in file_display"""
@@ -106,8 +107,6 @@ def load_theme(get_theme_list, file_display, presets_window):
                 t = str(t).strip()
                 presets_window.insert(INSERT, t+"\n")
     cb_syntax(presets_window)
-
-
 
 def theme_list():
     """.themes.txt is a list of themes
@@ -436,6 +435,24 @@ def get_theme(file_display, option_header, presets_window):
     syntax_basic(file_display)
     fd_syntax_highlighting(file_display)
     cb_syntax(presets_window)
+
+def instructions_window():
+    window = Tk()
+    window.title(gn.win_ins)
+    window.grid()
+    window.config(bg='white')
+    window.attributes("-topmost", True)
+
+    dis_text = tk.Text(window, width=70, height=30)
+    dis_text.grid_configure(row=0, column=0)
+
+    open_in = open(cs.uc_home_path+"instructions.txt")
+    instructions = open_in.read()
+    open_in.close()
+
+    dis_text.insert(INSERT, instructions)
+
+    window.mainloop()
 
 def image_window(file_display):
     """create image command window"""

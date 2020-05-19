@@ -32,3 +32,5 @@ Save Theme
 Open Theme
 Load
 Font Name:
+How To
+How To
