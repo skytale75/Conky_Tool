@@ -2,6 +2,8 @@
 
 Contact Information
 
+Facebook group for questions and answers is https://www.facebook.com/groups/666099570622915
+
 My email is skytale75@yandex.com, if you have any issues
 installing this, please let me know, and paste any output
 that may result in the terminal window into the file. I am
