@@ -6,6 +6,7 @@ bin_file_path = os.path.expanduser("~/bin")
 
 if "bin" in os.listdir(home_path):
     print("Found '~/bin' directory . . .")
+    os.chmod(bin_file_path, 0o777)
 if "bin" not in os.listdir(home_path):
     print("'~/bin' directory not found, creating ~/bin directory . . .")
     os.mkdir(home_path+"bin")
@@ -39,6 +40,7 @@ user_utilise = os.path.expanduser("~/bin/utilise")
 
 if "utilise" in os.listdir(bin_path):
     print("'utlize' command found in ~/bin")
+    os.chmod(user_utilise, 0o777)
 if "utilise" not in os.listdir(bin_path):
     print("'utilise' command not found in '~/bin', creating file . . .")
     old_u = open(utilise, 'r')
