@@ -180,6 +180,8 @@ class Notebook:
             help_window('help_CL.txt', "Command Box Help")
         def custom_help(self):
             help_window("help_custom.txt", "Custom Colors Help")
+        def save_kc(self):
+            save_file(nb.file_display, nb.custom_window)
 
         nb.com_list_box.tag_config("command", background="white")
         nb.com_list_box.bind('<KeyRelease-Down>', definition)
@@ -195,7 +197,8 @@ class Notebook:
         nb.file_display.bind('<Control-ButtonRelease-1>', command_line)
         nb.file_display.bind('<Shift-Control-Return>', ps_command)
         nb.file_display.bind('<Shift-Control-ButtonRelease-1>', ps_command)        
-        nb.file_display.bind('<Control-d>', dup_down)               
+        nb.file_display.bind('<Control-d>', dup_down)   
+        nb.file_display.bind('<Control-s>', save_kc)            
         nb.wiki_window.bind('<Control-Return>', force_def)
         nb.wiki_window.bind('<Control-Button-1>', force_def)
         nb.wiki_window.bind('<Control-h>', definitions_help)
