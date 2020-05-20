@@ -62,13 +62,17 @@ def the_copy(s_file):
     open_copy = open(conky_themes_path+s_file, 'w')
     open_copy.write(read_template)
     open_copy.close()
+    os.chmod(conky_themes_path+s_file, 0o777)
 
 if "Utilise_Conky" in os.listdir(conky_path):
     print("'Utilise_Conky' directory found in '~/.config' . . .")
 if "Utilise_Conky" not in os.listdir(conky_path):
     print("'Utilise_Conky' directory not found in '~/.config', creating. . .")
-    os.mkdir(os.path.expanduser("~/.config/"+"Utilise_Conky"))
+    util_fol = os.path.expanduser("~/.config/"+"Utilise_Conky")
+    os.mkdir(util_fol)
+    os.chmod(util_fol, 0o777)
     os.mkdir(utilise_path+"Conky_Themes")
+    os.chmod(utilise_path+"Conky_Themes", 0o777)
     the_copy("basic_example")
     the_copy("new_transparent")
     the_copy(".fontlist.txt")
