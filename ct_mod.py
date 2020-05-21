@@ -258,6 +258,7 @@ def font_list():
     open_font_list = open(".fontlist.txt", 'w')
     for l in sorted(clean_list):
         open_font_list.write(l+"\n")
+        cs.font_list.append(l)
     open_font_list.close()
 
 def make_font(font_n, font_s, file_display):
@@ -750,27 +751,41 @@ def font_window(file_display):
     window.title(gn.win_fonts)
     window.attributes("-topmost", True)
 
+    cs.toggle=0
+
+    def font_search(foo):
+        the_search = font_search_bar.get()
+        fn_entry.delete(0.0, END)
+        for l in cs.font_list:
+            if the_search.lower() in str(l).lower():
+                fn_entry.insert(INSERT, l+"\n")
+
+    def search_su(foo):
+        if cs.toggle == 0:
+            font_search_bar.delete(0, END)
+            cs.toggle = 1
+
+    font_search_bar = tk.Entry(window, bg="darkblue", fg="white")
+    font_search_bar.grid_configure(row=0, column=0, columnspan=2, sticky="NESW")
+    font_search_bar.insert(INSERT, "Search fonts . . .")
+    font_search_bar.bind("<Button-1>", search_su)
+    font_search_bar.bind("<KeyPress>", font_search)
+
     font_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_font_name)
     font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
 
     fs_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_size)
     fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
 
-    open_font_list = open(cs.uc_home_path+".fontlist.txt", 'r')
-    font_list = open_font_list.read().splitlines()
-    open_font_list.close()
-
     fn_entry = tk.Text(window, width=35, height=8)
     fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
 
     fn_entry.tag_config("backdrop", background=cs.bgc)
-
     fn_entry.delete(0.0, END)
 
-    for l in font_list:
+    for l in cs.font_list:
         fn_entry.insert(INSERT, l+"\n")
 
-  
     def clear_tag(foo):
         fn_entry.tag_remove("backdrop", 0.0, END)
     def tag_it(foo):

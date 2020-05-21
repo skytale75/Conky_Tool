@@ -19,7 +19,7 @@ class Common_Stuff:
     font_hold = ''
 
     # switches
-
+    toggle = 0
     answer = ''
     editable = 'on'
     language = "english"
@@ -30,17 +30,18 @@ class Common_Stuff:
 
     the_color = ''
     uc_home_path = path.expanduser('~/Conky_Tool/')
-    coms_path = path.expanduser('~/Conky_Tool/languages/'+language+'/coms/')
     conky_config_path = path.expanduser('~/.config/conky/')
     user_home_path = path.expanduser('~/')
     theme_path = path.expanduser('~/Conky_Tool/Utilise_Conky/Conky_Themes/')
     user_theme_path = path.expanduser('~/.config/Utilise_Conky/Conky_Themes/')
     config_path = path.expanduser('~/.config/')
 
+    configs_path = path.expanduser('~/Conky_Tool/languages/'+language+'/configs/')
+    coms_path = path.expanduser('~/Conky_Tool/languages/'+language+'/coms/')
     help_path = path.expanduser('~/Conky_Tool/languages/'+language+'/help/')    
-    config_file = conky_config_path+"conky.conf"
     lua_path = path.expanduser('~/Conky_Tool/languages/'+language+'/lua/')
     options_path = path.expanduser('~/Conky_Tool/languages/'+language+'/options/')
+    config_file = conky_config_path+"conky.conf"
     search_path = coms_path
 
     # lists
@@ -49,6 +50,7 @@ class Common_Stuff:
     "color5 =", "color6 =", "color7 =", "color8 =","color9 =",
     "font0 =", "font1 =", "font2 =", "font3 =", "font4 =", "font5 ="
     "font6 =", "font7 =", "font8 =", "font9 =")
+    font_list = []
     dirty_list = []
     clean_list = []
     results = []

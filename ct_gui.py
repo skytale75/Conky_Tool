@@ -182,6 +182,8 @@ class Notebook:
             help_window("help_custom.txt", "Custom Colors Help")
         def save_kc(self):
             save_file(nb.file_display, nb.custom_window)
+        def play(self):
+            print("shit")
 
         nb.com_list_box.tag_config("command", background="white")
         nb.com_list_box.bind('<KeyRelease-Down>', definition)
@@ -202,7 +204,7 @@ class Notebook:
         nb.wiki_window.bind('<Control-Return>', force_def)
         nb.wiki_window.bind('<Control-Button-1>', force_def)
         nb.wiki_window.bind('<Control-h>', definitions_help)
-        nb.command_find.bind('<Return>', search_com)
+        nb.command_find.bind('<KeyRelease>', search_com)
         nb.command_find.bind('<Control-h>', search_help)
         nb.custom_window.bind('<Shift-Control-Return>', ps_command)
         nb.custom_window.bind('<ButtonRelease-1>', hc)
