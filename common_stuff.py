@@ -16,9 +16,11 @@ class Common_Stuff:
     hold_command = ''
     hold_color = ''
     duplicate_hold = ''
+    font_hold = ''
 
     # switches
 
+    answer = ''
     editable = 'on'
     language = "english"
 

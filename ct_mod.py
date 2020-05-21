@@ -103,7 +103,7 @@ def load_theme(get_theme_list, file_display, presets_window):
     check_line = theme_split.splitlines()
     for l in cs.color_aliass:
         for t in check_line:
-            if l in t:
+            if l in t and "-[[" not in t:
                 t = str(t).strip()
                 presets_window.insert(INSERT, t+"\n")
     cb_syntax(presets_window)
@@ -122,7 +122,6 @@ def read_theme_list():
     """create theme list from .themes.txt file and
     apply to themes option menu"""
     if "Utilise_Conky" in str(listdir(cs.config_path)):
-        print("user config file found . . .")
         open_theme_list = open(cs.user_theme_path+".themes.txt", 'r')
         read_theme_list = open_theme_list.read()
         open_theme_list.close()
@@ -130,7 +129,6 @@ def read_theme_list():
         read_theme_list = open_theme_list.read()
         open_theme_list.close()
     if "Utilise_Conky" not in str(listdir(cs.config_path)):
-        print("user config file not found . . .")
         open_theme_list = open(cs.theme_path+".themes.txt", 'r')
         read_theme_list = open_theme_list.read()
         open_theme_list.close()
@@ -140,22 +138,57 @@ def read_theme_list():
     end_theme_list = read_theme_list.split()
     return end_theme_list
 
-def save_theme(get_theme_name, file_display):
+def make_sure(check_this):
+    check_win = Tk()
+    check_win.title(gn.win_ins)
+    check_win.grid()
+    check_win.config(bg='white')
+    check_win.attributes("-topmost", True)
+
+    question = "Are you sure you want to overwrite "+check_this
+
+    ask_if = tk.Label(check_win, text=question)
+    ask_if.grid_configure(row=0, column=0, columnspan=2)
+
+    def yup():
+        cs.answer = "yes"
+        check_win.destroy()
+    def nope():
+        cs.answer = "no"
+        check_win.destroy()
+
+    yes = tk.Button(check_win, text="yes", command=yup)
+    yes.grid_configure(row=1, column=0, sticky="NESW")
+
+    no = tk.Button(check_win, text="no", command=nope)
+    no.grid_configure(row=1, column=1, sticky="NESW")
+
+    check_win.mainloop()
+
+def theme_prompt(get_theme_name, file_display):
     """get theme name from theme name entry widget
     add it to the .themes.txt file, and save file
     to the cs.theme_path"""
     theme_name = get_theme_name.get()
     theme_file = open(cs.user_theme_path+".themes.txt", "a")
     theme_check = open(cs.user_theme_path+".themes.txt", "r")
-    check = theme_check.read()
+    check_default = ["basic_example", "new_transparent"]
+    check_added = theme_check.read()
     theme_check.close()
     if len(theme_name) != 0:
-        if theme_name not in check:
+        if theme_name not in check_default and theme_name not in check_added:
             theme_file.write("\n"+theme_name)
-        save_theme = open(cs.user_theme_path+theme_name, 'w')
-        the_script = file_display.get(0.0, "end -1c")
-        save_theme.write(the_script)
-        save_theme.close()
+            write_theme = open(cs.user_theme_path+theme_name, 'w')
+            the_script = file_display.get(0.0, "end -1c")
+            write_theme.write(the_script)
+            write_theme.close()
+        if theme_name in check_added and theme_name not in check_default:
+            write_theme = open(cs.user_theme_path+theme_name, 'w')
+            the_script = file_display.get(0.0, "end -1c")
+            write_theme.write(the_script)
+            write_theme.close()
+        if theme_name in check_default:
+            pass
     else:
         pass
     theme_file.close()
@@ -228,7 +261,7 @@ def font_list():
     open_font_list.close()
 
 def make_font(font_n, font_s, file_display):
-    name = font_n.get()
+    name = font_n
     size = font_s.get()
     font_output = ("${font "+name+":size="+size+"}")
     file_display.insert(INSERT, font_output)
@@ -406,7 +439,10 @@ def add_custom(attribute, file_display):
     """get custom command and add it to the file"""
     line = cs.hold_color
     com = line.split()[0]
-    file_display.insert(INSERT, "${"+com+"}")
+    if com != "default_color":
+        file_display.insert(INSERT, "${"+com+"}")
+    if com == "default_color":
+        file_display.insert(INSERT, "${color}")
 
 def cb_syntax(attributes_box):
     """custom box add list items and syntax highlighting"""
@@ -688,7 +724,7 @@ def themes_window(file_display, presets_window):
     theme_display = tk.Entry(window)
     theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
 
-    save_theme_button = tk.Button(window, text=gn.btn_save_theme, command=lambda: save_theme(theme_display, file_display))
+    save_theme_button = tk.Button(window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, file_display))
     save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
 
     open_theme_label = tk.Label(window, text=gn.lbl_open_theme)
@@ -723,18 +759,36 @@ def font_window(file_display):
     open_font_list = open(cs.uc_home_path+".fontlist.txt", 'r')
     font_list = open_font_list.read().splitlines()
     open_font_list.close()
-    font_list_header = tk.StringVar(window)
-    font_list_header.set(font_list[0])
 
-    fn_entry = tk.OptionMenu(window, font_list_header, *font_list)
+    fn_entry = tk.Text(window, width=35, height=8)
     fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
 
-    fs_entry = tk.Entry(window, width=5)
-    fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NSEW")
+    fn_entry.tag_config("backdrop", background=cs.bgc)
 
+    fn_entry.delete(0.0, END)
+
+    for l in font_list:
+        fn_entry.insert(INSERT, l+"\n")
+
+  
+    def clear_tag(foo):
+        fn_entry.tag_remove("backdrop", 0.0, END)
+    def tag_it(foo):
+        fn_entry.tag_add("backdrop", "insert linestart", "insert lineend")
+        cs.font_hold = fn_entry.get("insert linestart", "insert lineend")
+
+    fs_entry = tk.Entry(window, width=5)
+    fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NEW")
+
+    fn_entry.bind("<Button-1>", clear_tag)
+    fn_entry.bind("<ButtonRelease-1>", tag_it)
+    fn_entry.bind("<Up>", clear_tag)
+    fn_entry.bind("<KeyRelease-Up>", tag_it)
+    fn_entry.bind("<Down>", clear_tag)
+    fn_entry.bind("<KeyRelease-Down>", tag_it)
     font_submit = tk.Button(window, text=gn.btn_enter)
-    font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NSEW")
-    font_submit.config(command=lambda: make_font(font_list_header, fs_entry, file_display))
+    font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NEW")
+    font_submit.config(command=lambda: make_font(cs.font_hold, fs_entry, file_display))
 
     window.mainloop()
 

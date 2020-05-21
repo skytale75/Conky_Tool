@@ -56,3 +56,24 @@ and press 'Enter'.
 
 
 2) Run, type 'utilise' in the terminal and press enter.
+
+***updates as of May 20, 2020***
+
+1) Changed font selection . . . *
+2) Fixed theme issues, they weren't saving properly.
+
+***Things to come***
+
+Will add font fields similar to the "color management" window
+that will automatically load the font aliases into the appropriate
+fields. Will also add a text box to display fonts in use that aren't
+set toan alias for older versions of conky.
+
+Going to change the images window, when you add an image and change the
+alignment, it will automatically delete the old insertion, and re-enter
+the image command with the new alignment values.
+
+Going to experiment with a "dialogue box by line" idea . . . The
+concept will be, when you hit control right click, it will read the
+contents of the line, and create a working dialogue for each
+'part'. Font box, text box, color box, etc etc.
