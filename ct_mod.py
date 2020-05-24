@@ -72,7 +72,6 @@ def open_file(file_display, custom_AB):
     and prepare it for editing and
     save as conky.conf, autoname 
     user_theme1"""
-
     if "conky.conf" in listdir(cs.conky_config_path):
         print("conky.conf found")
         the_path = cs.conky_config_path+"conky.conf"
@@ -111,7 +110,6 @@ def load_theme(get_theme_list, file_display, presets_window):
 def theme_list():
     """.themes.txt is a list of themes
     to feed to the themes drop down box"""
-
     if ".themes.txt" not in listdir(cs.theme_path):
         make_tf = open(cs.theme_path+".themes.txt", 'w')
         make_tf.write("test")
@@ -137,33 +135,6 @@ def read_theme_list():
         open_theme_list.close()
     end_theme_list = read_theme_list.split()
     return end_theme_list
-
-def make_sure(check_this):
-    check_win = Tk()
-    check_win.title(gn.win_ins)
-    check_win.grid()
-    check_win.config(bg='white')
-    check_win.attributes("-topmost", True)
-
-    question = "Are you sure you want to overwrite "+check_this
-
-    ask_if = tk.Label(check_win, text=question)
-    ask_if.grid_configure(row=0, column=0, columnspan=2)
-
-    def yup():
-        cs.answer = "yes"
-        check_win.destroy()
-    def nope():
-        cs.answer = "no"
-        check_win.destroy()
-
-    yes = tk.Button(check_win, text="yes", command=yup)
-    yes.grid_configure(row=1, column=0, sticky="NESW")
-
-    no = tk.Button(check_win, text="no", command=nope)
-    no.grid_configure(row=1, column=1, sticky="NESW")
-
-    check_win.mainloop()
 
 def theme_prompt(get_theme_name, file_display):
     """get theme name from theme name entry widget
@@ -195,7 +166,6 @@ def theme_prompt(get_theme_name, file_display):
 
 def save_file(file_display, Custom_AB):
     """open file and save to .conkyrc"""
-
     open_file = open(cs.conky_config_path+"conky.conf", "w")
     write_this = file_display.get(0.0, "end-1c")
     # file_display.delete(0.0, END)
@@ -420,9 +390,7 @@ def fd_syntax_highlighting(file_display):
     file_display.tag_config("font", foreground = 'magenta')
     file_display.tag_config("$", foreground = 'red')
     file_display.tag_config("voffset", foreground = 'cyan')
-
     search_for(file_display, "$", "$")
-
     search_for2(file_display, "color", "color")
     search_for2(file_display, "font", "font")
     search_for2(file_display, "image", "image")
@@ -473,340 +441,6 @@ def get_theme(file_display, option_header, presets_window):
     fd_syntax_highlighting(file_display)
     cb_syntax(presets_window)
 
-def instructions_window():
-    window = Tk()
-    window.title(gn.win_ins)
-    window.grid()
-    window.config(bg='white')
-    window.attributes("-topmost", True)
-
-    dis_text = tk.Text(window, width=70, height=30)
-    dis_text.grid_configure(row=0, column=0)
-
-    open_in = open(cs.uc_home_path+"instructions.txt")
-    instructions = open_in.read()
-    open_in.close()
-
-    dis_text.insert(INSERT, instructions)
-
-    window.mainloop()
-
-def image_window(file_display):
-    """create image command window"""
-    def rs_x(self):
-        """resize y when x is changed"""
-        resize_x(size_x, size_y)
-
-    def rs_y(self):
-        """resize x when y is changed"""
-        resize_y(size_x, size_y)
-
-    def pic_size(self):
-        image_dimensions(image_entry, size_x, size_y)
-        align_image_x.insert(INSERT, '0')
-        align_image_y.insert(INSERT, '0')
-
-    window = Tk()
-    window.title(gn.win_image)
-    window.grid()
-    window.config(bg="white")
-    window.attributes("-topmost", True)
-
-    image_path_label = tk.Label(window, bg=cs.bgc, text="Image Path:")
-    image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
-
-    image_entry = tk.Entry(window, width=15)
-    image_entry.grid_configure(row=1, column=0, columnspan=3, sticky="NSEW")
-
-    size_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_size, justify="left", width=20)
-    size_label.grid_configure(row=2, column=0, columnspan=1, sticky="NSEW")
-
-    size_x = tk.Entry(window, width=5)
-    size_x.grid_configure(row=2, column=1, sticky='NSE')
-
-    size_y = tk.Entry(window, width=5)
-    size_y.grid_configure(row=2, column=2, sticky='NSW')
-
-    im_align = tk.Label(window, bg=cs.bgc, text=gn.lbl_align, justify="left")
-    im_align.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
-
-    align_image_x = tk.Entry(window, width=5)
-    align_image_x.grid_configure(row=3, column=1, sticky='NSE')
-
-    align_image_y = tk.Entry(window, width=5)
-    align_image_y.grid_configure(row=3, column=2, sticky='NSW')
-
-    enter_button = tk.Button(window, text=gn.btn_enter)
-    enter_button.grid_configure(row=4, column=0, sticky="W")
-
-    exit_button = tk.Button(window, text=gn.btn_exit, command=window.destroy)
-    exit_button.grid_configure(row=4, column=2, sticky="E")
-
-    enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, file_display))
-
-    image_entry.bind('<Return>', pic_size)
-    size_x.bind('<Return>', rs_x)
-    size_y.bind('<Return>', rs_y)
-
-    window.mainloop()
-
-def add_color_window(file_display, custom):
-    """color management window"""
-    def update(color_alias, field_entry, file_display):
-        """enter new colors based on hex, if not hex locate
-        color name in file and return hex code"""
-        config_window = file_display.get(0.0, END)
-        file_display.delete(0.0, END)
-        file_split = config_window.split("conky.text")
-        config_split = file_split[0].splitlines()
-        the_rest = file_split[1]
-        for line in config_split:
-            if str(color_alias) not in str(line):
-                file_display.insert(INSERT, line+"\n")
-            if str(color_alias) in str(line):
-                if field_entry.get().lower() in cs.color_names:
-                    file_display.insert(INSERT, "    "+color_alias+" = '"+cs.color_dict[field_entry.get().lower()]+"',\n")
-                if field_entry.get().lower() not in cs.color_names:
-                    file_display.insert(INSERT, "    "+color_alias+" = '"+field_entry.get().replace("#", '')+"',\n")
-        file_display.insert(INSERT, "conky.text"+the_rest)
-        save_file(file_display, custom)
-
-    window = Tk()
-    window.grid()
-    window.title(gn.win_colors)
-    window.attributes("-topmost", True)
-    file_colors = custom.get(0.0, "end-1c").splitlines()
-
-    default_color_label = tk.Label(window, text="default_color")
-    default_color_label.grid_configure(row=0, column=0, sticky="E")
-
-    default_color_entry = tk.Entry(window, width=8)
-    default_color_entry.grid_configure(row=0, column=1)    
-
-    default_color_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry, file_display))
-    default_color_button.grid_configure(row=0, column=2)
-    
-    color0_label = tk.Label(window, text="color0")
-    color0_label.grid_configure(row=1, column=0, sticky="E")
-
-    color0_entry = tk.Entry(window, width=8)
-    color0_entry.grid_configure(row=1, column=1)
-
-    color0_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry, file_display))
-    color0_button.grid_configure(row=1, column=2)
- 
-    color1_label = tk.Label(window, text="color1")
-    color1_label.grid_configure(row=2, column=0, sticky="E")
-
-    color1_entry = tk.Entry(window, width=8)
-    color1_entry.grid_configure(row=2, column=1)
-
-    color1_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry, file_display))
-    color1_button.grid_configure(row=2, column=2)
-  
-    color2_label = tk.Label(window, text="color2")
-    color2_label.grid_configure(row=3, column=0, sticky="E")
-
-    color2_entry = tk.Entry(window, width=8)
-    color2_entry.grid_configure(row=3, column=1)
-
-    color2_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry, file_display))
-    color2_button.grid_configure(row=3, column=2)
-   
-    color3_label = tk.Label(window, text="color3")
-    color3_label.grid_configure(row=4, column=0, sticky="E")
-
-    color3_entry = tk.Entry(window, width=8)
-    color3_entry.grid_configure(row=4, column=1)
-
-    color3_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry, file_display))
-    color3_button.grid_configure(row=4, column=2)
-   
-    color4_label = tk.Label(window, text="color4")
-    color4_label.grid_configure(row=5, column=0, sticky="E")
-
-    color4_entry = tk.Entry(window, width=8)
-    color4_entry.grid_configure(row=5, column=1)
-
-    color4_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry, file_display))
-    color4_button.grid_configure(row=5, column=2)
-    
-    color5_label = tk.Label(window, text="color5")
-    color5_label.grid_configure(row=6, column=0, sticky="E")
-
-    color5_entry = tk.Entry(window, width=8)
-    color5_entry.grid_configure(row=6, column=1)
-
-    color5_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry, file_display))
-    color5_button.grid_configure(row=6, column=2)
-    
-    color6_label = tk.Label(window, text="color6")
-    color6_label.grid_configure(row=7, column=0, sticky="E")
-
-    color6_entry = tk.Entry(window, width=8)
-    color6_entry.grid_configure(row=7, column=1)
-
-    color6_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry, file_display))
-    color6_button.grid_configure(row=7, column=2)
-    
-    color7_label = tk.Label(window, text="color7")
-    color7_label.grid_configure(row=8, column=0, sticky="E")
-
-    color7_entry = tk.Entry(window, width=8)
-    color7_entry.grid_configure(row=8, column=1)
-
-    color7_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry, file_display))
-    color7_button.grid_configure(row=8, column=2)
-    
-    color8_label = tk.Label(window, text="color8")
-    color8_label.grid_configure(row=9, column=0, sticky="E")
-
-    color8_entry = tk.Entry(window, width=8)
-    color8_entry.grid_configure(row=9, column=1)
-
-    color8_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry, file_display))
-    color8_button.grid_configure(row=9, column=2)
-    
-    color9_label = tk.Label(window, text="color9")
-    color9_label.grid_configure(row=10, column=0, sticky="E")
-
-    color9_entry = tk.Entry(window, width=8)
-    color9_entry.grid_configure(row=10, column=1)
-
-    color9_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry, file_display))
-    color9_button.grid_configure(row=10, column=2)
-
-    for color in file_colors:
-        name = color.split()[0]
-        value = str(color.split()[2]).replace("'", '')
-        entry_name = eval(name+"_entry")
-        entry_name.insert(INSERT, value[0:-1])
-
-    window.mainloop()
-
-def help_window(help_file, help_title):
-    def save_help():
-        open_save = open(str(cs.help_path)+str(help_file), 'w')
-        open_save.write(help_text.get(0.0, "end-1c"))
-        open_save.close()
-
-    help_window = Tk()
-    help_window.grid()
-    help_window.title(help_title)
-
-    help_open = open(cs.help_path+help_file, 'r')
-    help_read = help_open.read()
-    help_open.close()
-
-    help_text = tk.Text(help_window, width=70, height=20, wrap='word')
-    help_text.grid(row=0, column=0)
-    help_text.insert(INSERT, help_read)
-
-    if cs.editable == 'on':
-        help_save = tk.Button(help_window, text="save", command=save_help)
-        help_save.grid_configure(row=1, column=0, sticky="W")
-
-    help_exit = tk.Button(help_window, text=gn.btn_exit, command=help_window.destroy)
-    help_exit.grid(row=1, column=0, sticky="E")
-
-    help_window.mainloop()
-
-
-def themes_window(file_display, presets_window):
-    """create themes properties window"""
-    window = Tk()
-    window.grid()
-    window.title(gn.win_themes)
-    window.attributes("-topmost", True)
-
-    theme_name = tk.Label(window, bg=cs.bgc, text=gn.lbl_theme_name)
-    theme_name.grid_configure(row=0, column=0, columnspan=1)
-
-    theme_display = tk.Entry(window)
-    theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
-
-    save_theme_button = tk.Button(window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, file_display))
-    save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
-
-    open_theme_label = tk.Label(window, text=gn.lbl_open_theme)
-    open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
-
-    theme_list = read_theme_list()
-    option_header = tk.StringVar(window)
-    option_header.set(theme_list[0])
-
-    themes_list = tk.OptionMenu(window, option_header, *theme_list)
-    themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
-
-    theme_button = tk.Button(window, text=gn.btn_load_theme)
-    theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
-    theme_button.config(command=lambda: get_theme(file_display, option_header, presets_window))
-
-    window.mainloop()
-
-def font_window(file_display):
-    """create font properties window"""
-    window = Tk()
-    window.grid()
-    window.title(gn.win_fonts)
-    window.attributes("-topmost", True)
-
-    cs.toggle=0
-
-    def font_search(foo):
-        the_search = font_search_bar.get()
-        fn_entry.delete(0.0, END)
-        for l in cs.font_list:
-            if the_search.lower() in str(l).lower():
-                fn_entry.insert(INSERT, l+"\n")
-
-    def search_su(foo):
-        if cs.toggle == 0:
-            font_search_bar.delete(0, END)
-            cs.toggle = 1
-
-    font_search_bar = tk.Entry(window, bg="darkblue", fg="white")
-    font_search_bar.grid_configure(row=0, column=0, columnspan=2, sticky="NESW")
-    font_search_bar.insert(INSERT, "Search fonts . . .")
-    font_search_bar.bind("<Button-1>", search_su)
-    font_search_bar.bind("<KeyPress>", font_search)
-
-    font_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_font_name)
-    font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
-
-    fs_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_size)
-    fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
-
-    fn_entry = tk.Text(window, width=35, height=8)
-    fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
-
-    fn_entry.tag_config("backdrop", background=cs.bgc)
-    fn_entry.delete(0.0, END)
-
-    for l in cs.font_list:
-        fn_entry.insert(INSERT, l+"\n")
-
-    def clear_tag(foo):
-        fn_entry.tag_remove("backdrop", 0.0, END)
-    def tag_it(foo):
-        fn_entry.tag_add("backdrop", "insert linestart", "insert lineend")
-        cs.font_hold = fn_entry.get("insert linestart", "insert lineend")
-
-    fs_entry = tk.Entry(window, width=5)
-    fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NEW")
-
-    fn_entry.bind("<Button-1>", clear_tag)
-    fn_entry.bind("<ButtonRelease-1>", tag_it)
-    fn_entry.bind("<Up>", clear_tag)
-    fn_entry.bind("<KeyRelease-Up>", tag_it)
-    fn_entry.bind("<Down>", clear_tag)
-    fn_entry.bind("<KeyRelease-Down>", tag_it)
-    font_submit = tk.Button(window, text=gn.btn_enter)
-    font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NEW")
-    font_submit.config(command=lambda: make_font(cs.font_hold, fs_entry, file_display))
-
-    window.mainloop()
-
 def show_def(com_list_box, wiki_window,):
     """load definition in wiki window"""
     exceptions = ["else", "exec", "eval"] # exceptions are also python functions and cause problems
@@ -831,3 +465,33 @@ def show_def(com_list_box, wiki_window,):
         pass
     if cs.selected == "options":
         pass
+
+def load_by_line(command_box, custom_box, file_display):
+    cs.line_list = []
+    load_line = file_display.get("insert linestart", "insert lineend")
+    cs.line_hold = load_line
+    
+    format_this = cs.line_hold.split("$")
+    for l in format_this:
+        check = l.split("}")
+        if len(check) > 1:
+            if check[1] != '':
+                cs.line_list.append("$"+check[0]+"}")
+                cs.line_list.append(check[1])
+            if check[1] == '':
+                cs.line_list.append("$"+check[0]+"}")
+        if len(check) == 1 and check[0] != '':
+            cs.line_list.append("$"+check[0]+"}")
+
+def cbl_update(cbl_text, command_box, custom_box, file_display):
+    cs.line_list = cbl_text.get(0.0, END).splitlines()
+    file_display.delete("insert linestart", "insert lineend")
+    for line in cs.line_list:
+        file_display.insert(INSERT, line)
+    load_by_line(command_box, custom_box, file_display)
+    save_file(file_display, custom_box)
+
+def insert_line(cbl_text):
+    cbl_text.delete(0.0, END)
+    for line in cs.line_list:
+        cbl_text.insert(INSERT, line+"\n")

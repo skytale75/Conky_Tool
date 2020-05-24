@@ -17,6 +17,8 @@ class Common_Stuff:
     hold_color = ''
     duplicate_hold = ''
     font_hold = ''
+    line_hold = ''
+    line_list = []
 
     # switches
     toggle = 0

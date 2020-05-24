@@ -73,7 +73,10 @@ Going to change the images window, when you add an image and change the
 alignment, it will automatically delete the old insertion, and re-enter
 the image command with the new alignment values.
 
-Going to experiment with a "dialogue box by line" idea . . . The
-concept will be, when you hit control right click, it will read the
-contents of the line, and create a working dialogue for each
-'part'. Font box, text box, color box, etc etc.
+Working on a line to page concept, Control-p will take the line the 
+cursor is currently on, and open a window with a text field into
+its own page, each command will be on it's own line. When you push
+submit, the line in the original will be deleted and the new page will
+re-insert in in a single line. I think this will help keep the
+conky.conf much easier to read. If you make no changes you can hit
+a cancel button.
