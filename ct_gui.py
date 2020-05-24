@@ -371,7 +371,7 @@ class Notebook:
         default_color_entry = tk.Entry(window, width=8)
         default_color_entry.grid_configure(row=0, column=1)    
 
-        default_color_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry, nb.file_display))
+        default_color_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry))
         default_color_button.grid_configure(row=0, column=2)
         
         color0_label = tk.Label(window, text="color0")
@@ -380,7 +380,7 @@ class Notebook:
         color0_entry = tk.Entry(window, width=8)
         color0_entry.grid_configure(row=1, column=1)
 
-        color0_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry, nb.file_display))
+        color0_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry))
         color0_button.grid_configure(row=1, column=2)
     
         color1_label = tk.Label(window, text="color1")
@@ -389,7 +389,7 @@ class Notebook:
         color1_entry = tk.Entry(window, width=8)
         color1_entry.grid_configure(row=2, column=1)
 
-        color1_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry, nb.file_display))
+        color1_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry))
         color1_button.grid_configure(row=2, column=2)
     
         color2_label = tk.Label(window, text="color2")
@@ -398,7 +398,7 @@ class Notebook:
         color2_entry = tk.Entry(window, width=8)
         color2_entry.grid_configure(row=3, column=1)
 
-        color2_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry, nb.file_display))
+        color2_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry))
         color2_button.grid_configure(row=3, column=2)
     
         color3_label = tk.Label(window, text="color3")
@@ -407,7 +407,7 @@ class Notebook:
         color3_entry = tk.Entry(window, width=8)
         color3_entry.grid_configure(row=4, column=1)
 
-        color3_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry, nb.file_display))
+        color3_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry))
         color3_button.grid_configure(row=4, column=2)
     
         color4_label = tk.Label(window, text="color4")
@@ -416,7 +416,7 @@ class Notebook:
         color4_entry = tk.Entry(window, width=8)
         color4_entry.grid_configure(row=5, column=1)
 
-        color4_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry, nb.file_display))
+        color4_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry))
         color4_button.grid_configure(row=5, column=2)
         
         color5_label = tk.Label(window, text="color5")
@@ -425,7 +425,7 @@ class Notebook:
         color5_entry = tk.Entry(window, width=8)
         color5_entry.grid_configure(row=6, column=1)
 
-        color5_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry, nb.file_display))
+        color5_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry))
         color5_button.grid_configure(row=6, column=2)
         
         color6_label = tk.Label(window, text="color6")
@@ -434,7 +434,7 @@ class Notebook:
         color6_entry = tk.Entry(window, width=8)
         color6_entry.grid_configure(row=7, column=1)
 
-        color6_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry, nb.file_display))
+        color6_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry))
         color6_button.grid_configure(row=7, column=2)
         
         color7_label = tk.Label(window, text="color7")
@@ -443,7 +443,7 @@ class Notebook:
         color7_entry = tk.Entry(window, width=8)
         color7_entry.grid_configure(row=8, column=1)
 
-        color7_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry, nb.file_display))
+        color7_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry))
         color7_button.grid_configure(row=8, column=2)
         
         color8_label = tk.Label(window, text="color8")
@@ -452,7 +452,7 @@ class Notebook:
         color8_entry = tk.Entry(window, width=8)
         color8_entry.grid_configure(row=9, column=1)
 
-        color8_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry, nb.file_display))
+        color8_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry))
         color8_button.grid_configure(row=9, column=2)
         
         color9_label = tk.Label(window, text="color9")
@@ -461,7 +461,7 @@ class Notebook:
         color9_entry = tk.Entry(window, width=8)
         color9_entry.grid_configure(row=10, column=1)
 
-        color9_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry, nb.file_display))
+        color9_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry))
         color9_button.grid_configure(row=10, column=2)
 
         for color in file_colors:
