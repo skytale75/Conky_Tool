@@ -8,7 +8,6 @@ from re import sub
 from pathlib import Path
 from gui_names import gui_names as gn
  
-
 def duplicate_press(file_display):
     """duplicate line in file_display"""
     cs.duplicate_hold = file_display.get("insert linestart", "insert lineend")
@@ -64,8 +63,11 @@ def load_conf(the_path, file_display, custom_AB):
     open_file = open(the_path, 'r')
     read_file = open_file.read()
     open_file.close()
-    add_CA(read_file, custom_AB)
-    file_display.insert(INSERT, read_file)
+    if len(read_file) != 0:
+        add_CA(read_file, custom_AB)
+        file_display.insert(INSERT, read_file)
+    if len(read_file) == 0:
+        file_display.insert(INSERT, "file empty\nplease load theme.")
 
 def open_file(file_display, custom_AB):
     """look for current conky file
@@ -177,13 +179,6 @@ def save_file(file_display, Custom_AB):
     fd_syntax_highlighting(file_display)
     open_file.write(write_this)
     open_file.close()
-
-def add_image(ip, isx, isy, iax, iay, file_display):
-    """get image path and dimensions/placement from
-    appropriate entry widgets, format and paste to
-    file_display"""
-    pst = "${image "+ip.get()+" (-p "+iax.get()+","+iay.get()+ " ) "+"(-s "+ isx.get()+ "x"+ isy.get()+ " )"+"}"
-    file_display.insert(INSERT, pst)
 
 def image_dimensions(i_path, image_x, image_y):
     """get picture height and width and load"""
@@ -382,6 +377,33 @@ def search_for2(file_display, word, tag):
                 pos_end = pos_start + offset
                 file_display.tag_add(tag, pos_start, pos_end)
                 pos_start = file_display.search(t, pos_end, END)
+
+def add_image(ip, isx, isy, iax, iay, file_display, Custom_AB):
+    """get image path and dimensions/placement from
+    appropriate entry widgets, format and paste to
+    file_display"""
+    check = file_display.get("insert linestart", "insert lineend")
+    if cs.image_toggle == "true" and "${image" in check:
+        file_display.delete("insert linestart", "insert lineend")
+    pst = "${image "+ip.get()+" (-p "+iax.get()+","+iay.get()+ " ) "+"(-s "+ isx.get()+ "x"+ isy.get()+ " )"+"}"
+    cs.image_hold = pst
+    file_display.insert(INSERT, pst)
+    save_file(file_display, Custom_AB)
+
+def image_from_line(file_display, file_path, size_x, size_y, align_x, align_y):
+    current_line = file_display.get("insert linestart", "insert lineend")
+    if "${image" in current_line:
+        replace_list = ["${image", " (-p ", ",", ") (-s ", "x", " )}"]
+        for replace in replace_list:
+            current_line = current_line.replace(replace, ' ')
+        split_line = current_line.split()
+        file_path.insert(INSERT, split_line[0])
+        size_x.insert(INSERT, split_line[3])
+        cs.x = int(split_line[3])
+        size_y.insert(INSERT, split_line[4])
+        cs.y = int(split_line[4])
+        align_x.insert(INSERT, split_line[1])
+        align_y.insert(INSERT, split_line[2])
 
 def fd_syntax_highlighting(file_display):
     """syntax highlighting for file display"""

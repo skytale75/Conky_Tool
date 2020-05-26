@@ -19,6 +19,8 @@ class Common_Stuff:
     font_hold = ''
     line_hold = ''
     line_list = []
+    image_hold = ''
+    image_toggle = "false"
 
     # switches
     toggle = 0

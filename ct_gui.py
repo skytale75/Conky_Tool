@@ -7,6 +7,7 @@ from common_stuff import Common_Stuff as cs
 from os import listdir
 from PIL import Image
 from gui_names import gui_names as gn
+import subprocess
 
 class Notebook:
 
@@ -64,30 +65,20 @@ class Notebook:
             load_options(nb.wiki_window)
         
         nb.com_radio = tk.Radiobutton(nb.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_commands, variable=nb.v, value=1, command = cr_com)
-        nb.com_radio.grid_configure(row=0, column=0, columnspan=4, sticky="NSEW")
+        nb.com_radio.grid_configure(row=0, column=0, columnspan=5, sticky="NSEW")
         nb.com_radio.select()
 
         nb.con_radio = tk.Radiobutton(nb.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_configs, variable=nb.v, value=2, command = cr_con)
-        nb.con_radio.grid_configure(row=1, column=0, columnspan=4, sticky="NSEW")
+        nb.con_radio.grid_configure(row=1, column=0, columnspan=5, sticky="NSEW")
 
         nb.lua_radio = tk.Radiobutton(nb.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_lua, variable=nb.v, value=3, command = cr_lua)
-        nb.lua_radio.grid_configure(row=2, column=0, columnspan=4, sticky="NSEW")
+        nb.lua_radio.grid_configure(row=2, column=0, columnspan=5, sticky="NSEW")
 
         nb.options_radio = tk.Radiobutton(nb.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_options, variable=nb.v, value=4, command = cr_options)
-        nb.options_radio.grid_configure(row=3, column=0, columnspan=4, sticky="NSEW")
-
-        nb.find_label = tk.Label(nb.frame, bg=cs.bgc, text=gn.lbl_search)
-        nb.find_label.grid_configure(row=0, column=4, columnspan=1)
+        nb.options_radio.grid_configure(row=3, column=0, columnspan=5, sticky="NSEW")
 
         nb.command_find = tk.Entry(nb.frame, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
-        nb.command_find.grid_configure(row=0, column=5, columnspan=5, sticky="NSEW")
-
-        nb.in_button = tk.Button(nb.frame, text=gn.how_to, command=nb.instructions_window)
-        nb.in_button.grid_configure(row=1, column=5, sticky="NESW")
-
-
-        nb.com_label = tk.Label(nb.frame, bg=cs.bgc, text=gn.rb_commands, justify="left")
-        nb.com_label.grid_configure(row=4, column=0, columnspan=5)
+        nb.command_find.grid_configure(row=4, column=0, columnspan=5, sticky="NSEW")
 
         nb.conky_label = tk.Label(nb.frame, bg=cs.bgc, text=cs.config_file, justify='left')
         nb.conky_label.grid_configure(row=0, column=10, columnspan=10)
@@ -182,10 +173,8 @@ class Notebook:
             nb.help_window(self, "help_custom.txt", "Custom Colors Help")
         def save_kc(self):
             save_file(nb.file_display, nb.custom_window)
-        def play(self):
-            print("shit")
-        # def cbl(self):
-        #     conky_by_line(nb.com_list_box, nb.custom_window, nb.file_display)
+        def launch_conky(self):
+            subprocess.call('nconky',shell="true")
         
         nb.com_list_box.tag_config("command", background="white")
         nb.com_list_box.bind('<KeyRelease-Down>', definition)
@@ -214,20 +203,45 @@ class Notebook:
         nb.custom_window.bind('<KeyRelease-Up>', hc)
         nb.custom_window.bind('<KeyRelease-Down>', hc)
         nb.custom_window.bind('<Control-h>', custom_help)
-
+        nb.file_display.bind("<Control-l>", launch_conky)
         nb.file_display.bind("<Control-h>", file_display_help)
 
         open_file(nb.file_display, nb.custom_window)
+        nb.command_find.insert(INSERT, "Search commands . . .")
+
+    def help_frame(self):
+        nb.help_frame = tk.Frame(self.notebook)
+        nb.help_frame.grid(row = 1, sticky='NSEW')
+        self.notebook.add(nb.help_frame,text="help")
+        nb.help_frame.rowconfigure(0, weight=1)
+        nb.help_frame.columnconfigure(0, weight=1)
+
+        open_in = open(cs.uc_home_path+"instructions.txt")
+        instructions = open_in.read()
+        open_in.close()
+
+        nb.help_text = tk.Text(nb.help_frame)
+        nb.help_text.grid_configure(row=0, column=0, sticky="NESW")
+        nb.help_text.insert(INSERT, instructions)
 
     def conky_by_line(self, foo):
-        cbl_window = Tk()
-        cbl_window.grid()
-        cbl_window.attributes("-topmost", True)
-        cbl_window.title("Conky by Line")
+        nb.cbl_window = Tk()
+        nb.cbl_window.grid()
+        nb.cbl_window.attributes("-topmost", True)
+        nb.cbl_window.title("Conky by Line")
 
-        cbl_text = tk.Text(cbl_window, width=60, height = 30)
+        cbl_text = tk.Text(nb.cbl_window, width=60, height = 30)
         cbl_text.grid_configure(row=1, column=0, columnspan=4)
         cbl_text.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
+
+        def cbl_command_custom(self):
+            """add_custom to conky by line window"""
+            add_custom(nb.custom_window, cbl_text)
+        def cbl_command_enter(self):
+            if cs.selected == "commands":
+                the_input = cs.hold_command
+                functions[the_input](cbl_text)
+            return "break"
 
         load_by_line(nb.com_list_box, nb.custom_window, nb.file_display)
         insert_line(cbl_text)
@@ -235,13 +249,18 @@ class Notebook:
         syntax_basic(cbl_text)
         fd_syntax_highlighting(cbl_text)
 
-        cbl_enter = tk.Button(cbl_window, text="Update", command=lambda: cbl_update(cbl_text, nb.com_list_box, nb.custom_window, nb.file_display))
+        cbl_enter = tk.Button(nb.cbl_window, text="Update", command=lambda: cbl_update(cbl_text, nb.com_list_box, nb.custom_window, nb.file_display))
         cbl_enter.grid_configure(row=2, column=3, sticky="NES")
 
-        cbl_exit = tk.Button(cbl_window, text="Exit", command=cbl_window.destroy)
+        cbl_exit = tk.Button(nb.cbl_window, text="Exit", command=nb.cbl_window.destroy)
         cbl_exit.grid_configure(row=2, column=0, sticky="NWS")
+        
+        cbl_text.bind("<Control-Return>", cbl_command_enter)
+        cbl_text.bind("<Control-Button-1>", cbl_command_enter)
+        cbl_text.bind("<Shift-Control-Return>", cbl_command_custom)
+        cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
 
-        cbl_window.mainloop()
+        nb.cbl_window.mainloop()
 
     def themes_window(self):
         """create themes properties window"""
@@ -545,37 +564,24 @@ class Notebook:
         align_image_y.grid_configure(row=3, column=2, sticky='NSW')
 
         enter_button = tk.Button(window, text=gn.btn_enter)
-        enter_button.grid_configure(row=4, column=0, sticky="W")
+        enter_button.grid_configure(row=5, column=0, sticky="W")
 
         exit_button = tk.Button(window, text=gn.btn_exit, command=window.destroy)
-        exit_button.grid_configure(row=4, column=2, sticky="E")
+        exit_button.grid_configure(row=5, column=2, sticky="E")
 
-        enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, nb.file_display))
+        enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, nb.file_display, nb.custom_window))
 
         image_entry.bind('<Return>', pic_size)
         size_x.bind('<Return>', rs_x)
         size_y.bind('<Return>', rs_y)
+        check = nb.file_display.get("insert linestart", "insert lineend")
+        if "${image" in check:
+            cs.image_toggle = "true"
+        if "${image" not in check:
+            cs.image_toggle = "false"
+        image_from_line(nb.file_display, image_entry, size_x, size_y, align_image_x, align_image_y)
 
         window.mainloop()
-
-    def instructions_window(self):
-        window = Tk()
-        window.title(gn.win_ins)
-        window.grid()
-        window.config(bg='white')
-        window.attributes("-topmost", True)
-
-        dis_text = tk.Text(window, width=70, height=30)
-        dis_text.grid_configure(row=0, column=0)
-
-        open_in = open(cs.uc_home_path+"instructions.txt")
-        instructions = open_in.read()
-        open_in.close()
-
-        dis_text.insert(INSERT, instructions)
-
-        window.mainloop()
-
 
     def run(self):
         self.root.mainloop()
@@ -583,6 +589,7 @@ class Notebook:
 nb = Notebook(gn.win_main)
 com = Notebook
 nb.create_widgets(gn.editor)
+nb.help_frame()
 load_commands(nb.com_list_box)
 color_separator()
 syntax_basic(nb.file_display)
