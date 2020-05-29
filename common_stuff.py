@@ -19,10 +19,13 @@ class Common_Stuff:
     font_hold = ''
     line_hold = ''
     line_list = []
+    file_list = ''
     image_hold = ''
     image_toggle = "false"
 
     # switches
+    page_border_toggle = -1
+    graph_border_toggle = -1
     toggle = 0
     answer = ''
     editable = 'on'

@@ -105,6 +105,12 @@ class Notebook:
         nb.image_button = tk.Button(nb.frame, text=gn.btn_img, command =nb.image_window)
         nb.image_button.grid_configure(row=8, column=4, columnspan=2, sticky="NSEW")
 
+        nb.page_borders = tk.Button(nb.frame, text="Page Border", command=lambda: toggle_pb(nb.file_display, nb.custom_window))
+        nb.page_borders.grid_configure(row=8, column=12)
+
+        nb.graph_borders = tk.Button(nb.frame, text="Graph Border", command=lambda: toggle_gb(nb.file_display, nb.custom_window))
+        nb.graph_borders.grid_configure(row=8, column=13)
+
         nb.themes_button = tk.Button(nb.frame, text=gn.btn_themes, command=nb.themes_window)
         nb.themes_button.grid_configure(row=8, column=14, columnspan=2, sticky='NSE')
 

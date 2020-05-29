@@ -517,3 +517,45 @@ def insert_line(cbl_text):
     cbl_text.delete(0.0, END)
     for line in cs.line_list:
         cbl_text.insert(INSERT, line+"\n")
+
+def toggle_gb(file_display, custom_window):
+    cs.file_list = file_display.get(0.0, "end-1c")
+    true_false(file_display)
+    file_display.delete(0.0, END)
+    if cs.graph_border_toggle == -1:
+        cs.file_list = cs.file_list.replace("draw_graph_borders = true,", "draw_graph_borders = false,")
+    if cs.graph_border_toggle == 1:
+        cs.file_list = cs.file_list.replace("draw_graph_borders = false,", "draw_graph_borders = true,")
+    file_display.insert(INSERT, cs.file_list)
+    cs.graph_border_toggle = cs.graph_border_toggle * -1
+    save_file(file_display, custom_window)
+
+def toggle_pb(file_display, custom_window):
+    where = file_display.index(INSERT)
+    print(where)
+    cs.file_list = file_display.get(0.0, "end-1c")
+    true_false(file_display)
+    file_display.delete(0.0, END)
+    if cs.page_border_toggle == -1:
+        cs.file_list = cs.file_list.replace("draw_borders = true,", "draw_borders = false,")
+    if cs.page_border_toggle == 1:
+        cs.file_list = cs.file_list.replace("draw_borders = false,", "draw_borders = true,")
+    file_display.insert(INSERT, cs.file_list)
+    cs.page_border_toggle = cs.page_border_toggle * -1
+    save_file(file_display, custom_window)
+    file_display.see(where)
+    file_display.mark_set("CURSOR", where)
+
+def true_false(file_display):
+    check = file_display.get(0.0, END).splitlines()
+    for l in check:
+        if "draw_borders" in str(l):
+            if "true" in str(l):
+                cs.page_border_toggle = -1
+            if "false" in str(l):
+                cs.page_border_toggle = 1
+        if "draw_graph_borders" in str(l):
+            if "true" in str(l):
+                cs.graph_border_toggle = -1
+            if "false" in str(l):
+                cs.graph_border_toggle = 1
