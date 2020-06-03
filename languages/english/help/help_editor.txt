@@ -1,3 +1,8 @@
+Pagify Line
+(open line as own page, each command on its own line for editing.
+upon entering will replace current line in file)
+Control + p
+
 Add highlighted command to cursor location
 Control + left mouse click
 Control + Enter

@@ -9,6 +9,7 @@ from PIL import Image
 from gui_names import gui_names as gn
 import subprocess
 
+
 class Notebook:
 
     def __init__(self, title):
@@ -99,7 +100,7 @@ class Notebook:
         nb.color_button = tk.Button(nb.frame, text=gn.btn_colors, command=nb.add_color_window)
         nb.color_button.grid_configure(row=8, column=0, columnspan=2, sticky="NESW")
 
-        nb.fonts_button = tk.Button(nb.frame, text=gn.btn_fonts, command=nb.font_window)
+        nb.fonts_button = tk.Button(nb.frame, text=gn.btn_fonts, command=lambda: nb.font_window(nb.file_display))
         nb.fonts_button.grid_configure(row=8, column=2, columnspan=2, sticky='NSEW')
 
         nb.image_button = tk.Button(nb.frame, text=gn.btn_img, command =nb.image_window)
@@ -181,6 +182,9 @@ class Notebook:
             save_file(nb.file_display, nb.custom_window)
         def launch_conky(self):
             subprocess.call('nconky',shell="true")
+        def check_window(self):
+            if 'normal' == nb.font_window.state():
+                print('font window open')
         
         nb.com_list_box.tag_config("command", background="white")
         nb.com_list_box.bind('<KeyRelease-Down>', definition)
@@ -192,6 +196,7 @@ class Notebook:
         nb.com_list_box.bind('<ButtonRelease-1>', definition)
         nb.com_list_box.bind('<Control-h>', command_box_help)
         nb.file_display.bind('<Control-p>', nb.conky_by_line)
+        nb.file_display.bind('<Control-f>', check_window)
         nb.file_display.bind("<Tab>", tab)
         nb.file_display.bind('<Control-Return>', command_line)
         nb.file_display.bind('<Control-ButtonRelease-1>', command_line)
@@ -233,79 +238,83 @@ class Notebook:
     def conky_by_line(self, foo):
         nb.cbl_window = Tk()
         nb.cbl_window.grid()
-        nb.cbl_window.attributes("-topmost", True)
-        nb.cbl_window.title("Conky by Line")
+        nb.cbl_window.attributes("-topmost", 'true')
+        nb.cbl_window.title("Conky by line")
 
-        cbl_text = tk.Text(nb.cbl_window, width=60, height = 30)
-        cbl_text.grid_configure(row=1, column=0, columnspan=4)
-        cbl_text.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
+        nb.cbl_text = tk.Text(nb.cbl_window, width=40, height = 30)
+        nb.cbl_text.grid_configure(row=0, column=0, columnspan=5)
+        nb.cbl_text.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
 
         def cbl_command_custom(self):
             """add_custom to conky by line window"""
-            add_custom(nb.custom_window, cbl_text)
+            add_custom(nb.custom_window, nb.cbl_text)
         def cbl_command_enter(self):
             if cs.selected == "commands":
                 the_input = cs.hold_command
-                functions[the_input](cbl_text)
+                functions[the_input](nb.cbl_text)
             return "break"
 
         load_by_line(nb.com_list_box, nb.custom_window, nb.file_display)
-        insert_line(cbl_text)
+        insert_line(nb.cbl_text)
 
-        syntax_basic(cbl_text)
-        fd_syntax_highlighting(cbl_text)
+        syntax_basic(nb.cbl_text)
+        fd_syntax_highlighting(nb.cbl_text)
 
-        cbl_enter = tk.Button(nb.cbl_window, text="Update", command=lambda: cbl_update(cbl_text, nb.com_list_box, nb.custom_window, nb.file_display))
-        cbl_enter.grid_configure(row=2, column=3, sticky="NES")
+        nb.cbl_enter = tk.Button(nb.cbl_window, text="Update", command=lambda: cbl_update(nb.cbl_text, nb.com_list_box, nb.custom_window, nb.file_display))
+        nb.cbl_enter.grid_configure(row=2, column=4, sticky="NSEW")
 
-        cbl_exit = tk.Button(nb.cbl_window, text="Exit", command=nb.cbl_window.destroy)
-        cbl_exit.grid_configure(row=2, column=0, sticky="NWS")
+        nb.cbl_font = tk.Button(nb.cbl_window, text="fonts", command = lambda: nb.font_window(nb.cbl_text))
+        nb.cbl_font.grid_configure(row=2, column=1, sticky="NWES")
+
+        nb.cbl_exit = tk.Button(nb.cbl_window, text="Exit", command=nb.cbl_window.destroy)
+        nb.cbl_exit.grid_configure(row=2, column=0, sticky="NSEW")
         
-        cbl_text.bind("<Control-Return>", cbl_command_enter)
-        cbl_text.bind("<Control-Button-1>", cbl_command_enter)
-        cbl_text.bind("<Shift-Control-Return>", cbl_command_custom)
-        cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
+        nb.cbl_text.bind("<Control-Return>", cbl_command_enter)
+        nb.cbl_text.bind("<Control-Button-1>", cbl_command_enter)
+        nb.cbl_text.bind("<Shift-Control-Return>", cbl_command_custom)
+        nb.cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
 
-        nb.cbl_window.mainloop()
+        nb.cbl_window.after(5000, lambda: nb.cbl_window.focus_force())
 
     def themes_window(self):
         """create themes properties window"""
-        window = Tk()
-        window.grid()
-        window.title(gn.win_themes)
-        window.attributes("-topmost", True)
 
-        theme_name = tk.Label(window, bg=cs.bgc, text=gn.lbl_theme_name)
+        nb.window = Tk()
+        nb.window.grid()
+        nb.window.title(gn.win_themes)
+        nb.window.attributes("-topmost", True)
+
+        theme_name = tk.Label(nb.window, bg=cs.bgc, text=gn.lbl_theme_name)
         theme_name.grid_configure(row=0, column=0, columnspan=1)
 
-        theme_display = tk.Entry(window)
+        theme_display = tk.Entry(nb.window)
         theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
 
-        save_theme_button = tk.Button(window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, nb.file_display))
+        save_theme_button = tk.Button(nb.window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, nb.file_display))
         save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
 
-        open_theme_label = tk.Label(window, text=gn.lbl_open_theme)
+        open_theme_label = tk.Label(nb.window, text=gn.lbl_open_theme)
         open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
 
         theme_list = read_theme_list()
-        option_header = tk.StringVar(window)
+        option_header = tk.StringVar(nb.window)
         option_header.set(theme_list[0])
 
-        themes_list = tk.OptionMenu(window, option_header, *theme_list)
+        themes_list = tk.OptionMenu(nb.window, option_header, *theme_list)
         themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
 
-        theme_button = tk.Button(window, text=gn.btn_load_theme)
+        theme_button = tk.Button(nb.window, text=gn.btn_load_theme)
         theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
         theme_button.config(command=lambda: get_theme(nb.file_display, option_header, nb.custom_window))
 
-        window.mainloop()
+        nb.window.mainloop()
 
-    def font_window(self):
+    def font_window(self, file_display):
         """create font properties window"""
-        window = Tk()
-        window.grid()
-        window.title(gn.win_fonts)
-        window.attributes("-topmost", True)
+        nb.font_window = Tk()
+        nb.font_window.grid()
+        nb.font_window.title(gn.win_fonts)
+        nb.font_window.attributes("-topmost", True)
 
         cs.toggle=0
 
@@ -321,19 +330,19 @@ class Notebook:
                 font_search_bar.delete(0, END)
                 cs.toggle = 1
 
-        font_search_bar = tk.Entry(window, bg="darkblue", fg="white")
+        font_search_bar = tk.Entry(nb.font_window, bg="darkblue", fg="white")
         font_search_bar.grid_configure(row=0, column=0, columnspan=2, sticky="NESW")
         font_search_bar.insert(INSERT, "Search fonts . . .")
         font_search_bar.bind("<Button-1>", search_su)
         font_search_bar.bind("<KeyPress>", font_search)
 
-        font_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_font_name)
+        font_label = tk.Label(nb.font_window, bg=cs.bgc, text=gn.lbl_font_name)
         font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
 
-        fs_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_size)
+        fs_label = tk.Label(nb.font_window, bg=cs.bgc, text=gn.lbl_size)
         fs_label.grid_configure(row=16, column=3, columnspan=1, sticky="NSEW")
 
-        fn_entry = tk.Text(window, width=35, height=8)
+        fn_entry = tk.Text(nb.font_window, width=35, height=8)
         fn_entry.grid_configure(row=18, columnspan=2, sticky="NSEW")
 
         fn_entry.tag_config("backdrop", background=cs.bgc)
@@ -348,7 +357,7 @@ class Notebook:
             fn_entry.tag_add("backdrop", "insert linestart", "insert lineend")
             cs.font_hold = fn_entry.get("insert linestart", "insert lineend")
 
-        fs_entry = tk.Entry(window, width=5)
+        fs_entry = tk.Entry(nb.font_window, width=5)
         fs_entry.grid_configure(row=18, column=2, columnspan=1, sticky="NEW")
 
         fn_entry.bind("<Button-1>", clear_tag)
@@ -357,11 +366,11 @@ class Notebook:
         fn_entry.bind("<KeyRelease-Up>", tag_it)
         fn_entry.bind("<Down>", clear_tag)
         fn_entry.bind("<KeyRelease-Down>", tag_it)
-        font_submit = tk.Button(window, text=gn.btn_enter)
+        font_submit = tk.Button(nb.font_window, text=gn.btn_enter)
         font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NEW")
-        font_submit.config(command=lambda: make_font(cs.font_hold, fs_entry, nb.file_display))
+        font_submit.config(command=lambda: make_font(cs.font_hold, fs_entry, file_display, nb.conky_by_line))
 
-        window.mainloop()
+        nb.font_window.mainloop()
 
     def add_color_window(self):
         """color management window"""
@@ -384,109 +393,109 @@ class Notebook:
             nb.file_display.insert(INSERT, "conky.text"+the_rest)
             save_file(nb.file_display, nb.custom_window)
 
-        window = Tk()
-        window.grid()
-        window.title(gn.win_colors)
-        window.attributes("-topmost", True)
+        nb.color_manager_window = Tk()
+        nb.color_manager_window.grid()
+        nb.color_manager_window.title(gn.win_colors)
+        nb.color_manager_window.attributes("-topmost", True)
         file_colors = nb.custom_window.get(0.0, "end-1c").splitlines()
 
-        default_color_label = tk.Label(window, text="default_color")
+        default_color_label = tk.Label(nb.color_manager_window, text="default_color")
         default_color_label.grid_configure(row=0, column=0, sticky="E")
 
-        default_color_entry = tk.Entry(window, width=8)
+        default_color_entry = tk.Entry(nb.color_manager_window, width=8)
         default_color_entry.grid_configure(row=0, column=1)    
 
-        default_color_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry))
+        default_color_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry))
         default_color_button.grid_configure(row=0, column=2)
         
-        color0_label = tk.Label(window, text="color0")
+        color0_label = tk.Label(nb.color_manager_window, text="color0")
         color0_label.grid_configure(row=1, column=0, sticky="E")
 
-        color0_entry = tk.Entry(window, width=8)
+        color0_entry = tk.Entry(nb.color_manager_window, width=8)
         color0_entry.grid_configure(row=1, column=1)
 
-        color0_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry))
+        color0_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry))
         color0_button.grid_configure(row=1, column=2)
     
-        color1_label = tk.Label(window, text="color1")
+        color1_label = tk.Label(nb.color_manager_window, text="color1")
         color1_label.grid_configure(row=2, column=0, sticky="E")
 
-        color1_entry = tk.Entry(window, width=8)
+        color1_entry = tk.Entry(nb.color_manager_window, width=8)
         color1_entry.grid_configure(row=2, column=1)
 
-        color1_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry))
+        color1_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry))
         color1_button.grid_configure(row=2, column=2)
     
-        color2_label = tk.Label(window, text="color2")
+        color2_label = tk.Label(nb.color_manager_window, text="color2")
         color2_label.grid_configure(row=3, column=0, sticky="E")
 
-        color2_entry = tk.Entry(window, width=8)
+        color2_entry = tk.Entry(nb.color_manager_window, width=8)
         color2_entry.grid_configure(row=3, column=1)
 
-        color2_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry))
+        color2_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry))
         color2_button.grid_configure(row=3, column=2)
     
-        color3_label = tk.Label(window, text="color3")
+        color3_label = tk.Label(nb.color_manager_window, text="color3")
         color3_label.grid_configure(row=4, column=0, sticky="E")
 
-        color3_entry = tk.Entry(window, width=8)
+        color3_entry = tk.Entry(nb.color_manager_window, width=8)
         color3_entry.grid_configure(row=4, column=1)
 
-        color3_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry))
+        color3_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry))
         color3_button.grid_configure(row=4, column=2)
     
-        color4_label = tk.Label(window, text="color4")
+        color4_label = tk.Label(nb.color_manager_window, text="color4")
         color4_label.grid_configure(row=5, column=0, sticky="E")
 
-        color4_entry = tk.Entry(window, width=8)
+        color4_entry = tk.Entry(nb.color_manager_window, width=8)
         color4_entry.grid_configure(row=5, column=1)
 
-        color4_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry))
+        color4_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry))
         color4_button.grid_configure(row=5, column=2)
         
-        color5_label = tk.Label(window, text="color5")
+        color5_label = tk.Label(nb.color_manager_window, text="color5")
         color5_label.grid_configure(row=6, column=0, sticky="E")
 
-        color5_entry = tk.Entry(window, width=8)
+        color5_entry = tk.Entry(nb.color_manager_window, width=8)
         color5_entry.grid_configure(row=6, column=1)
 
-        color5_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry))
+        color5_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry))
         color5_button.grid_configure(row=6, column=2)
         
-        color6_label = tk.Label(window, text="color6")
+        color6_label = tk.Label(nb.color_manager_window, text="color6")
         color6_label.grid_configure(row=7, column=0, sticky="E")
 
-        color6_entry = tk.Entry(window, width=8)
+        color6_entry = tk.Entry(nb.color_manager_window, width=8)
         color6_entry.grid_configure(row=7, column=1)
 
-        color6_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry))
+        color6_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry))
         color6_button.grid_configure(row=7, column=2)
         
-        color7_label = tk.Label(window, text="color7")
+        color7_label = tk.Label(nb.color_manager_window, text="color7")
         color7_label.grid_configure(row=8, column=0, sticky="E")
 
-        color7_entry = tk.Entry(window, width=8)
+        color7_entry = tk.Entry(nb.color_manager_window, width=8)
         color7_entry.grid_configure(row=8, column=1)
 
-        color7_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry))
+        color7_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry))
         color7_button.grid_configure(row=8, column=2)
         
-        color8_label = tk.Label(window, text="color8")
+        color8_label = tk.Label(nb.color_manager_window, text="color8")
         color8_label.grid_configure(row=9, column=0, sticky="E")
 
-        color8_entry = tk.Entry(window, width=8)
+        color8_entry = tk.Entry(nb.color_manager_window, width=8)
         color8_entry.grid_configure(row=9, column=1)
 
-        color8_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry))
+        color8_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry))
         color8_button.grid_configure(row=9, column=2)
         
-        color9_label = tk.Label(window, text="color9")
+        color9_label = tk.Label(nb.color_manager_window, text="color9")
         color9_label.grid_configure(row=10, column=0, sticky="E")
 
-        color9_entry = tk.Entry(window, width=8)
+        color9_entry = tk.Entry(nb.color_manager_window, width=8)
         color9_entry.grid_configure(row=10, column=1)
 
-        color9_button = tk.Button(window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry))
+        color9_button = tk.Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry))
         color9_button.grid_configure(row=10, column=2)
 
         for color in file_colors:
@@ -495,34 +504,38 @@ class Notebook:
             entry_name = eval(name+"_entry")
             entry_name.insert(INSERT, value[0:-1])
 
-        window.mainloop()
+        nb.color_manager_window.mainloop()
 
     def help_window(self, foo, help_file, help_title):
         def save_help():
             open_save = open(str(cs.help_path)+str(help_file), 'w')
-            open_save.write(help_text.get(0.0, "end-1c"))
+            open_save.write(nb.help_text.get(0.0, "end-1c"))
             open_save.close()
 
-        help_window = Tk()
-        help_window.grid()
-        help_window.title(help_title)
+        nb.help_win = Tk()
+        nb.help_win.grid()
+        nb.help_win.title(help_title)
 
         help_open = open(cs.help_path+help_file, 'r')
         help_read = help_open.read()
         help_open.close()
 
-        help_text = tk.Text(help_window, width=70, height=20, wrap='word')
-        help_text.grid(row=0, column=0)
-        help_text.insert(INSERT, help_read)
+        nb.help_text = tk.Text(nb.help_win, width=70, height=20, wrap='word')
+        nb.help_text.grid(row=0, column=0)
+        nb.help_text.insert(INSERT, help_read)
 
         if cs.editable == 'on':
-            help_save = tk.Button(help_window, text="save", command=save_help)
-            help_save.grid_configure(row=1, column=0, sticky="W")
+            nb.help_save = tk.Button(nb.help_win, text="save", command=save_help)
+            nb.help_save.grid_configure(row=1, column=0, sticky="W")
 
-        help_exit = tk.Button(help_window, text=gn.btn_exit, command=help_window.destroy)
-        help_exit.grid(row=1, column=0, sticky="E")
+        def help_exit():
 
-        help_window.mainloop()
+            nb.help_win.destroy()
+
+        nb.help_exit = tk.Button(nb.help_win, text=gn.btn_exit, command=help_exit)
+        nb.help_exit.grid(row=1, column=0, sticky="E")
+
+        nb.help_win.mainloop()
 
     def image_window(self):
         """create image command window"""
@@ -539,43 +552,43 @@ class Notebook:
             align_image_x.insert(INSERT, '0')
             align_image_y.insert(INSERT, '0')
 
-        window = Tk()
-        window.title(gn.win_image)
-        window.grid()
-        window.config(bg="white")
-        window.attributes("-topmost", True)
+        nb.image_window = Tk()
+        nb.image_window.title(gn.win_image)
+        nb.image_window.grid()
+        nb.image_window.config(bg="white")
+        nb.image_window.attributes("-topmost", True)
 
-        image_path_label = tk.Label(window, bg=cs.bgc, text="Image Path:")
+        image_path_label = tk.Label(nb.image_window, bg=cs.bgc, text="Image Path:")
         image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
 
-        image_entry = tk.Entry(window, width=15)
+        image_entry = tk.Entry(nb.image_window, width=15)
         image_entry.grid_configure(row=1, column=0, columnspan=3, sticky="NSEW")
 
-        size_label = tk.Label(window, bg=cs.bgc, text=gn.lbl_size, justify="left", width=20)
+        size_label = tk.Label(nb.image_window, bg=cs.bgc, text=gn.lbl_size, justify="left", width=20)
         size_label.grid_configure(row=2, column=0, columnspan=1, sticky="NSEW")
 
-        size_x = tk.Entry(window, width=5)
+        size_x = tk.Entry(nb.image_window, width=5)
         size_x.grid_configure(row=2, column=1, sticky='NSE')
 
-        size_y = tk.Entry(window, width=5)
+        size_y = tk.Entry(nb.image_window, width=5)
         size_y.grid_configure(row=2, column=2, sticky='NSW')
 
-        im_align = tk.Label(window, bg=cs.bgc, text=gn.lbl_align, justify="left")
+        im_align = tk.Label(nb.image_window, bg=cs.bgc, text=gn.lbl_align, justify="left")
         im_align.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
 
-        align_image_x = tk.Entry(window, width=5)
+        align_image_x = tk.Entry(nb.image_window, width=5)
         align_image_x.grid_configure(row=3, column=1, sticky='NSE')
 
-        align_image_y = tk.Entry(window, width=5)
+        align_image_y = tk.Entry(nb.image_window, width=5)
         align_image_y.grid_configure(row=3, column=2, sticky='NSW')
 
-        enter_button = tk.Button(window, text=gn.btn_enter)
+        enter_button = tk.Button(nb.image_window, text=gn.btn_enter)
         enter_button.grid_configure(row=5, column=0, sticky="W")
 
-        exit_button = tk.Button(window, text=gn.btn_exit, command=window.destroy)
+        exit_button = tk.Button(nb.image_window, text=gn.btn_exit, command=nb.image_window.destroy)
         exit_button.grid_configure(row=5, column=2, sticky="E")
 
-        enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, nb.file_display, nb.custom_window))
+        enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, nb.file_display, nb.custom_nb.image_window))
 
         image_entry.bind('<Return>', pic_size)
         size_x.bind('<Return>', rs_x)
@@ -587,7 +600,7 @@ class Notebook:
             cs.image_toggle = "false"
         image_from_line(nb.file_display, image_entry, size_x, size_y, align_image_x, align_image_y)
 
-        window.mainloop()
+        nb.image_window.mainloop()
 
     def run(self):
         self.root.mainloop()

@@ -34,8 +34,20 @@ All you need to do to open it is press 'Controll + h'.
 
 ***required packages***
 
+with apt . . .
+
 sudo apt install python3-tk
 sudo apt install git
+
+with pacman
+
+sudo pacman -S git
+sudo pacman -S tk
+
+with yum
+
+sudo yum install git
+sudo yum install python36u-tkinter
 
 ***Download (Clone repository)***
 

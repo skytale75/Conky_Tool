@@ -226,7 +226,7 @@ def font_list():
         cs.font_list.append(l)
     open_font_list.close()
 
-def make_font(font_n, font_s, file_display):
+def make_font(font_n, font_s, file_display, cbl_window):
     name = font_n
     size = font_s.get()
     font_output = ("${font "+name+":size="+size+"}")
