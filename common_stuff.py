@@ -35,6 +35,8 @@ class Common_Stuff:
 
     gui_names = path.expanduser('~/Conky_Tool/languages/'+language+"/gui_names.txt")
 
+    system_fonts = '/usr/share/fonts/truetype'
+    user_fonts = path.expanduser('~/.local/share/fonts/')
     the_color = ''
     uc_home_path = path.expanduser('~/Conky_Tool/')
     conky_config_path = path.expanduser('~/.config/conky/')

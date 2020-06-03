@@ -1,5 +1,6 @@
 Abyssinica SILR
 Anjali Old Lipi
+COLLEGIA
 Chilanka Regular
 Deja Vu Math Te XGyre
 Deja Vu Sans
@@ -16,6 +17,7 @@ Free Serif
 Gargi
 Garuda
 Gubbi
+Hack Regular
 Jamrul Normal
 Kacst Art
 Kacst Book
@@ -47,6 +49,7 @@ Liberation Sans Narrow Regular
 Liberation Sans Regular
 Liberation Serif
 Liberation Serif Regular
+Life is goofy
 Likhan Normal
 Lohit Assamese
 Lohit Bengali
@@ -61,6 +64,7 @@ Lohit Tamil Classical
 Lohit Telugu
 Loma
 Meera
+Monoida0a1a3aladaa
 Mukti Narrow
 Navilu
 Norasi
@@ -223,7 +227,17 @@ Purisa
 Rachana
 Rachana Regular
 Raghu Malayalam Sans Regular
+Raleway
+Raleway Extra
+Raleway Extra Light
+Raleway Heavy
+Raleway Light
+Raleway Medium
+Raleway Regular
+Raleway Semi
+Raleway Thin
 Rekha
+Rio Grande
 Saab
 Samyak Devanagari
 Samyak Gujarati
@@ -233,6 +247,7 @@ Sarai
 Sawasdee
 Suruma
 System San Francisco Text
+System San Francisco Text 
 System San Francisco Text Medium
 System San Francisco Text Regular
 Tibetan Machine Uni
@@ -260,6 +275,8 @@ Waree
 aakarmedium
 ani
 chandas12
+gnuolane rg
+gomarice_goma_block
 kalimati
 lklug
 mitra

@@ -208,7 +208,9 @@ clean_list = []
 def font_list():
     """go to directory, copy file names,
     convert them to font names"""
-    for file in Path('/usr/share/fonts/truetype').glob('**/*.ttf'):
+    for file in Path(cs.system_fonts).glob('**/*.ttf'):
+        dirty_list.append(file)
+    for file in Path(cs.user_fonts).glob("**/*.ttf"):
         dirty_list.append(file)
     start = 0
     while start < len(dirty_list):
@@ -428,12 +430,13 @@ def load_hold_color(attribute):
 
 def add_custom(attribute, file_display):
     """get custom command and add it to the file"""
-    line = cs.hold_color
-    com = line.split()[0]
-    if com != "default_color":
-        file_display.insert(INSERT, "${"+com+"}")
-    if com == "default_color":
-        file_display.insert(INSERT, "${color}")
+    if cs.hold_color != '':
+        line = cs.hold_color
+        com = line.split()[0]
+        if com != "default_color":
+            file_display.insert(INSERT, "${"+com+"}")
+        if com == "default_color":
+            file_display.insert(INSERT, "${color}")
 
 def cb_syntax(attributes_box):
     """custom box add list items and syntax highlighting"""

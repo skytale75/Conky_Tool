@@ -45,16 +45,19 @@ class Notebook:
         nb.v =IntVar()
 
         def cr_com():
+            nb.com_list_box.delete(0.0, END)
             search_path = cs.coms_path
             cs.selected = "commands"
             load_commands(nb.com_list_box)
 
         def cr_con():
+            nb.com_list_box.delete(0.0, END)
             search_path = cs.configs_path
             cs.selected = "configs"
             load_configs(nb.com_list_box)
 
         def cr_lua():
+            nb.com_list_box.delete(0.0, END)
             search_path = cs.lua_path
             cs.selected = "lua"
             load_lua(nb.com_list_box)
@@ -130,9 +133,11 @@ class Notebook:
         def command_line(self):
             """locate command in dictionary and enter
             into file_display, or open options window"""
-            if cs.selected == "commands":
-                the_input = cs.hold_command
-                functions[the_input](nb.file_display)
+            if cs.hold_command != '':
+                if cs.selected == "commands":
+                    the_input = cs.hold_command
+                    functions[the_input](nb.file_display)
+            
             return "break"
 
         def definition(self):
@@ -145,10 +150,14 @@ class Notebook:
             add_custom(nb.custom_window, nb.file_display)
             return 'break'
         def search_com(self):
-            if nb.command_find.get() == '':
+            if nb.command_find.get() == '' and cs.hold_command == "commands":
                 cs.results = []
                 nb.com_list_box.delete(0.0, END)
                 load_commands(nb.com_list_box)
+            if nb.command_find.get() == '' and cs.hold_command == "configs":
+                cs.results = []
+                nb.com_list_box.delete(0.0, END)
+                load_configs(nb.com_list_box)
             if nb.command_find.get() == '-e on':
                 cs.editable = 'on'
             if nb.command_find.get() == '-e off':
@@ -201,9 +210,9 @@ class Notebook:
         nb.file_display.bind('<Control-Return>', command_line)
         nb.file_display.bind('<Control-ButtonRelease-1>', command_line)
         nb.file_display.bind('<Shift-Control-Return>', ps_command)
-        nb.file_display.bind('<Shift-Control-ButtonRelease-1>', ps_command)        
-        nb.file_display.bind('<Control-d>', dup_down)   
-        nb.file_display.bind('<Control-s>', save_kc)            
+        nb.file_display.bind('<Shift-Control-ButtonRelease-1>', ps_command)
+        nb.file_display.bind('<Control-d>', dup_down)
+        nb.file_display.bind('<Control-s>', save_kc)
         nb.wiki_window.bind('<Control-Return>', force_def)
         nb.wiki_window.bind('<Control-Button-1>', force_def)
         nb.wiki_window.bind('<Control-h>', definitions_help)
