@@ -7,7 +7,12 @@ from PIL import Image
 from re import sub
 from pathlib import Path
 from gui_names import gui_names as gn
- 
+
+def search_su(entry_name):
+    if cs.toggle == 0:
+        entry_name.delete(0, END)
+        cs.toggle = 1
+
 def duplicate_press(file_display):
     """duplicate line in file_display"""
     cs.duplicate_hold = file_display.get("insert linestart", "insert lineend")
@@ -16,7 +21,7 @@ def duplicate_press(file_display):
     file_display.mark_set(INSERT, "insert linestart")
 
 def color_separator():
-    """seperate color names from color hex and build dictionary"""
+    """separate color names from color hex and build dictionary"""
     open_file = open(cs.options_path+"colornames.txt", 'r')
     read_file = open_file.read().splitlines()
     open_file.close()
@@ -36,9 +41,9 @@ def add_command(get_command, file_display):
     active_highlighting(file_display, then_format)
     file_display.insert(INSERT, then_format)
 
-def add_CA(input_file, Custom_AB):
-    """find custom attributes in file and list them in the
-    custom attributes box"""
+def add_cc(input_file, Custom_AB):
+    """find custom colors in file and list them in the
+    custom colors box"""
 
     split_file = input_file.splitlines()
     start = 0
@@ -48,7 +53,7 @@ def add_CA(input_file, Custom_AB):
                 Custom_AB.insert(INSERT, split_file[start].strip()+"\n")
         start += 1
 
-def conky_command(my_input, my_output):
+def search_commands(my_input, my_output):
     """compare user input to conky options and return
     possibilities"""
 
@@ -64,7 +69,7 @@ def load_conf(the_path, file_display, custom_AB):
     read_file = open_file.read()
     open_file.close()
     if len(read_file) != 0:
-        add_CA(read_file, custom_AB)
+        add_cc(read_file, custom_AB)
         file_display.insert(INSERT, read_file)
     if len(read_file) == 0:
         file_display.insert(INSERT, "file empty\nplease load theme.")
@@ -87,7 +92,7 @@ def open_file(file_display, custom_AB):
 
 def load_theme(get_theme_list, file_display, presets_window):
     """get theme name from options menu and
-    open corrisponding theme file in Conky_Themes"""
+    open corresponding theme file in Conky_Themes"""
     theme = get_theme_list.get()
     if "Utilise_Conky" in listdir(cs.config_path):
         theme_open = open(cs.user_theme_path+theme, 'r')
@@ -170,10 +175,8 @@ def save_file(file_display, Custom_AB):
     """open file and save to .conkyrc"""
     open_file = open(cs.conky_config_path+"conky.conf", "w")
     write_this = file_display.get(0.0, "end-1c")
-    # file_display.delete(0.0, END)
-    # file_display.insert(INSERT, write_this)
     Custom_AB.delete(0.0, END)
-    add_CA(write_this, Custom_AB)
+    add_cc(write_this, Custom_AB)
     cb_syntax(Custom_AB)
     syntax_basic(file_display)
     fd_syntax_highlighting(file_display)
@@ -248,7 +251,7 @@ def search(csi, clo):
     load filenames with matching results to command
     list"""
     if len(cs.results) == 0:
-        for file in Path(cs.search_path).glob('**/*.txt'): # change cs.coms_path to cs.search_path, change search path based on radiobuttn selection
+        for file in Path(cs.search_path).glob('**/*.txt'): # change cs.coms_path to cs.search_path, change search path based on radio button selection
             open_file = open(file, 'r')
             read_file = open_file.read()
             open_file.close()
@@ -492,6 +495,8 @@ def show_def(com_list_box, wiki_window,):
         pass
 
 def load_by_line(command_box, custom_box, file_display):
+    """takes contents of line from nb.file_display and opens
+    a window with each command on its own line"""
     cs.line_list = []
     load_line = file_display.get("insert linestart", "insert lineend")
     cs.line_hold = load_line
@@ -509,6 +514,8 @@ def load_by_line(command_box, custom_box, file_display):
             cs.line_list.append("$"+check[0]+"}")
 
 def cbl_update(cbl_text, command_box, custom_box, file_display):
+    """updates current line of nb.file_display
+    from conky by line window in appropriate format"""
     cs.line_list = cbl_text.get(0.0, END).splitlines()
     file_display.delete("insert linestart", "insert lineend")
     for line in cs.line_list:
@@ -522,6 +529,7 @@ def insert_line(cbl_text):
         cbl_text.insert(INSERT, line+"\n")
 
 def toggle_gb(file_display, custom_window):
+    """toggles graph borders"""
     cs.file_list = file_display.get(0.0, "end-1c")
     true_false(file_display)
     file_display.delete(0.0, END)
@@ -534,6 +542,7 @@ def toggle_gb(file_display, custom_window):
     save_file(file_display, custom_window)
 
 def toggle_pb(file_display, custom_window):
+    """toggles page_borders"""
     where = file_display.index(INSERT)
     print(where)
     cs.file_list = file_display.get(0.0, "end-1c")

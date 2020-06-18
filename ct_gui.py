@@ -90,6 +90,9 @@ class Notebook:
         nb.com_list_box = tk.Text(nb.frame, height=10, width=25, bg="lightblue", font= ('Deja Vu Serif', 10))
         nb.com_list_box.grid_configure(row=5, column=0, columnspan=5, sticky="NSEW")
 
+        nb.lnText = Text(nb.frame, width = 4, padx = 4, highlightthickness = 0, takefocus = 0,
+                bd = 0, background = 'lightgrey', foreground = 'magenta', state='disabled')
+
         nb.file_display = tk.Text(nb.frame, width=50, wrap = 'word', undo=True)
         nb.file_display.grid_configure(row=1, column=10, columnspan=10, rowspan=7, sticky="NSEW")
         nb.file_display.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
@@ -142,7 +145,7 @@ class Notebook:
 
         def definition(self):
             """tie into show_def, which automatically
-            displays definition in wiki window"""
+            displays definition iadd_cc window"""
             show_def(nb.com_list_box, nb.wiki_window)
         def ps_command(self):
             """tie into add_custom, which adds custom
@@ -334,15 +337,13 @@ class Notebook:
                 if the_search.lower() in str(l).lower():
                     fn_entry.insert(INSERT, l+"\n")
 
-        def search_su(foo):
-            if cs.toggle == 0:
-                font_search_bar.delete(0, END)
-                cs.toggle = 1
+        def clear_entry(foo):
+            search_su(font_search_bar)
 
         font_search_bar = tk.Entry(nb.font_window, bg="darkblue", fg="white")
         font_search_bar.grid_configure(row=0, column=0, columnspan=2, sticky="NESW")
         font_search_bar.insert(INSERT, "Search fonts . . .")
-        font_search_bar.bind("<Button-1>", search_su)
+        font_search_bar.bind("<Button-1>", clear_entry)
         font_search_bar.bind("<KeyPress>", font_search)
 
         font_label = tk.Label(nb.font_window, bg=cs.bgc, text=gn.lbl_font_name)

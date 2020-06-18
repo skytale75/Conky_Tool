@@ -5,7 +5,7 @@ from pathlib import Path
 from common_stuff import Common_Stuff as cs
 from gui_names import gui_names as gn
 
-# setup dictionary function . . . functions = {"functon_name:" function}
+# setup dictionary function . . . functions = {"function_name:" function}
 # call dictionary function . . . functions["function_name"]()
 
 class Commands:
@@ -40,7 +40,7 @@ class Commands:
             fo_sl = fo_read.splitlines()
             cn = str(fo_sl[0])
             file_open.close()
-
+            
             generic(self.com_name, cn, fo_read, file_display)
         if self.unique_command != "true" and self.unique_command != "false":
             eval(self.unique_command)

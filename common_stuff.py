@@ -9,7 +9,6 @@ class Common_Stuff:
 
     x = 0
     y = 0
-    selected = 'commands'
     bgc = "#6B959E"
 
     temp_color = ''
@@ -21,9 +20,10 @@ class Common_Stuff:
     line_list = []
     file_list = ''
     image_hold = ''
-    image_toggle = "false"
 
     # switches
+    selected = 'commands'
+    image_toggle = "false"
     page_border_toggle = -1
     graph_border_toggle = -1
     toggle = 0
@@ -59,15 +59,17 @@ class Common_Stuff:
     "color5 =", "color6 =", "color7 =", "color8 =","color9 =",
     "font0 =", "font1 =", "font2 =", "font3 =", "font4 =", "font5 ="
     "font6 =", "font7 =", "font8 =", "font9 =")
+    color_aliass = ["default_color", "color0", "color1", "color2", "color3", "color4",
+    "color5", "color6", "color7", "color8", "color9"]
+    font_aliass = ["font0", "font1", "font2", "font3", "font4", "font5"
+    "font6", "font7", "font8", "font9"]
     font_list = []
     dirty_list = []
     clean_list = []
     results = []
     current_colors = []
-    color_aliass = ["default_color", "color0", "color1", "color2", "color3", "color4",
-    "color5", "color6", "color7", "color8", "color9"]
-    font_aliass = ["font0", "font1", "font2", "font3", "font4", "font5"
-    "font6", "font7", "font8", "font9"]
+    color_names = []
+    color_codes = []
 
     # file pieces
 
@@ -80,7 +82,5 @@ class Common_Stuff:
     text_split = text_section.split("$")
     open_file.close()
 
-    color_names = []
-    color_codes = []
 
     color_dict = {}
