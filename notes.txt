@@ -1,0 +1,10 @@
+TO DO
+
+check for 2 "$" signs before save  to preven conky crash
+
+add color selector to colors window
+
+add "remove theme" option from the themes menu
+
+add tooltips
+
