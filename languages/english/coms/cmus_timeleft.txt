@@ -1,2 +1,4 @@
 cmus_timeleft
 Time left of the current cmus song.
+
+-music player-

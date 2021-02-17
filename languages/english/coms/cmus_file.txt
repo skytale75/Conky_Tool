@@ -1,2 +1,4 @@
 cmus_file
 Print the file name of the current cmus song.
+
+-music player-

@@ -1,2 +1,4 @@
 cmus_date
 Print the date of the current cmus song.
+
+-music player-

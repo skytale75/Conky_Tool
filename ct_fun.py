@@ -1,5 +1,4 @@
-from tkinter import *
-import tkinter as tk
+from tkinter import Tk, END, INSERT, Label, Entry, Button, Text
 from os import listdir, path
 from pathlib import Path
 from common_stuff import Common_Stuff as cs
@@ -69,10 +68,10 @@ def generic(window_title, command_name, definition_name, file_display):
     window.config(bg='white')
     window.wait_visibility(window)
     window.attributes("-topmost", True)
-    com_label = tk.Label(window, text=command_name)
+    com_label =Label(window, text=command_name)
     com_label.grid_configure(row=0, column=0, sticky="W")
 
-    com_entry = tk.Entry(window, bg="lightblue")
+    com_entry =Entry(window, bg="lightblue")
     com_entry.grid_configure(row=1, column=0, columnspan=4, sticky="NESW")
     com_entry.insert(INSERT, command_name)
 
@@ -81,10 +80,10 @@ def generic(window_title, command_name, definition_name, file_display):
         output_to_file = "${"+get_contents+"}"
         file_display.insert(INSERT, output_to_file)
 
-    com_button = tk.Button(window, text=gn.btn_enter, command=enter_button)
+    com_button =Button(window, text=gn.btn_enter, command=enter_button)
     com_button.grid_configure(row=1, column=4, sticky="NESW")
 
-    def_text = tk.Text(window, width=100, height=20, wrap='word')
+    def_text =Text(window, width=100, height=20, wrap='word')
     def_text.grid_configure(row=2, column=0, columnspan=5)
     def_text.insert(INSERT, definition_name)
 
@@ -95,10 +94,10 @@ def generic(window_title, command_name, definition_name, file_display):
         file_open.close()
 
     if cs.editable == 'on':
-        def_sc = tk.Button(window, text=gn.btn_save, command=lambda: save_file(def_text))
+        def_sc =Button(window, text=gn.btn_save, command=lambda: save_file(def_text))
         def_sc.grid_configure(row=3, column=0, sticky="NESW")
 
-    def_exit = tk.Button(window, text=gn.btn_exit, command=window.destroy)
+    def_exit =Button(window, text=gn.btn_exit, command=window.destroy)
     def_exit.grid_configure(row=3, column=4, sticky="NESW")
 
 

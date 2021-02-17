@@ -1,2 +1,4 @@
 cmus_random
 Random status of cmus (on/off).
+
+-music player-

@@ -1,292 +1,324 @@
-Abyssinica SILR
-Anjali Old Lipi
-COLLEGIA
-Chilanka Regular
-Deja Vu Math Te XGyre
-Deja Vu Sans
-Deja Vu Sans Condensed
-Deja Vu Sans Extra Light
-Deja Vu Sans Mono
-Deja Vu Serif
-Deja Vu Serif Condensed
-Droid Sans Fallback Full
-Dyuthi
-Free Mono
-Free Sans
-Free Serif
-Gargi
-Garuda
-Gubbi
-Hack Regular
-Jamrul Normal
-Kacst Art
-Kacst Book
-Kacst Decorative
-Kacst Digital
-Kacst Farsi
-Kacst Letter
-Kacst Naskh
-Kacst Office
-Kacst One
-Kacst Pen
-Kacst Poster
-Kacst Qurn
-Kacst Screen
-Kacst Title
-Kacst Title L
-Kalapi
-Karumbi
-Keraleeyam
-Khmer OS
-Khmer OSsys
-Kinnari
-Laksaman
-Liberation Mono
-Liberation Mono Regular
-Liberation Sans
-Liberation Sans Narrow
-Liberation Sans Narrow Regular
-Liberation Sans Regular
-Liberation Serif
-Liberation Serif Regular
-Life is goofy
-Likhan Normal
-Lohit Assamese
-Lohit Bengali
-Lohit Devanagari
-Lohit Gujarati
-Lohit Gurmukhi
-Lohit Kannada
-Lohit Malayalam
-Lohit Odia
-Lohit Tamil
-Lohit Tamil Classical
-Lohit Telugu
-Loma
-Meera
-Monoida0a1a3aladaa
-Mukti Narrow
-Navilu
-Norasi
-Noto Color Emoji
-Noto Kufi Arabic
-Noto Kufi Arabic Regular
-Noto Mono Regular
-Noto Naskh Arabic
-Noto Naskh Arabic Regular
-Noto Naskh Arabic UI
-Noto Naskh Arabic UIRegular
-Noto Sans
-Noto Sans Adlam Regular
-Noto Sans Adlam Unjoined Regular
-Noto Sans Arabic
-Noto Sans Arabic Regular
-Noto Sans Arabic UI
-Noto Sans Arabic UIRegular
-Noto Sans Armenian
-Noto Sans Armenian Regular
-Noto Sans Avestan Regular
-Noto Sans Bamum Regular
-Noto Sans Bengali
-Noto Sans Bengali Regular
-Noto Sans Bengali UI
-Noto Sans Bengali UIRegular
-Noto Sans Buhid Regular
-Noto Sans Carian Regular
-Noto Sans Chakma Regular
-Noto Sans Cherokee
-Noto Sans Cherokee Regular
-Noto Sans Cypriot Regular
-Noto Sans Deseret Regular
-Noto Sans Devanagari
-Noto Sans Devanagari Regular
-Noto Sans Devanagari UI
-Noto Sans Devanagari UIRegular
-Noto Sans Display
-Noto Sans Display Regular
-Noto Sans Ethiopic
-Noto Sans Ethiopic Regular
-Noto Sans Georgian
-Noto Sans Georgian Regular
-Noto Sans Glagolitic Regular
-Noto Sans Gothic Regular
-Noto Sans Gujarati
-Noto Sans Gujarati Regular
-Noto Sans Gujarati UI
-Noto Sans Gujarati UIRegular
-Noto Sans Gurmukhi
-Noto Sans Gurmukhi Regular
-Noto Sans Gurmukhi UI
-Noto Sans Gurmukhi UIRegular
-Noto Sans Hebrew
-Noto Sans Hebrew Regular
-Noto Sans Kannada
-Noto Sans Kannada Regular
-Noto Sans Kannada UI
-Noto Sans Kannada UIRegular
-Noto Sans Kayah Li Regular
-Noto Sans Khmer
-Noto Sans Khmer Regular
-Noto Sans Khmer UI
-Noto Sans Khmer UIRegular
-Noto Sans Lao
-Noto Sans Lao Regular
-Noto Sans Lao UI
-Noto Sans Lao UIRegular
-Noto Sans Lisu Regular
-Noto Sans Malayalam
-Noto Sans Malayalam Regular
-Noto Sans Malayalam UI
-Noto Sans Malayalam UIRegular
-Noto Sans Mandaic Regular
-Noto Sans Mono
-Noto Sans Mono Regular
-Noto Sans Myanmar
-Noto Sans Myanmar Regular
-Noto Sans Myanmar UI
-Noto Sans Myanmar UIRegular
-Noto Sans NKo Regular
-Noto Sans Ol Chiki Regular
-Noto Sans Old Turkic Regular
-Noto Sans Oriya
-Noto Sans Oriya Regular
-Noto Sans Oriya UI
-Noto Sans Oriya UIRegular
-Noto Sans Osage Regular
-Noto Sans Osmanya Regular
-Noto Sans Regular
-Noto Sans Shavian Regular
-Noto Sans Sinhala
-Noto Sans Sinhala Regular
-Noto Sans Sinhala UI
-Noto Sans Sinhala UIRegular
-Noto Sans Symbols
-Noto Sans Symbols Regular
-Noto Sans Tamil
-Noto Sans Tamil Regular
-Noto Sans Tamil UI
-Noto Sans Tamil UIRegular
-Noto Sans Telugu
-Noto Sans Telugu Regular
-Noto Sans Telugu UI
-Noto Sans Telugu UIRegular
-Noto Sans Thaana
-Noto Sans Thaana Regular
-Noto Sans Thai
-Noto Sans Thai Regular
-Noto Sans Thai UI
-Noto Sans Thai UIRegular
-Noto Sans Tibetan
-Noto Sans Tibetan Regular
-Noto Sans Tifinagh Regular
-Noto Sans Vai Regular
-Noto Serif
-Noto Serif Armenian
-Noto Serif Armenian Regular
-Noto Serif Bengali
-Noto Serif Bengali Regular
-Noto Serif Devanagari
-Noto Serif Devanagari Regular
-Noto Serif Display
-Noto Serif Display Regular
-Noto Serif Ethiopic
-Noto Serif Ethiopic Regular
-Noto Serif Georgian
-Noto Serif Georgian Regular
-Noto Serif Gujarati
-Noto Serif Gujarati Regular
-Noto Serif Hebrew
-Noto Serif Hebrew Regular
-Noto Serif Kannada
-Noto Serif Kannada Regular
-Noto Serif Khmer
-Noto Serif Khmer Regular
-Noto Serif Lao
-Noto Serif Lao Regular
-Noto Serif Malayalam
-Noto Serif Malayalam Regular
-Noto Serif Myanmar
-Noto Serif Myanmar Regular
-Noto Serif Regular
-Noto Serif Sinhala
-Noto Serif Sinhala Regular
-Noto Serif Tamil
-Noto Serif Tamil Regular
-Noto Serif Telugu
-Noto Serif Telugu Regular
-Noto Serif Thai
-Noto Serif Thai Regular
-Padauk
-Padauk Book
-Padauk Book Regular
-Padauk Regular
-Pagul
-Phetsarath_OT
-Pothana2000
-Purisa
-Rachana
-Rachana Regular
-Raghu Malayalam Sans Regular
-Raleway
-Raleway Extra
-Raleway Extra Light
-Raleway Heavy
+Advent Pro ExtraLight
+Advent Pro Light
+Advent Pro Medium
+Advent Pro SemiBold
+Advent Pro Thin
+Barlow Black
+Barlow Black
+Barlow ExtraBold
+Barlow ExtraBold
+Barlow ExtraLight
+Barlow ExtraLight
+Barlow Light
+Barlow Light
+Barlow Medium
+Barlow Medium
+Barlow SemiBold
+Barlow SemiBold
+Barlow Thin
+Barlow Thin
+Carbon Bl
+Carbon Phyber
+Chakra Petch Light
+Chakra Petch Light
+Chakra Petch Medium
+Chakra Petch Medium
+Chakra Petch SemiBold
+Chakra Petch SemiBold
+Commissioner Black
+Commissioner Black
+Commissioner ExtraBold
+Commissioner ExtraBold
+Commissioner ExtraLight
+Commissioner ExtraLight
+Commissioner Light
+Commissioner Light
+Commissioner Medium
+Commissioner Medium
+Commissioner SemiBold
+Commissioner SemiBold
+Commissioner Thin
+Commissioner Thin
+Cormorant Light
+Cormorant Light
+Cormorant Medium
+Cormorant Medium
+Cormorant SemiBold
+Cormorant SemiBold
+Dancing Script Medium
+Dancing Script SemiBold
+Edmunds Distressed
+Epilogue Black
+Epilogue Black
+Epilogue ExtraBold
+Epilogue ExtraBold
+Epilogue ExtraLight
+Epilogue ExtraLight
+Epilogue Light
+Epilogue Light
+Epilogue Medium
+Epilogue Medium
+Epilogue SemiBold
+Epilogue SemiBold
+Epilogue Thin
+Epilogue Thin
+Gayathri Thin
+Inconsolata Black
+Inconsolata CondensedBlack
+Inconsolata CondensedExtraBold
+Inconsolata CondensedExtraLight
+Inconsolata CondensedLight
+Inconsolata CondensedMedium
+Inconsolata CondensedSemiBold
+Inconsolata ExpandedBlack
+Inconsolata ExpandedExtraBold
+Inconsolata ExpandedExtraLight
+Inconsolata ExpandedLight
+Inconsolata ExpandedMedium
+Inconsolata ExpandedSemiBold
+Inconsolata ExtraBold
+Inconsolata ExtraCondensedBlack
+Inconsolata ExtraCondensedExtraBold
+Inconsolata ExtraCondensedExtraLight
+Inconsolata ExtraCondensedLight
+Inconsolata ExtraCondensedMedium
+Inconsolata ExtraCondensedSemiBold
+Inconsolata ExtraExpandedBlack
+Inconsolata ExtraExpandedExtraBold
+Inconsolata ExtraExpandedExtraLight
+Inconsolata ExtraExpandedLight
+Inconsolata ExtraExpandedMedium
+Inconsolata ExtraExpandedSemiBold
+Inconsolata ExtraLight
+Inconsolata Light
+Inconsolata Medium
+Inconsolata SemiBold
+Inconsolata SemiCondensedBlack
+Inconsolata SemiCondensedExtraBold
+Inconsolata SemiCondensedExtraLight
+Inconsolata SemiCondensedLight
+Inconsolata SemiCondensedMedium
+Inconsolata SemiCondensedSemiBold
+Inconsolata SemiExpandedBlack
+Inconsolata SemiExpandedExtraBold
+Inconsolata SemiExpandedExtraLight
+Inconsolata SemiExpandedLight
+Inconsolata SemiExpandedMedium
+Inconsolata SemiExpandedSemiBold
+Inconsolata UltraCondensedBlack
+Inconsolata UltraCondensedExtraBold
+Inconsolata UltraCondensedExtraLight
+Inconsolata UltraCondensedLight
+Inconsolata UltraCondensedMedium
+Inconsolata UltraCondensedSemiBold
+Inconsolata UltraExpandedBlack
+Inconsolata UltraExpandedExtraBold
+Inconsolata UltraExpandedExtraLight
+Inconsolata UltraExpandedLight
+Inconsolata UltraExpandedMedium
+Inconsolata UltraExpandedSemiBold
+Inter Black
+Inter Black
+Inter Extra Bold
+Inter Extra Bold
+Inter Extra Light
+Inter Extra Light
+Inter Light
+Inter Light
+Inter Medium
+Inter Medium
+Inter Semi Bold
+Inter Semi Bold
+Inter Thin
+Inter Thin
+Krub ExtraLight
+Krub ExtraLight
+Krub Light
+Krub Light
+Krub Medium
+Krub Medium
+Krub SemiBold
+Krub SemiBold
+Lemonada Light
+Lemonada Medium
+Lemonada SemiBold
+Libre Franklin Black
+Libre Franklin Black
+Libre Franklin ExtraBold
+Libre Franklin ExtraBold
+Libre Franklin ExtraLight
+Libre Franklin ExtraLight
+Libre Franklin Light
+Libre Franklin Light
+Libre Franklin Medium
+Libre Franklin Medium
+Libre Franklin SemiBold
+Libre Franklin SemiBold
+Libre Franklin Thin
+Libre Franklin Thin
+Manjari Thin
+Markazi Text Medium
+Markazi Text SemiBold
+Montserrat Black
+Montserrat Black
+Montserrat ExtraBold
+Montserrat ExtraBold
+Montserrat ExtraLight
+Montserrat ExtraLight
+Montserrat Light
+Montserrat Light
+Montserrat Medium
+Montserrat Medium
+Montserrat SemiBold
+Montserrat SemiBold
+Montserrat Thin
+Montserrat Thin
+Nunito Black
+Nunito Black
+Nunito ExtraBold
+Nunito ExtraBold
+Nunito ExtraLight
+Nunito ExtraLight
+Nunito Light
+Nunito Light
+Nunito SemiBold
+Nunito SemiBold
+Open Sans Condensed Light
+Open Sans Condensed Light
+Open Sans ExtraBold
+Open Sans ExtraBold
+Open Sans Light
+Open Sans Light
+Open Sans SemiBold
+Open Sans SemiBold
+Palanquin Dark Medium
+Palanquin Dark SemiBold
+Playfair Display Black
+Playfair Display Black
+Playfair Display ExtraBold
+Playfair Display ExtraBold
+Playfair Display Medium
+Playfair Display Medium
+Playfair Display SemiBold
+Playfair Display SemiBold
+Raleway Black
+Raleway Black
+Raleway ExtraBold
+Raleway ExtraBold
+Raleway ExtraLight
+Raleway ExtraLight
+Raleway Light
 Raleway Light
 Raleway Medium
-Raleway Regular
-Raleway Semi
+Raleway Medium
+Raleway SemiBold
+Raleway SemiBold
 Raleway Thin
-Rekha
-Rio Grande
-Saab
-Samyak Devanagari
-Samyak Gujarati
-Samyak Malayalam
-Samyak Tamil
-Sarai
-Sawasdee
-Suruma
-System San Francisco Text
-System San Francisco Text 
-System San Francisco Text Medium
-System San Francisco Text Regular
-Tibetan Machine Uni
-Tlwg Mono
-Tlwg Typewriter
-Tlwg Typist
-Tlwg Typo
-Ubuntu B
-Ubuntu BI
-Ubuntu C
-Ubuntu L
-Ubuntu LI
-Ubuntu M
-Ubuntu MI
-Ubuntu Mono B
-Ubuntu Mono BI
-Ubuntu Mono R
-Ubuntu Mono RI
-Ubuntu R
-Ubuntu RI
-Umpush
-Umpush Light
-Uroob
-Waree
-aakarmedium
-ani
-chandas12
-gnuolane rg
-gomarice_goma_block
-kalimati
-lklug
-mitra
-mry_Kacst Qurn
-nakula
-opens___
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Raleway Thin
+Rasa Light
+Rasa Medium
+Rasa SemiBold
+Roboto Black
+Roboto Black
+Roboto Light
+Roboto Light
+Roboto Medium
+Roboto Medium
+Roboto Mono ExtraLight
+Roboto Mono ExtraLight
+Roboto Mono Light
+Roboto Mono Light
+Roboto Mono Medium
+Roboto Mono Medium
+Roboto Mono SemiBold
+Roboto Mono SemiBold
+Roboto Mono Thin
+Roboto Mono Thin
+Roboto Thin
+Roboto Thin
+Rubik Black
+Rubik Black
+Rubik ExtraBold
+Rubik ExtraBold
+Rubik Light
+Rubik Light
+Rubik Light
+Rubik Light
+Rubik Light
+Rubik Light
+Rubik Medium
+Rubik Medium
+Rubik SemiBold
+Rubik SemiBold
+Saira ExtraCondensed Black
+Saira ExtraCondensed ExCond
+Saira ExtraCondensed ExtraBold
+Saira ExtraCondensed ExtraLight
+Saira ExtraCondensed Light
+Saira ExtraCondensed Medium
+Saira ExtraCondensed SemiBold
+Saira ExtraCondensed Thin
+Sarabun ExtraBold
+Sarabun ExtraBold
+Sarabun ExtraLight
+Sarabun ExtraLight
+Sarabun Light
+Sarabun Light
+Sarabun Medium
+Sarabun Medium
+Sarabun SemiBold
+Sarabun SemiBold
+Sarabun Thin
+Sarabun Thin
+Spectral SC ExtraBold
+Spectral SC ExtraBold
+Spectral SC ExtraLight
+Spectral SC ExtraLight
+Spectral SC Light
+Spectral SC Light
+Spectral SC Medium
+Spectral SC Medium
+Spectral SC SemiBold
+Spectral SC SemiBold
+Titillium Web Black
+Titillium Web ExtraLight
+Titillium Web ExtraLight
+Titillium Web Light
+Titillium Web Light
+Titillium Web SemiBold
+Titillium Web SemiBold
+Ubuntu Light
+Ubuntu Light
+Ubuntu Light
+Ubuntu Light
+Ubuntu Thin
+Work Sans Black
+Work Sans Black
+Work Sans ExtraBold
+Work Sans ExtraBold
+Work Sans ExtraLight
+Work Sans ExtraLight
+Work Sans Light
+Work Sans Light
+Work Sans Medium
+Work Sans Medium
+Work Sans SemiBold
+Work Sans SemiBold
+Work Sans Thin
+Work Sans Thin
+Yrsa Light
+Yrsa Medium
+Yrsa SemiBold
 padmaa
-padmaa Medium0.5
-padmaa.1.1
-sahadeva
-samanata
+padmmaa
+padmmaa
+padmmaa
 utkal
-vemana2000

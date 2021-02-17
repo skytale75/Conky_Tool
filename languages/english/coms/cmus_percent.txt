@@ -1,2 +1,4 @@
 cmus_percent
 Percent of song's progress.
+
+-music player-

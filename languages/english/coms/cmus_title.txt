@@ -1,2 +1,4 @@
 cmus_title
 Prints the title of the current cmus song.
+
+-music player-

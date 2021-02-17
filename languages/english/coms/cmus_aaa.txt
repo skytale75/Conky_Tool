@@ -1,2 +1,4 @@
 cmus_aaa
 Print aaa status of cmus (all/artist/album).
+
+-music player-

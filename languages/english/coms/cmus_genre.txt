@@ -1,2 +1,4 @@
 cmus_genre
 Print the genre name of the current cmus song.
+
+-music player-

@@ -1,2 +1,4 @@
 cmus_state
 Current state of cmus (playing, paused, stopped etc).
+
+-music player-

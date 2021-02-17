@@ -1,12 +1,13 @@
-from ct_fun import *
+from ct_fun import Commands, active_highlighting
 from common_stuff import Common_Stuff as cs
-from tkinter import *
+from tkinter import Label, END, INSERT
 from tkinter import simpledialog as sd
 from os import listdir, path
 from PIL import Image
 from re import sub
 from pathlib import Path
 from gui_names import gui_names as gn
+import subprocess
 
 def search_su(entry_name):
     if cs.toggle == 0:
@@ -52,15 +53,6 @@ def add_cc(input_file, Custom_AB):
             if l in split_file[start]:
                 Custom_AB.insert(INSERT, split_file[start].strip()+"\n")
         start += 1
-
-def search_commands(my_input, my_output):
-    """compare user input to conky options and return
-    possibilities"""
-
-    the_input = my_input.get("insert linestart", "end-1c")
-    if the_input in cs.functions:
-        my_output.insert(INSERT, cs.functions[the_input])
-    return 'break'
 
 def load_conf(the_path, file_display, custom_AB):
     """ load conf file """
@@ -211,25 +203,20 @@ clean_list = []
 def font_list():
     """go to directory, copy file names,
     convert them to font names"""
-    for file in Path(cs.system_fonts).glob('**/*.ttf'):
-        dirty_list.append(file)
-    for file in Path(cs.user_fonts).glob("**/*.ttf"):
-        dirty_list.append(file)
-    start = 0
-    while start < len(dirty_list):
-        filename = str(dirty_list[start]).split('/')
-        str_file = str(filename[-1])
-        str_file = str_file.replace('.ttf', '').replace('.otf', '').replace('-', '')\
-            .replace('Bold', '').replace('Italic', '').replace('Oblique', '')
-        z = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', str_file)
-        if z not in clean_list:
-            clean_list.append(z)
-        start += 1
-    open_font_list = open(".fontlist.txt", 'w')
-    for l in sorted(clean_list):
-        open_font_list.write(l+"\n")
-        cs.font_list.append(l)
-    open_font_list.close()
+    font_list = []
+    get = subprocess.Popen("fc-list", shell=True, stdout=subprocess.PIPE)
+    read_output = str(get.stdout.read()).split("usr")
+    for L in read_output:
+        font = L.split(":")
+        if len(font) > 1:
+            print_font = str(font[1]).split(",")
+            for f in print_font[1:]:
+                if "\\x" not in str(print_font) and "\\u" not in str(print_font):
+                    font_name = f.replace("|\\n/", "")
+                    font_list.append(font_name)
+    for l in sorted(font_list):
+        if "\\" not in str(l) and len(l) > 2 and l not in cs.font_list:
+            cs.font_list.append(l)
 
 def make_font(font_n, font_s, file_display, cbl_window):
     name = font_n
@@ -444,7 +431,7 @@ def add_custom(attribute, file_display):
 def cb_syntax(attributes_box):
     """custom box add list items and syntax highlighting"""
     color_open = open(cs.options_path+"colornames.txt", 'r')
-    color_file = color_open.read()
+#    color_file = color_open.read()
     color_open.close()
     get_list = attributes_box.get(0.0, "end-1c").splitlines()
     start = 0
@@ -476,8 +463,11 @@ def show_def(com_list_box, wiki_window,):
         x = str(com_list_box.get("insert linestart", "insert lineend"))
         if x in exceptions:
             x = x.replace("e", "E", 1)
-        the_input = eval(x)
-        the_input.definition_out(wiki_window)
+        defi_open = open(cs.coms_path+x+".txt", 'r')
+        defi = defi_open.read()
+        defi_open.close()
+        wiki_window.delete(0.0, END)
+        wiki_window.insert(INSERT, defi)
         com_list_box.tag_add("command", "insert linestart", "insert lineend")
     if cs.selected == "configs":
         x = str(com_list_box.get("insert linestart", "insert lineend"))
@@ -486,7 +476,7 @@ def show_def(com_list_box, wiki_window,):
         defi_open.close()
         wiki_window.delete(0.0, END)
         wiki_window.insert(INSERT, defi)
-
+        com_list_box.tag_add("command", "insert linestart", "insert lineend")
     cs.hold_command = x
 
     if cs.selected == "lua":

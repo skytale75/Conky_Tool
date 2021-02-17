@@ -1,2 +1,4 @@
 cmus_progress (height),(width)
 cmus' progress bar.
+
+-music player-

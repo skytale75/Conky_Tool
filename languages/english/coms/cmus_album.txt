@@ -1,2 +1,4 @@
+-music player-
+
 cmus_album
 Prints the album of the current cmus song.

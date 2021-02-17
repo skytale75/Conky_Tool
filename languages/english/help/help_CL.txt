@@ -1,4 +1,4 @@
-Enter Command to Editor
+Submit Command to Editor
 Control + Enter
 
 Commands that require no options will automatically enter the editor wherever the cursor is located. Any command that has options, will appear in a special window, with the wiki description and a sample of the format written above the entry widget.
