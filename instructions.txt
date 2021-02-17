@@ -7,7 +7,7 @@ Type a word you want to search for within the commands, and it will return all t
 
 Command Box (light blue box on the left)
 
-Enter Command to Editor
+Enter Command into Editor
 Control + Enter
 
 Commands that require no options will automatically enter the editor wherever the cursor is located. Any command that has options, will appear in a special window, with the wiki description and a sample of the format written above the entry widget.
@@ -21,6 +21,9 @@ Every color alias has an update button, after you add a hex number (#FFFFFF) and
 Description Box
 
 Open Description in own Window
+
+What you need to know, when you have a command ready to enter, it will enter at the point of the cursor in the file. Two dollar signs in a row is bad, the cursor should be on an empty line, the end of a line, or placed directly in front of another dollar sign. The dollar sign tells conky the next thing it see's will be a command. When you insert a new command it will insert formatted as such "${command options}". Eventually I will ad a check so when you add a command the program will check to see if the symbol before the cursor is a dollar sign and automatically move the command insertion point to prevent errors, for right now if you enter in the wrong place it will crash your conky.
+
 
 Control + left mouse click
 
