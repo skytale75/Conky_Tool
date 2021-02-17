@@ -44,7 +44,7 @@ utilise = os.path.expanduser("~/Conky_Tool/utilise")
 user_utilise = os.path.expanduser("~/bin/utilise")
 
 if "utilise" in os.listdir(bin_path):
-    print("'utlize' command found in ~/bin")
+    print("'utilise' command found in ~/bin")
     os.chmod(user_utilise, 0o777)
 if "utilise" not in os.listdir(bin_path):
     print("'utilise' command not found in '~/bin', creating file . . .")
