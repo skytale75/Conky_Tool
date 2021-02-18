@@ -1,5 +1,5 @@
 from tkinter import Frame, Radiobutton, ttk, Entry, Label, Text, Button, Tk, END, INSERT, StringVar, OptionMenu, IntVar
-from ct_fun import *
+from ct_fun import Commands, functions
 from ct_mod import search_su, load_commands, load_configs, load_lua, load_options, toggle_gb, toggle_pb, \
     save_file, show_def, add_custom, search, load_hold_color, duplicate_press, open_file, load_by_line, \
     insert_line, insert_line, syntax_basic, fd_syntax_highlighting, cbl_update, theme_prompt, read_theme_list, \
@@ -49,24 +49,20 @@ class Notebook:
         def cr_com():
 
             nb.com_list_box.delete(0.0, END)
-            search_path = cs.coms_path
             cs.selected = "commands"
             load_commands(nb.com_list_box)
 
         def cr_con():
             nb.com_list_box.delete(0.0, END)
-            search_path = cs.configs_path
             cs.selected = "configs"
             load_configs(nb.com_list_box)
 
         def cr_lua():
             nb.com_list_box.delete(0.0, END)
-            search_path = cs.lua_path
             cs.selected = "lua"
             load_lua(nb.com_list_box)
 
         def cr_options():
-            search_path = cs.options_path
             cs.selected = "options"
             nb.com_list_box.delete(0.0, END)
             load_options(nb.wiki_window)
@@ -200,6 +196,11 @@ class Notebook:
         def check_window(self):
             if 'normal' == nb.font_window.state():
                 print('font window open')
+        def delete_cl(self):
+            if cs.cl_toggle == 1:
+                nb.command_find.delete(0, END)
+                cs.cl_toggle = 0
+
         
         nb.com_list_box.tag_config("command", background="white")
         nb.com_list_box.bind('<KeyRelease-Down>', definition)
@@ -222,6 +223,7 @@ class Notebook:
         nb.wiki_window.bind('<Control-Return>', force_def)
         nb.wiki_window.bind('<Control-Button-1>', force_def)
         nb.wiki_window.bind('<Control-h>', definitions_help)
+        nb.command_find.bind('<ButtonRelease-1>', delete_cl)
         nb.command_find.bind('<KeyRelease>', search_com)
         nb.command_find.bind('<Control-h>', search_help)
         nb.custom_window.bind('<Shift-Control-Return>', ps_command)

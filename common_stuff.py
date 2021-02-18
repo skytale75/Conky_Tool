@@ -10,7 +10,7 @@ class Common_Stuff:
     x = 0
     y = 0
     bgc = "#6B959E"
-
+    cl_toggle = 1
     temp_color = ''
     hold_command = ''
     hold_color = ''

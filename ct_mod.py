@@ -167,6 +167,10 @@ def save_file(file_display, Custom_AB):
     """open file and save to .conkyrc"""
     open_file = open(cs.conky_config_path+"conky.conf", "w")
     write_this = file_display.get(0.0, "end-1c")
+    if "$$" in write_this:
+        write_this = write_this.replace("$$", "$")
+        file_display.delete(0.0, END)
+        file_display.insert(INSERT, write_this)
     Custom_AB.delete(0.0, END)
     add_cc(write_this, Custom_AB)
     cb_syntax(Custom_AB)
@@ -205,15 +209,19 @@ def font_list():
     convert them to font names"""
     font_list = []
     get = subprocess.Popen("fc-list", shell=True, stdout=subprocess.PIPE)
-    read_output = str(get.stdout.read()).split("usr")
-    for L in read_output:
-        font = L.split(":")
-        if len(font) > 1:
-            print_font = str(font[1]).split(",")
-            for f in print_font[1:]:
-                if "\\x" not in str(print_font) and "\\u" not in str(print_font):
-                    font_name = f.replace("|\\n/", "")
-                    font_list.append(font_name)
+    grab_output = str(get.stdout.read())
+
+    temp_list = grab_output.split("share")
+    for t in temp_list:
+        c = t[t.find(': ')+2:t.find('=')-6]
+        if len(c) != 0 and "\\" not in c:
+            if "," not in c:
+                font_list.append(c)
+            if "," in c:
+                split_c = c.split(",")
+                for f in split_c:
+                    font_list.append(f)
+
     for l in sorted(font_list):
         if "\\" not in str(l) and len(l) > 2 and l not in cs.font_list:
             cs.font_list.append(l)

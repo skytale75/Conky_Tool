@@ -51,6 +51,11 @@ sudo yum install python36u-tkinter
 
 ***Download (Clone repository)***
 
+everyone shit have git, if you don't you can install it
+in your terminal . . . "sudo apt install git" and so on . . .
+
+after you install . . . continue . . 
+
 open terminal in home directory, copy/paste next line into
 terminal and press enter.
 
