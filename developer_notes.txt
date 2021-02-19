@@ -1,24 +1,15 @@
-TO DO
+fixed today February 18, 2021
 
-add color selector to colors window, change the text
-colors window to a series of 10 buttons, they will be
-labled "na" unless there is a color present, then they
-will simply be colored the color you will use, then just
-click the button to add the color to the file.
+major improvements to color selector box . . .
+added color selector tool and colorized buttons to match . . . 
+going to apply the same idea tothe main window, one button add
+color . . . 
 
-add "remove theme" option from the themes menu
+fixed pagify . . . 
 
-add tooltips
 
-Add radiobuttons to fonts window, "italic, bold . . . "
 
-move size label over size entry box in font window . . .
-
-add total font number to font window title bar
-
-add "pagify" button . . . 
-
-fixed today . . . 
+fixed yesterday . . . 
 
 added a file check to make sure 2 dollar signs "$$" aren't saved
 to the file (crashes out conky) . . . will be adding more checks to make sure the
@@ -28,3 +19,35 @@ preceded by a "$".
 Eventually set up script to convert from old conky format to new conky format.
 
 Add menu bar, Start Edit, About etc etc. . .
+
+
+TO DO
+
+new thought . . . on the Manage Colors dialogue . . .
+want to add a button at the bottom to import colr schemes in
+text format . . . will have to use tkinter file dialogue to
+simplify it.
+
+add dialogue box to images so the user doesn't have to type
+the path in to add the image to the file.
+
+fix color nine in colors dialogue3 (february 19th)
+
+add "remove theme" option from the themes menu (february 19th)
+
+add tooltips
+
+Add radiobuttons to fonts window, "italic, bold . . . "
+
+move size label over size entry box in font window . . .(february 19th)
+
+add total font number to font window title bar (februrary 19th)
+
+add "pagify" button . . . (february 19th)
+
+* find a good color scheme to fix the overall feel of the program . . . 
+design some button images . . . consider retooling the entire GUI, put
+fonts and colors on tabs in main window, right next to the command/configs . . .
+add padding . . . maybe have pagify togge out and in the main file display widow
+
+Add menu bar . . . design icon . . . 
