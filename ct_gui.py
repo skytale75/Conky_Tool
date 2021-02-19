@@ -1,4 +1,4 @@
-from tkinter import Frame, Radiobutton, ttk, Entry, Label, Text, Button, Tk, END, INSERT, StringVar, OptionMenu, IntVar
+from tkinter import Frame, Radiobutton, ttk, Entry, Label, Text, Button, Tk, END, INSERT, StringVar, OptionMenu, IntVar, colorchooser
 from ct_fun import Commands, functions
 from ct_mod import search_su, load_commands, load_configs, load_lua, load_options, toggle_gb, toggle_pb, \
     save_file, show_def, add_custom, search, load_hold_color, duplicate_press, open_file, load_by_line, \
@@ -10,6 +10,7 @@ from os import listdir
 from PIL import Image
 from gui_names import gui_names as gn
 import subprocess
+from tkcolorpicker import askcolor
 
 
 class Notebook:
@@ -211,7 +212,7 @@ class Notebook:
         nb.com_list_box.bind('<Button-1>', clear_tag)
         nb.com_list_box.bind('<ButtonRelease-1>', definition)
         nb.com_list_box.bind('<Control-h>', command_box_help)
-        nb.file_display.bind('<Control-p>', nb.conky_by_line)
+        nb.file_display.bind('<Alt-p>', nb.conky_by_line)
         nb.file_display.bind('<Control-f>', check_window)
         nb.file_display.bind("<Tab>", tab)
         nb.file_display.bind('<Control-Return>', command_line)
@@ -391,9 +392,18 @@ class Notebook:
 
         nb.font_window.mainloop()
 
+
     def add_color_window(self):
         """color management window"""
-        def update(color_alias, field_entry):
+        def color_chooser(color_out, mbutton):
+            grab_color = color_out.get()
+            color_code = askcolor("#"+grab_color, title ="Choose color")
+            if "None" not in str(color_code):
+                color_out.delete(0, END)
+                color_out.insert(INSERT, color_code[1][1:])
+                mbutton.config(bg=color_code[1])
+
+        def update(color_alias, field_entry, my_button):
             """enter new colors based on hex, if not hex locate
             color name in file and return hex code"""
             config_window = nb.file_display.get(0.0, END)
@@ -401,14 +411,17 @@ class Notebook:
             file_split = config_window.split("conky.text")
             config_split = file_split[0].splitlines()
             the_rest = file_split[1]
+            new_color = field_entry.get().lower()
+            print(new_color)
             for line in config_split:
                 if str(color_alias) not in str(line):
                     nb.file_display.insert(INSERT, line+"\n")
                 if str(color_alias) in str(line):
-                    if field_entry.get().lower() in cs.color_names:
-                        nb.file_display.insert(INSERT, "    "+color_alias+" = '"+cs.color_dict[field_entry.get().lower()]+"',\n")
-                    if field_entry.get().lower() not in cs.color_names:
-                        nb.file_display.insert(INSERT, "    "+color_alias+" = '"+field_entry.get().replace("#", '')+"',\n")
+                    if new_color in cs.color_names:
+                        nb.file_display.insert(INSERT, "    "+color_alias+" = '"+cs.color_dict[new_color]+"',\n")
+                    if new_color not in cs.color_names:
+                        nb.file_display.insert(INSERT, "    "+color_alias+" = '"+new_color.replace("#", '')+"',\n")
+            my_button.config(bg="#"+new_color)
             nb.file_display.insert(INSERT, "conky.text"+the_rest)
             save_file(nb.file_display, nb.custom_window)
 
@@ -416,112 +429,119 @@ class Notebook:
         nb.color_manager_window.grid()
         nb.color_manager_window.title(gn.win_colors)
         nb.color_manager_window.attributes("-topmost", True)
+        nb.color_manager_window.config(bg="#000000")
         file_colors = nb.custom_window.get(0.0, "end-1c").splitlines()
 
-        default_color_label =Label(nb.color_manager_window, text="default_color")
-        default_color_label.grid_configure(row=0, column=0, sticky="E")
+        default_color_chooser = Button(nb.color_manager_window, text="default", command=lambda: color_chooser(default_color_entry, default_color_chooser))
+        default_color_chooser.grid_configure(row=0, column=0, sticky="NSEW")
 
         default_color_entry =Entry(nb.color_manager_window, width=8)
         default_color_entry.grid_configure(row=0, column=1)    
 
-        default_color_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry))
+        default_color_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("default_color", default_color_entry, default_color_button))
         default_color_button.grid_configure(row=0, column=2)
         
-        color0_label =Label(nb.color_manager_window, text="color0")
-        color0_label.grid_configure(row=1, column=0, sticky="E")
+        color0_chooser = Button(nb.color_manager_window, text="color0", command=lambda: color_chooser(color0_entry, color0_chooser))
+        color0_chooser.grid_configure(row=1, column=0, sticky="NSEW")
 
         color0_entry =Entry(nb.color_manager_window, width=8)
         color0_entry.grid_configure(row=1, column=1)
 
-        color0_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry))
+        color0_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color0", color0_entry, color0_button))
         color0_button.grid_configure(row=1, column=2)
     
-        color1_label =Label(nb.color_manager_window, text="color1")
-        color1_label.grid_configure(row=2, column=0, sticky="E")
+        color1_chooser = Button(nb.color_manager_window, text="color1", command=lambda: color_chooser(color1_entry, color1_chooser))
+        color1_chooser.grid_configure(row=2, column=0, sticky="NSEW")
 
         color1_entry =Entry(nb.color_manager_window, width=8)
         color1_entry.grid_configure(row=2, column=1)
 
-        color1_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry))
+        color1_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color1", color1_entry, color1_button))
         color1_button.grid_configure(row=2, column=2)
     
-        color2_label =Label(nb.color_manager_window, text="color2")
-        color2_label.grid_configure(row=3, column=0, sticky="E")
+        color2_chooser = Button(nb.color_manager_window, text="color2", command=lambda: color_chooser(color2_entry, color2_chooser))
+        color2_chooser.grid_configure(row=3, column=0, sticky="NSEW")
 
         color2_entry =Entry(nb.color_manager_window, width=8)
         color2_entry.grid_configure(row=3, column=1)
 
-        color2_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry))
+        color2_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color2", color2_entry, color2_button))
         color2_button.grid_configure(row=3, column=2)
     
-        color3_label =Label(nb.color_manager_window, text="color3")
-        color3_label.grid_configure(row=4, column=0, sticky="E")
+        color3_chooser = Button(nb.color_manager_window, text="color3", command=lambda: color_chooser(color3_entry, color3_chooser))
+        color3_chooser.grid_configure(row=4, column=0, sticky="NSEW")
 
         color3_entry =Entry(nb.color_manager_window, width=8)
         color3_entry.grid_configure(row=4, column=1)
 
-        color3_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry))
+        color3_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color3", color3_entry, color3_button))
         color3_button.grid_configure(row=4, column=2)
     
-        color4_label =Label(nb.color_manager_window, text="color4")
-        color4_label.grid_configure(row=5, column=0, sticky="E")
+        color4_chooser = Button(nb.color_manager_window, text="color4", command=lambda: color_chooser(color4_entry, color4_chooser))
+        color4_chooser.grid_configure(row=5, column=0, sticky="NSEW")
 
         color4_entry =Entry(nb.color_manager_window, width=8)
         color4_entry.grid_configure(row=5, column=1)
 
-        color4_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry))
+        color4_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color4", color4_entry, color4_button))
         color4_button.grid_configure(row=5, column=2)
         
-        color5_label =Label(nb.color_manager_window, text="color5")
-        color5_label.grid_configure(row=6, column=0, sticky="E")
+        color5_chooser = Button(nb.color_manager_window, text="color5", command=lambda: color_chooser(color5_entry, color5_chooser))
+        color5_chooser.grid_configure(row=6, column=0, sticky="NSEW")
 
         color5_entry =Entry(nb.color_manager_window, width=8)
         color5_entry.grid_configure(row=6, column=1)
 
-        color5_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry))
+        color5_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color5", color5_entry, color5_button))
         color5_button.grid_configure(row=6, column=2)
         
-        color6_label =Label(nb.color_manager_window, text="color6")
-        color6_label.grid_configure(row=7, column=0, sticky="E")
+        color6_chooser = Button(nb.color_manager_window, text="color6", command=lambda: color_chooser(color6_entry, color6_chooser))
+        color6_chooser.grid_configure(row=7, column=0, sticky="NSEW")
 
         color6_entry =Entry(nb.color_manager_window, width=8)
         color6_entry.grid_configure(row=7, column=1)
 
-        color6_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry))
+        color6_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color6", color6_entry, color6_button))
         color6_button.grid_configure(row=7, column=2)
         
-        color7_label =Label(nb.color_manager_window, text="color7")
-        color7_label.grid_configure(row=8, column=0, sticky="E")
+        color7_chooser = Button(nb.color_manager_window, text="color7", command=lambda: color_chooser(color7_entry, color7_chooser))
+        color7_chooser.grid_configure(row=8, column=0, sticky="NSEW")
 
         color7_entry =Entry(nb.color_manager_window, width=8)
         color7_entry.grid_configure(row=8, column=1)
 
-        color7_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry))
+        color7_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color7", color7_entry, color7_button))
         color7_button.grid_configure(row=8, column=2)
         
-        color8_label =Label(nb.color_manager_window, text="color8")
-        color8_label.grid_configure(row=9, column=0, sticky="E")
+        color8_chooser = Button(nb.color_manager_window, text="color8", command=lambda: color_chooser(color8_entry, color8_chooser))
+        color8_chooser.grid_configure(row=9, column=0, sticky="NSEW")
 
         color8_entry =Entry(nb.color_manager_window, width=8)
         color8_entry.grid_configure(row=9, column=1)
 
-        color8_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry))
+        color8_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color8", color8_entry, color8_button))
         color8_button.grid_configure(row=9, column=2)
         
-        color9_label =Label(nb.color_manager_window, text="color9")
-        color9_label.grid_configure(row=10, column=0, sticky="E")
+        color9_chooser = Button(nb.color_manager_window, text="color9", command=lambda: color_chooser(color9_entry, color9_chooser))
+        color9_chooser.grid_configure(row=10, column=0, sticky="NSEW")
 
         color9_entry =Entry(nb.color_manager_window, width=8)
         color9_entry.grid_configure(row=10, column=1)
 
-        color9_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry))
+        color9_button =Button(nb.color_manager_window, width=8, text=gn.btn_update, command=lambda: update("color9", color9_entry, color9_button))
         color9_button.grid_configure(row=10, column=2)
 
         for color in file_colors:
             name = color.split()[0]
-            value = str(color.split()[2]).replace("'", '')
+            print(color, "#"+color.split()[2][1:-2])
+            value = str(color.split()[2][1:-2])
             entry_name = eval(name+"_entry")
-            entry_name.insert(INSERT, value[0:-1])
+            entry_name.insert(INSERT, value)
+            button_name = eval(name+"_button")
+            button_name.config(bg="#"+value)
+            label_name = eval(name+"_chooser")
+            label_name.config(bg='#'+value)
+
 
         nb.color_manager_window.mainloop()
 

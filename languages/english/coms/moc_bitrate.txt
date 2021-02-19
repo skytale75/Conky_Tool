@@ -1,2 +1,6 @@
 moc_bitrate
 Bitrate in the current MOC song.
+
+
+music
+media

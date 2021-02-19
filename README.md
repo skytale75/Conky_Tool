@@ -36,7 +36,7 @@ All you need to do to open it is press 'Controll + h'.
 
 with apt . . .
 
-sudo apt install python3-tk
+sudo apt install python3-tk python3-pil python3-pil.imagetk
 sudo apt install git
 
 with pacman

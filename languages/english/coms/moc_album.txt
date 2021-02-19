@@ -1,2 +1,5 @@
 moc_album
 Album of the current MOC song.
+
+music
+media

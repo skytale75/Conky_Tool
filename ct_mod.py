@@ -163,14 +163,18 @@ def theme_prompt(get_theme_name, file_display):
         pass
     theme_file.close()
 
+def check_file(file_display):
+    get_text = file_display.get(0.0, END)
+    if "$$" in get_text:
+        get_text = get_text.replace("$$", "$")
+        file_display.delete(0.0, END)
+        file_display.insert(INSERT, get_text)
+
 def save_file(file_display, Custom_AB):
     """open file and save to .conkyrc"""
+    check_file(file_display)
     open_file = open(cs.conky_config_path+"conky.conf", "w")
     write_this = file_display.get(0.0, "end-1c")
-    if "$$" in write_this:
-        write_this = write_this.replace("$$", "$")
-        file_display.delete(0.0, END)
-        file_display.insert(INSERT, write_this)
     Custom_AB.delete(0.0, END)
     add_cc(write_this, Custom_AB)
     cb_syntax(Custom_AB)

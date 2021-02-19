@@ -1,2 +1,5 @@
 moc_title
 Title of the current MOC song.
+
+music
+media

@@ -1,2 +1,6 @@
 moc_totaltime
 Total length of the current MOC song.
+
+
+music
+media

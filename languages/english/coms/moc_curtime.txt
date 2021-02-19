@@ -1,2 +1,6 @@
 moc_curtime
 Current time of the current MOC song.
+
+
+music
+media

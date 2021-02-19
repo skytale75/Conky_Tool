@@ -1,2 +1,6 @@
 moc_state
 Current state of MOC; playing, stopped etc.
+
+
+music
+media

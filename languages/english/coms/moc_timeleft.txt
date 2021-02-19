@@ -1,2 +1,6 @@
 moc_timeleft
 Time left in the current MOC song.
+
+
+music
+media
