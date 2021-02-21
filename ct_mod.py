@@ -8,6 +8,7 @@ from re import sub
 from pathlib import Path
 from gui_names import gui_names as gn
 import subprocess
+from tkinter.filedialog import askopenfilename
 
 def search_su(entry_name):
     if cs.toggle == 0:
@@ -354,10 +355,11 @@ def syntax_basic(file_display):
                 a = t[t.find("{"):t.find("}")+1]
                 offset = '+%dc' % len(a)
                 pos_start = file_display.search(a, '1.0', END)
-                while pos_start:
-                    pos_end = pos_start + offset
-                    file_display.tag_add("{", pos_start, pos_end)
-                    pos_start = file_display.search(a, pos_end, END)
+                if "{" and "}" in str(a):
+                    while pos_start:
+                        pos_end = pos_start + offset
+                        file_display.tag_add("{", pos_start, pos_end)
+                        pos_start = file_display.search(a, pos_end, END)
     if len(file) == 1:
         pass
 
@@ -546,7 +548,6 @@ def toggle_gb(file_display, custom_window):
 def toggle_pb(file_display, custom_window):
     """toggles page_borders"""
     where = file_display.index(INSERT)
-    print(where)
     cs.file_list = file_display.get(0.0, "end-1c")
     true_false(file_display)
     file_display.delete(0.0, END)
@@ -573,3 +574,28 @@ def true_false(file_display):
                 cs.graph_border_toggle = -1
             if "false" in str(l):
                 cs.graph_border_toggle = 1
+
+def open_color_file(color0_chooser, color0_entry, color1_chooser, color1_entry, color2_chooser, color2_entry, \
+    color3_chooser, color3_entry, color4_chooser, color4_entry, color5_chooser, color5_entry, \
+    color6_chooser, color6_entry, color7_chooser, color7_entry, color8_chooser, color8_entry, \
+    color9_chooser, color9_entry ):
+    name = askopenfilename(initialdir="~/Downloads/")
+    if len(name) != 0:
+        open_file = open(name, 'r')
+        read_file = open_file.read()
+        print(read_file)
+        open_file.close()
+        color_list = []
+        if len(read_file.splitlines()) == 1:
+            color_list = read_file.replace(",", " ").replace("#", "").split()
+        if len(read_file.splitlines()) > 1:
+            color_list = read_file.replace(",", " ").replace("#", "").split()
+        print(color_list)
+        finish = 0
+        while finish < len(color_list):
+            chooser = eval("color"+str(finish)+"_chooser")
+            the_entry = eval("color"+str(finish)+"_entry")
+            chooser.config(bg="#"+color_list[finish])
+            the_entry.delete(0, END)
+            the_entry.insert(INSERT, color_list[finish])
+            finish = finish + 1

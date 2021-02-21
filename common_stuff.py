@@ -44,6 +44,7 @@ class Common_Stuff:
     theme_path = path.expanduser('~/Conky_Tool/Utilise_Conky/Conky_Themes/')
     user_theme_path = path.expanduser('~/.config/Utilise_Conky/Conky_Themes/')
     config_path = path.expanduser('~/.config/')
+    image_path = path.expanduser("~/Conky_Tool/.img_gui/")
 
     configs_path = path.expanduser('~/Conky_Tool/languages/'+language+'/configs/')
     coms_path = path.expanduser('~/Conky_Tool/languages/'+language+'/coms/')
@@ -70,6 +71,7 @@ class Common_Stuff:
     current_colors = []
     color_names = []
     color_codes = []
+    fs_hold = 14
 
     # file pieces
 

@@ -1,4 +1,4 @@
-fixed today February 18, 2021
+fixed February 18, 2021
 
 major improvements to color selector box . . .
 added color selector tool and colorized buttons to match . . . 
@@ -28,22 +28,11 @@ want to add a button at the bottom to import colr schemes in
 text format . . . will have to use tkinter file dialogue to
 simplify it.
 
-add dialogue box to images so the user doesn't have to type
-the path in to add the image to the file.
-
-fix color nine in colors dialogue3 (february 19th)
-
 add "remove theme" option from the themes menu (february 19th)
 
 add tooltips
 
 Add radiobuttons to fonts window, "italic, bold . . . "
-
-move size label over size entry box in font window . . .(february 19th)
-
-add total font number to font window title bar (februrary 19th)
-
-add "pagify" button . . . (february 19th)
 
 * find a good color scheme to fix the overall feel of the program . . . 
 design some button images . . . consider retooling the entire GUI, put
@@ -51,3 +40,15 @@ fonts and colors on tabs in main window, right next to the command/configs . . .
 add padding . . . maybe have pagify togge out and in the main file display widow
 
 Add menu bar . . . design icon . . . 
+
+add an option to change font size to the whole program . . . easier to read
+
+change the "Custom" Label to "In Use", and move it under the commands . . . 
+
+each custom color will be placed in a button without text . . . the background
+will be the color it represents . . . the default_color will be a label since
+you can not add "default_color" in the script.
+
+get rid of the descriptions box, and have tooltips pop up for each highlighted
+command.
+
