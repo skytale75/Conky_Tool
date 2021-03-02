@@ -101,3 +101,5 @@ if "Utilise_Conky" not in os.listdir(conky_path):
 
 print("\nscript completed . . . \n\nMake sure you have python3-tk installed . . .")
 print("sudo apt install python3-tk\nor whatever is appropriate for your distro")
+print("pip3 install willow")
+print("pip3 install tcolorpicker")
