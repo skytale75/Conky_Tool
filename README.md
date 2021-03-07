@@ -36,8 +36,7 @@ All you need to do to open it is press 'Controll + h'.
 
 with apt . . .
 
-sudo apt install python3-tk python3-pil python3-pil.imagetk
-sudo apt install git
+sudo apt install python3-tk python3-pil python3-pil.imagetk git
 
 with pacman
 
@@ -60,6 +59,8 @@ open terminal in home directory, copy/paste next line into
 terminal and press enter.
 
 git clone https://github.com/skytale75/Conky_Tool.git
+
+pip3 install tkcolorpicker
 
 
 
@@ -86,23 +87,8 @@ that will automatically load the font aliases into the appropriate
 fields. Will also add a text box to display fonts in use that aren't
 set toan alias for older versions of conky.
 
-Going to change the images window, when you add an image and change the
-alignment, it will automatically delete the old insertion, and re-enter
-the image command with the new alignment values.
-
-Working on a line to page concept, Control-p will take the line the 
-cursor is currently on, and open a window with a text field into
-its own page, each command will be on it's own line. When you push
-submit, the line in the original will be deleted and the new page will
-re-insert in in a single line. I think this will help keep the
-conky.conf much easier to read. If you make no changes you can hit
-a cancel button.
-
 Update February 16th 2021
 
 Decided to start working on the program again . . . if I am making it just for me that is fine lol.
 
-Known Issues as of right now.
-
-Adding fonts doesn't work right . . . the window will give you an accurate list of fonts but you have to ommit the underscores and words like (bold italic or condensed), the font names should match the file names, if you have font manager installed (I reccomend it big time) just look through the list to find out the right font names. Also, once you close the font window you can't open it again until restarting the program. I will be fixing this . . . 
-
+added tkcolorpicker to the file since it is difficult to find in some cases . . . 
