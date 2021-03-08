@@ -1,54 +1,6 @@
-fixed February 18, 2021
-
-major improvements to color selector box . . .
-added color selector tool and colorized buttons to match . . . 
-going to apply the same idea tothe main window, one button add
-color . . . 
-
-fixed pagify . . . 
-
-
-
-fixed yesterday . . . 
-
-added a file check to make sure 2 dollar signs "$$" aren't saved
-to the file (crashes out conky) . . . will be adding more checks to make sure the
-file is formatted properly, make sure each "{" in the conky.text section is
-preceded by a "$".
-
-Eventually set up script to convert from old conky format to new conky format.
-
-Add menu bar, Start Edit, About etc etc. . .
-
-
-TO DO
-
-new thought . . . on the Manage Colors dialogue . . .
-want to add a button at the bottom to import colr schemes in
-text format . . . will have to use tkinter file dialogue to
-simplify it.
-
-add "remove theme" option from the themes menu (february 19th)
-
-add tooltips
-
-Add radiobuttons to fonts window, "italic, bold . . . "
-
-* find a good color scheme to fix the overall feel of the program . . . 
-design some button images . . . consider retooling the entire GUI, put
-fonts and colors on tabs in main window, right next to the command/configs . . .
-add padding . . . maybe have pagify togge out and in the main file display widow
-
-Add menu bar . . . design icon . . . 
-
-add an option to change font size to the whole program . . . easier to read
-
-change the "Custom" Label to "In Use", and move it under the commands . . . 
-
-each custom color will be placed in a button without text . . . the background
-will be the color it represents . . . the default_color will be a label since
-you can not add "default_color" in the script.
-
-get rid of the descriptions box, and have tooltips pop up for each highlighted
-command.
-
+* step 1 grab file_display contents
+step 2 grab all colors
+step 3 append new colors to list in the form of 'color2 = '63971d''
+step 4 for every item in list, replace line in file
+step 5 clear the file display, and insert new file
+step 6 save file
