@@ -53,7 +53,20 @@ def add_cc(input_file, Custom_AB):
         for l in cs.aliases[0:10]:
             if l in split_file[start]:
                 Custom_AB.insert(INSERT, split_file[start].strip()+"\n")
+                print(split_file[start].strip())
         start += 1
+
+def add_cc_update(the_list, Custom_AB):
+    """find custom colors in file and list them in the
+    custom colors box"""
+    if cs.color_toggle == 0:
+        start = 0
+        while start < len(the_list):
+            for l in cs.aliases[0:10]:
+                if l in the_list[start]:
+                    print(l)
+                    Custom_AB.insert(INSERT, the_list[start].strip()+"\n")
+            start += 1
 
 def load_conf(the_path, file_display, custom_AB):
     """ load conf file """
@@ -61,8 +74,8 @@ def load_conf(the_path, file_display, custom_AB):
     open_file = open(the_path, 'r')
     read_file = open_file.read()
     open_file.close()
-    if len(read_file) != 0:
-        add_cc(read_file, custom_AB)
+    if len(read_file) > 10:
+        # add_cc(read_file, custom_AB)
         file_display.insert(INSERT, read_file)
     if len(read_file) == 0:
         file_display.insert(INSERT, "file empty\nplease load theme.")
@@ -105,7 +118,8 @@ def load_theme(get_theme_list, file_display, presets_window):
             if l in t and "-[[" not in t:
                 t = str(t).strip()
                 presets_window.insert(INSERT, t+"\n")
-    cb_syntax(presets_window)
+    # cb_syntax(presets_window)
+    print(len(cs.ab_colors))
 
 def theme_list():
     """.themes.txt is a list of themes
@@ -175,14 +189,16 @@ def save_file(file_display, Custom_AB):
     """open file and save to .conkyrc"""
     check_file(file_display)
     open_file = open(cs.conky_config_path+"conky.conf", "w")
-    write_this = file_display.get(0.0, "end-1c")
+    write_this = cs.ab_colors
     Custom_AB.delete(0.0, END)
-    add_cc(write_this, Custom_AB)
+    open_file.write(file_display.get(0.0, END))
+    open_file.close() 
+    add_cc_update(write_this, Custom_AB)
+    load_the_colors()
+    print(cs.ab_colors)
     cb_syntax(Custom_AB)
     syntax_basic(file_display)
     fd_syntax_highlighting(file_display)
-    open_file.write(write_this)
-    open_file.close()
 
 def image_dimensions(i_path, image_x, image_y):
     """get picture height and width and load"""
@@ -445,23 +461,32 @@ def add_custom(attribute, file_display):
 def cb_syntax(attributes_box):
     """custom box add list items and syntax highlighting"""
     color_open = open(cs.options_path+"colornames.txt", 'r')
-#    color_file = color_open.read()
+    def add_color(attributes_box):
+        start = 0
+        while start < len(get_list):
+            name = str(str(get_list[start]).split()[0])
+            color = str(get_list[start]).split()[2].replace("'", '').replace(",", '').capitalize()
+            print(color)
+            if color.lower() not in cs.color_names:
+                cs.the_color = "#"+color
+            if color.lower() in cs.color_names:
+                cs.the_color = "#"+cs.color_dict[color.lower()]
+            offset = '+%dc' % len(get_list[start])
+            pos_start = attributes_box.search(get_list[start], '0.0', END)
+            pos_end = pos_start + offset
+            print("pos_start", get_list[start], pos_end)
+            print(cs.the_color)
+            attributes_box.tag_config(name, foreground=str(cs.the_color))
+            attributes_box.tag_add(name, pos_start, pos_end)
+            start += 1
+
     color_open.close()
-    get_list = attributes_box.get(0.0, "end-1c").splitlines()
-    start = 0
-    while start < len(get_list):
-        name = str(str(get_list[start]).split()[0])
-        color = str(get_list[start]).split()[2].replace("'", '').replace(",", '').capitalize()
-        if color.lower() not in cs.color_names:
-            cs.the_color = "#"+color
-        if color.lower() in cs.color_names:
-            cs.the_color = "#"+cs.color_dict[color.lower()]
-        offset = '+%dc' % len(get_list[start])
-        pos_start = attributes_box.search(get_list[start], '0.0', END)
-        pos_end = pos_start + offset
-        attributes_box.tag_config(name, foreground=str(cs.the_color))
-        attributes_box.tag_add(name, pos_start, pos_end)
-        start += 1
+    if len(cs.ab_colors) != 0:
+        attributes_box.delete(0.0, END)
+        for item in cs.ab_colors:
+            attributes_box.insert(INSERT, item+"\n")
+        get_list = attributes_box.get(0.0, "end-1c").splitlines()
+        add_color(attributes_box)
 
 def get_theme(file_display, option_header, presets_window):
     """load theme and highlights"""
@@ -575,27 +600,27 @@ def true_false(file_display):
             if "false" in str(l):
                 cs.graph_border_toggle = 1
 
-def open_color_file(color0_chooser, color0_entry, color1_chooser, color1_entry, color2_chooser, color2_entry, \
-    color3_chooser, color3_entry, color4_chooser, color4_entry, color5_chooser, color5_entry, \
-    color6_chooser, color6_entry, color7_chooser, color7_entry, color8_chooser, color8_entry, \
-    color9_chooser, color9_entry ):
-    name = askopenfilename(initialdir="~/Downloads/")
-    if len(name) != 0:
-        open_file = open(name, 'r')
-        read_file = open_file.read()
-        print(read_file)
-        open_file.close()
-        color_list = []
-        if len(read_file.splitlines()) == 1:
-            color_list = read_file.replace(",", " ").replace("#", "").split()
-        if len(read_file.splitlines()) > 1:
-            color_list = read_file.replace(",", " ").replace("#", "").split()
-        print(color_list)
-        finish = 0
-        while finish < len(color_list):
-            chooser = eval("color"+str(finish)+"_chooser")
-            the_entry = eval("color"+str(finish)+"_entry")
-            chooser.config(bg="#"+color_list[finish])
-            the_entry.delete(0, END)
-            the_entry.insert(INSERT, color_list[finish])
-            finish = finish + 1
+def load_the_colors():
+    ccl = []
+    if len(cs.ab_colors) != 0 and cs.color_toggle != 0:
+        ccl=cs.ab_colors
+    if len(cs.ab_colors) == 0 and cs.color_toggle != 0:
+        make_from_widget = uc.file_display.get(0.0, END).splitlines
+        for l in make_from_widget:
+            if "    default_color =" in str(l):
+                cs.ab_colors.append(str(l).strip())
+            if "    color" in str(l) and "=" in str(l):
+                cs.ab_colors.append(str(l).strip())
+        ccl=cs.ab_colors
+    if len(cs.ab_colors) == 0 and cs.color_toggle == 0:
+        get_from_file = open(cs.config_file, 'r')
+        make_from_file = get_from_file.read().splitlines()
+        get_from_file.close()
+        for l in make_from_file:
+            if "    default_color =" in str(l):
+                cs.ab_colors.append(str(l).strip())
+            if "    color" in str(l) and "=" in str(l):
+                cs.ab_colors.append(str(l).strip())
+        ccl=cs.ab_colors
+        cs.color_toggle = 1
+    return ccl

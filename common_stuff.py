@@ -20,6 +20,8 @@ class Common_Stuff:
     line_list = []
     file_list = ''
     image_hold = ''
+    colors_hold = []
+    color_toggle = 0
 
     # switches
     selected = 'commands'
@@ -72,6 +74,7 @@ class Common_Stuff:
     color_names = []
     color_codes = []
     fs_hold = 14
+    ab_colors = []
 
     # file pieces
 
