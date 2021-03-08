@@ -423,6 +423,9 @@ class Utilize_Conky:
                     mbutton.config(bg=color_code[1])
             if color_out.get() == "":
                 color_code = askcolor("#F3F3F3")
+                color_out.insert(INSERT, color_code[1][1:])
+                mbutton.config(bg=color_code[1])
+
         
         def pre_update():
             uc.custom_window.delete(0.0, END)
