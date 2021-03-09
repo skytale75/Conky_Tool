@@ -1,6 +1,7 @@
-* step 1 grab file_display contents
-step 2 grab all colors
-step 3 append new colors to list in the form of 'color2 = '63971d''
-step 4 for every item in list, replace line in file
-step 5 clear the file display, and insert new file
-step 6 save file
+added tooltips, not all but most . . . 
+got to fix them, it is kind of annoying, but for now it works.
+
+need to fix the color update when a new theme is loaded
+
+too tired to think of what I need . . . so, going to bed
+much to do tomorrow.

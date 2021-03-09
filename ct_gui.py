@@ -12,6 +12,7 @@ from gui_names import gui_names as gn
 import subprocess
 from tkcolorpicker import askcolor
 from tkinter.filedialog import askopenfilename
+from tool_tips import CreateToolTip
 
 
 class Utilize_Conky:
@@ -63,9 +64,12 @@ class Utilize_Conky:
             uc.com_list_box.delete(0.0, END)
             load_options(uc.wiki_window)
         
+        tooltip_size = 12
+
         uc.com_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_commands, variable=uc.v, value=1, command = cr_com)
         uc.com_radio.grid_configure(row=0, column=0, columnspan=5, sticky="NSEW")
         uc.com_radio.select()
+        uc.com_radio_tt = CreateToolTip(uc.com_radio, "Click to Show list \n of conky commands", text_size=tooltip_size)
 
         uc.con_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_configs, variable=uc.v, value=2, command = cr_con)
         uc.con_radio.grid_configure(row=1, column=0, columnspan=5, sticky="NSEW")
@@ -75,15 +79,32 @@ class Utilize_Conky:
 
         uc.options_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_options, variable=uc.v, value=4, command = cr_options)
         uc.options_radio.grid_configure(row=3, column=0, columnspan=5, sticky="NSEW")
+        uc.or_tt = CreateToolTip(uc.options_radio, "click to show startup\noptions for conky.\nWill be adding conky\nconfiguration tips eventually", text_size=tooltip_size)
 
         uc.command_find =Entry(uc.frame, width=20, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
         uc.command_find.grid_configure(row=4, column=0, columnspan=5, sticky="NSEW")
+        uc.command_find_tt = CreateToolTip(uc.command_find, "^ Search for commands", text_size=tooltip_size)
 
         uc.conky_label =Label(uc.frame, bg=cs.bgc, text=cs.config_file, justify='left')
         uc.conky_label.grid_configure(row=0, column=10, columnspan=11, sticky="NSEW")
+        uc.fd_tt = CreateToolTip(uc.conky_label, \
+        """Ctrl-LeftClick to add highlighted commands,\n\
+Ctrl-Shift-LeftClick to insert highlighted color\n\
+Make sure cursor isn't sitting to the right of \n\
+a '$'. I will be adding file checks to make sure a\n\
+two dollar signs don't get input side by side, but\n\
+for now just check, it will make conky crash\n\
+Ctrl-z undo\nCtrl-d duplicate line\nwhite=text\n\
+grey=commands and dollar signs are red, marks the start\n\
+of a new command. All other colors are visual commands.\n\
+\nIf something doesn't work right, or you don't understan\n\
+how something works, you can report an issue on the github\n\
+link or the facebook page. Suggestions are more than \n\
+welcome""", text_size=tooltip_size)
 
         uc.com_list_box =Text(uc.frame, height=10, width=20, bg="lightblue", font= ('Deja Vu Serif', 10))
         uc.com_list_box.grid_configure(row=5, column=0, columnspan=5, sticky="NSEW")
+        uc.clb_tt = CreateToolTip(uc.com_list_box, "click to highlight command,\ninsert to file by pressing\nctrl-leftClick or Ctrl-Enter", text_size=tooltip_size)
 
         uc.lnText = Text(uc.frame, width = 4, padx = 4, highlightthickness = 0, takefocus = 0,
                 bd = 0, background = 'lightgrey', foreground = 'magenta', state='disabled')
@@ -94,6 +115,7 @@ class Utilize_Conky:
 
         uc.wiki_label =Label(uc.frame, width=40, bg=cs.bgc, text=gn.lbl_description)
         uc.wiki_label.grid_configure(row=6, column=0, columnspan=10)
+        uc.wl_tt = CreateToolTip(uc.wiki_label, "definitions and examples of all the commands", text_size=tooltip_size)
 
         uc.wiki_window =Text(uc.frame, wrap='word', width=20, bg = "lightyellow", font= ('Deja Vu Serif', 10))
         uc.wiki_window.grid_configure(row=7, column=0, rowspan=14, columnspan=10, sticky="NSEW")
@@ -102,16 +124,19 @@ class Utilize_Conky:
         uc.color_button =Button(uc.frame, image=color_img, command=uc.add_color_window)
         uc.color_button.grid_configure(row=21, column=10, sticky="NESW")
         uc.color_button.image=color_img
+        uc.cb_tt = CreateToolTip(uc.color_button, "Open Color Manager", text_size=tooltip_size)
 
         fonts_img = ImageTk.PhotoImage(Image.open (cs.image_path+"fonts.png"))
         uc.fonts_button =Button(uc.frame, image=fonts_img, command=lambda: uc.font_window_fun(uc.file_display))
         uc.fonts_button.grid_configure(row=21, column=11, sticky='NSEW')
         uc.fonts_button.image=fonts_img
+        uc.fontButton_tt = CreateToolTip(uc.fonts_button, "Choose Font and Size", text_size=tooltip_size)
 
         image_img = ImageTk.PhotoImage(Image.open (cs.image_path+"images.png"))
         uc.image_button =Button(uc.frame, image=image_img, command =uc.image_window_fun)
         uc.image_button.grid_configure(row=21, column=12, sticky="NSEW")
         uc.image_button.image=image_img
+        uc.Img_button_tt = CreateToolTip(uc.image_button, "Add Image", text_size=tooltip_size)
 
         page_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_page_border.png"))
         uc.page_borders =Button(uc.frame, image=page_borders_img, command=lambda: toggle_pb(uc.file_display, uc.custom_window))
@@ -127,20 +152,23 @@ class Utilize_Conky:
         uc.pagify =Button(uc.frame, image=pagify_img, command=lambda: uc.conky_by_line(self))
         uc.pagify.grid_configure(row=21, column=15, sticky="NSEW")
         uc.pagify.image=pagify_img
+        uc.pagify_tt = CreateToolTip(uc.pagify, "View and edit current\nline in a new window\nas a list.", text_size=tooltip_size)
 
         themes_img = ImageTk.PhotoImage(Image.open (cs.image_path+"themes.png"))
         uc.themes_button =Button(uc.frame, image=themes_img, command=uc.themes_window)
         uc.themes_button.grid_configure(row=21, column=16, sticky='NSEW')
         uc.themes_button.image=themes_img
+        uc.cb_tt = CreateToolTip(uc.themes_button, "Load and save themes\nwill be adding standard\ndialogue box soon.", text_size=tooltip_size)
 
-        uc.custom = Label(uc.frame, width=20, bg=cs.bgc, text=gn.lbl_custom)
+        uc.custom = Label(uc.frame, width=20, bg=cs.bgc, text="Colors In File")
         uc.custom.grid_configure(row=0, column=5, columnspan=5)
-
-        uc.custom_window =Text(uc.frame, height=10, width=20, wrap="word", bg="darkgrey", fg="cyan")
+        # adjust font size to fill window . . .
+        uc.custom_window = Text(uc.frame, height=10, width=20, wrap="word", bg="darkgrey", fg="cyan", font=("times", "14", "normal"))
         uc.custom_window.grid_configure(row=1, column=5, columnspan=5, rowspan=5, sticky="NWSE")
 
         uc.save_button =Button(uc.frame, text=gn.btn_save, fg='red', command=lambda: save_file(uc.file_display, uc.custom_window))
         uc.save_button.grid_configure(row=21, column=19, sticky='NSEW')
+        uc.save_tt = CreateToolTip(uc.save_button, "Saves config file.\nsave theme when you\nare at a good save point.", text_size=tooltip_size)
 
         uc.quit =Button(uc.frame,text=gn.btn_quit, fg="red", command=self.root.destroy)
         uc.quit.grid_configure(row=21, column=20, sticky='NSEW')
@@ -409,7 +437,7 @@ class Utilize_Conky:
         uc.color_manager_window = Tk()
         uc.color_manager_window.grid()
         uc.color_manager_window.title(gn.win_colors)
-        uc.color_manager_window.attributes("-topmost", True)
+        uc.color_manager_window.attributes("-topmost", False)
         uc.color_manager_window.config(bg="#000000")
         file_colors = uc.custom_window.get(0.0, "end-1c").splitlines()
 
@@ -488,110 +516,122 @@ class Utilize_Conky:
             pre_update(color_alias, field_entry, my_button)
             save_file(uc.file_display, uc.custom_window)
 
+        tts = 12
+
+        uc.sel_col_label = Label(uc.color_manager_window, width=10, text="Select Color")
+        uc.sel_col_label.grid_configure(row=0, column=0)
+        uc.sel_col_tt = CreateToolTip(uc.sel_col_label, "Opens a color chooser", tts)
+
+        uc.current_color_label = Label(uc.color_manager_window, width=10, text="Current Color")
+        uc.current_color_label.grid_configure(row=0, column=2)
+        uc.sel_col_tt = CreateToolTip(uc.current_color_label, "color currently in the file", tts)
+
         uc.default_color_chooser = Button(uc.color_manager_window, text="default", command=lambda: color_chooser(uc.default_color_entry, uc.default_color_chooser))
-        uc.default_color_chooser.grid_configure(row=0, column=0, sticky="NSEW")
+        uc.default_color_chooser.grid_configure(row=1, column=0, sticky="NSEW")
 
-        uc.default_color_entry =Entry(uc.color_manager_window, width=8)
-        uc.default_color_entry.grid_configure(row=0, column=1)    
+        uc.default_color_entry =Entry(uc.color_manager_window, width=10)
+        uc.default_color_entry.grid_configure(sticky="NSEW", row=1, column=1)    
 
-        uc.default_color_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.default_color_button.grid_configure(row=0, column=2)
+        uc.default_color_button = Label(uc.color_manager_window, width=10)
+        uc.default_color_button.grid_configure(sticky="NSEW", row=1, column=2)
         
         uc.color0_chooser = Button(uc.color_manager_window, text="color0", command=lambda: color_chooser(uc.color0_entry, uc.color0_chooser))
-        uc.color0_chooser.grid_configure(row=1, column=0, sticky="NSEW")
+        uc.color0_chooser.grid_configure(row=2, column=0, sticky="NSEW")
 
-        uc.color0_entry = Entry(uc.color_manager_window, width=8)
-        uc.color0_entry.grid_configure(row=1, column=1)
+        uc.color0_entry = Entry(uc.color_manager_window, width=10)
+        uc.color0_entry.grid_configure(sticky="NSEW", row=2, column=1)
 
-        uc.color0_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color0_button.grid_configure(row=1, column=2)
+        uc.color0_button = Label(uc.color_manager_window, width=10)
+        uc.color0_button.grid_configure(sticky="NSEW", row=2, column=2)
     
         uc.color1_chooser = Button(uc.color_manager_window, text="color1", command=lambda: color_chooser(uc.color1_entry, uc.color1_chooser))
-        uc.color1_chooser.grid_configure(row=2, column=0, sticky="NSEW")
+        uc.color1_chooser.grid_configure(row=3, column=0, sticky="NSEW")
 
-        uc.color1_entry = Entry(uc.color_manager_window, width=8)
-        uc.color1_entry.grid_configure(row=2, column=1)
+        uc.color1_entry = Entry(uc.color_manager_window, width=10)
+        uc.color1_entry.grid_configure(sticky="NSEW", row=3, column=1)
 
-        uc.color1_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color1_button.grid_configure(row=2, column=2)
+        uc.color1_button = Label(uc.color_manager_window, width=10)
+        uc.color1_button.grid_configure(sticky="NSEW", row=3, column=2)
     
         uc.color2_chooser = Button(uc.color_manager_window, text="color2", command=lambda: color_chooser(uc.color2_entry, uc.color2_chooser))
-        uc.color2_chooser.grid_configure(row=3, column=0, sticky="NSEW")
+        uc.color2_chooser.grid_configure(row=4, column=0, sticky="NSEW")
 
-        uc.color2_entry = Entry(uc.color_manager_window, width=8)
-        uc.color2_entry.grid_configure(row=3, column=1)
+        uc.color2_entry = Entry(uc.color_manager_window, width=10)
+        uc.color2_entry.grid_configure(sticky="NSEW", row=4, column=1)
 
-        uc.color2_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color2_button.grid_configure(row=3, column=2)
+        uc.color2_button = Label(uc.color_manager_window, width=10)
+        uc.color2_button.grid_configure(sticky="NSEW", row=4, column=2)
     
         uc.color3_chooser = Button(uc.color_manager_window, text="color3", command=lambda: color_chooser(uc.color3_entry, uc.color3_chooser))
-        uc.color3_chooser.grid_configure(row=4, column=0, sticky="NSEW")
+        uc.color3_chooser.grid_configure(row=5, column=0, sticky="NSEW")
 
-        uc.color3_entry = Entry(uc.color_manager_window, width=8)
-        uc.color3_entry.grid_configure(row=4, column=1)
+        uc.color3_entry = Entry(uc.color_manager_window, width=10)
+        uc.color3_entry.grid_configure(sticky="NSEW", row=5, column=1)
 
-        uc.color3_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color3_button.grid_configure(row=4, column=2)
+        uc.color3_button = Label(uc.color_manager_window, width=10)
+        uc.color3_button.grid_configure(sticky="NSEW", row=5, column=2)
     
         uc.color4_chooser = Button(uc.color_manager_window, text="color4", command=lambda: color_chooser(uc.color4_entry, uc.color4_chooser))
-        uc.color4_chooser.grid_configure(row=5, column=0, sticky="NSEW")
+        uc.color4_chooser.grid_configure(row=6, column=0, sticky="NSEW")
 
-        uc.color4_entry = Entry(uc.color_manager_window, width=8)
-        uc.color4_entry.grid_configure(row=5, column=1)
+        uc.color4_entry = Entry(uc.color_manager_window, width=10)
+        uc.color4_entry.grid_configure(sticky="NSEW", row=6, column=1)
 
-        uc.color4_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color4_button.grid_configure(row=5, column=2)
+        uc.color4_button = Label(uc.color_manager_window, width=10)
+        uc.color4_button.grid_configure(sticky="NSEW", row=6, column=2)
         
         uc.color5_chooser = Button(uc.color_manager_window, text="color5", command=lambda: color_chooser(uc.color5_entry, uc.color5_chooser))
-        uc.color5_chooser.grid_configure(row=6, column=0, sticky="NSEW")
+        uc.color5_chooser.grid_configure(row=7, column=0, sticky="NSEW")
 
-        uc.color5_entry = Entry(uc.color_manager_window, width=8)
-        uc.color5_entry.grid_configure(row=6, column=1)
+        uc.color5_entry = Entry(uc.color_manager_window, width=10)
+        uc.color5_entry.grid_configure(sticky="NSEW", row=7, column=1)
 
-        uc.color5_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color5_button.grid_configure(row=6, column=2)
+        uc.color5_button = Label(uc.color_manager_window, width=10)
+        uc.color5_button.grid_configure(sticky="NSEW", row=7, column=2)
         
         uc.color6_chooser = Button(uc.color_manager_window, text="color6", command=lambda: color_chooser(uc.color6_entry, uc.color6_chooser))
-        uc.color6_chooser.grid_configure(row=7, column=0, sticky="NSEW")
+        uc.color6_chooser.grid_configure(row=8, column=0, sticky="NSEW")
 
-        uc.color6_entry = Entry(uc.color_manager_window, width=8)
-        uc.color6_entry.grid_configure(row=7, column=1)
+        uc.color6_entry = Entry(uc.color_manager_window, width=10)
+        uc.color6_entry.grid_configure(sticky="NSEW", row=8, column=1)
 
-        uc.color6_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color6_button.grid_configure(row=7, column=2)
+        uc.color6_button = Label(uc.color_manager_window, width=10)
+        uc.color6_button.grid_configure(sticky="NSEW", row=8, column=2)
         
         uc.color7_chooser = Button(uc.color_manager_window, text="color7", command=lambda: color_chooser(uc.color7_entry, uc.color7_chooser))
-        uc.color7_chooser.grid_configure(row=8, column=0, sticky="NSEW")
+        uc.color7_chooser.grid_configure(row=9, column=0, sticky="NSEW")
 
-        uc.color7_entry = Entry(uc.color_manager_window, width=8)
-        uc.color7_entry.grid_configure(row=8, column=1)
+        uc.color7_entry = Entry(uc.color_manager_window, width=10)
+        uc.color7_entry.grid_configure(sticky="NSEW", row=9, column=1)
 
-        uc.color7_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color7_button.grid_configure(row=8, column=2)
+        uc.color7_button = Label(uc.color_manager_window, width=10)
+        uc.color7_button.grid_configure(sticky="NSEW", row=9, column=2)
         
         uc.color8_chooser = Button(uc.color_manager_window, text="color8", command=lambda: color_chooser(uc.color8_entry, uc.color8_chooser))
-        uc.color8_chooser.grid_configure(row=9, column=0, sticky="NSEW")
+        uc.color8_chooser.grid_configure(row=10, column=0, sticky="NSEW")
 
-        uc.color8_entry = Entry(uc.color_manager_window, width=8)
-        uc.color8_entry.grid_configure(row=9, column=1)
+        uc.color8_entry = Entry(uc.color_manager_window, width=10)
+        uc.color8_entry.grid_configure(sticky="NSEW", row=10, column=1)
 
-        uc.color8_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color8_button.grid_configure(row=9, column=2)
+        uc.color8_button = Label(uc.color_manager_window, width=10)
+        uc.color8_button.grid_configure(sticky="NSEW", row=10, column=2)
         
         uc.color9_chooser = Button(uc.color_manager_window, text="color9", command=lambda: color_chooser(uc.color9_entry, uc.color9_chooser))
-        uc.color9_chooser.grid_configure(row=10, column=0, sticky="NSEW")
+        uc.color9_chooser.grid_configure(row=11, column=0, sticky="NSEW")
 
-        uc.color9_entry = Entry(uc.color_manager_window, width=8)
-        uc.color9_entry.grid_configure(row=10, column=1)
+        uc.color9_entry = Entry(uc.color_manager_window, width=10)
+        uc.color9_entry.grid_configure(sticky="NSEW", row=11, column=1)
 
-        uc.color9_button = Label(uc.color_manager_window, width=8, text=gn.btn_update)
-        uc.color9_button.grid_configure(row=10, column=2)
+        uc.color9_button = Label(uc.color_manager_window, width=10)
+        uc.color9_button.grid_configure(sticky="NSEW", row=11, column=2)
 
-        import_button = Button(uc.color_manager_window, text="Import Color Pallet", command=open_color_file)
-        import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
+        uc.import_button = Button(uc.color_manager_window, text="Import Color Pallet", command=open_color_file)
+        uc.import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
+        uc.imp_but_tt = CreateToolTip(uc.import_button, "import list of colors from file", tts)
             
-        update_all_button = Button(uc.color_manager_window, text="update-all", command=pre_update)
-        update_all_button.grid_configure(row=14, columnspan=3, sticky="NSEW")
+        uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=pre_update)
+        uc.update_all_button.grid_configure(row=14, columnspan=3, sticky="NSEW")
+        up_all_tt = CreateToolTip(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
 
         update_gui(file_colors)
 
@@ -650,7 +690,8 @@ class Utilize_Conky:
             image_dimensions(image_entry, size_x, size_y)
             align_image_x.insert(INSERT, '0')
             align_image_y.insert(INSERT, '0')
-
+        
+        ts=12
         uc.image_window = Tk()
         uc.image_window.title(gn.win_image)
         uc.image_window.grid()
@@ -659,36 +700,53 @@ class Utilize_Conky:
 
         image_path_label =Label(uc.image_window, bg=cs.bgc, text="Image Path:")
         image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
+        img_path_tt = CreateToolTip(image_path_label, "Add image to conky,\nif you need to adjust size\nor place you can\n\
+hit enter again. No need\nto delete manually", ts)
 
         image_dialogue = Button(uc.image_window, width=15, fg="#ffffff", bg="#000000", command= open_file, text="Select Image")
         image_dialogue.grid_configure(row=1, column=0, columnspan=3, sticky="NSEW")
 
+        empty_label = Label(uc.image_window, bg="black",fg="white")
+        empty_label.grid_configure(row=2, column=0, sticky="NSEW")
+
+        x_label = Label(uc.image_window, bg="black", fg="white", text="x")
+        x_label.grid_configure(row=2, column=1, sticky="NSEW")
+        aix_tt = CreateToolTip(x_label, "horizontal", ts)
+
+        y_label = Label(uc.image_window, bg="black", fg="white", text="y")
+        y_label.grid_configure(row=2, column=2, sticky="NSEW")
+        aiy_tt = CreateToolTip(y_label, "vertical", ts)
+
         size_label =Label(uc.image_window, bg=cs.bgc, text=gn.lbl_size, justify="left", width=20)
-        size_label.grid_configure(row=2, column=0, columnspan=1, sticky="NSEW")
+        size_label.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
+        sl_tt = CreateToolTip(size_label, "Once you load the image\nthe dimensions will\nbe added. If you\nchange the size\n\
+of either x or y\nand press enter\nthe value of the\nother will change\nto maintain x:y ratio.")
 
         size_x =Entry(uc.image_window, width=5)
-        size_x.grid_configure(row=2, column=1, sticky='NSE')
+        size_x.grid_configure(row=3, column=1, sticky='NSE')
 
         size_y =Entry(uc.image_window, width=5)
-        size_y.grid_configure(row=2, column=2, sticky='NSW')
+        size_y.grid_configure(row=3, column=2, sticky='NSW')
+
 
         im_align =Label(uc.image_window, bg=cs.bgc, text=gn.lbl_align, justify="left")
-        im_align.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
+        im_align.grid_configure(row=4, column=0, columnspan=1, sticky="NSEW")
+        im_al_tt = CreateToolTip(im_align, "default value 0 0 will put\nthe top left hand\ncorner of the image\nat the top left\nhand corner of the\nconky window", text_size=ts)
 
         align_image_x =Entry(uc.image_window, width=5)
-        align_image_x.grid_configure(row=3, column=1, sticky='NSE')
+        align_image_x.grid_configure(row=4, column=1, sticky='NSE')
 
         align_image_y =Entry(uc.image_window, width=5)
-        align_image_y.grid_configure(row=3, column=2, sticky='NSW')
+        align_image_y.grid_configure(row=4, column=2, sticky='NSW')
 
         image_entry = Entry(uc.image_window)
-        image_entry.grid_configure(row=4, columnspan=3, sticky="NSEW")
+        image_entry.grid_configure(row=5, columnspan=3, sticky="NSEW")
 
         enter_button =Button(uc.image_window, text=gn.btn_enter)
-        enter_button.grid_configure(row=5, column=0, sticky="W")
+        enter_button.grid_configure(row=6, column=0, sticky="W")
 
         exit_button =Button(uc.image_window, text=gn.btn_exit, command=uc.image_window.destroy)
-        exit_button.grid_configure(row=5, column=2, sticky="E")
+        exit_button.grid_configure(row=6, column=2, sticky="E")
 
         enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, uc.file_display, uc.custom_window))
 

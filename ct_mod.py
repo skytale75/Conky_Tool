@@ -443,9 +443,9 @@ def fd_syntax_highlighting(file_display):
     search_for2(file_display, "alignr", "voffset")
 
 def load_hold_color(attribute):
-    attribute.tag_config("custom_BG", background="black")
+    attribute.tag_config("custom_BG", background="black", foreground="red")
     attribute.tag_remove("custom_BG", 0.0, END)
-    attribute.tag_add("custom_BG", "insert linestart", "insert lineend")
+    attribute.tag_add("custom_BG", "insert linestart", "insert lineend-9c")
     cs.hold_color = attribute.get("insert linestart", "insert lineend")
 
 def add_custom(attribute, file_display):
@@ -476,7 +476,7 @@ def cb_syntax(attributes_box):
             pos_end = pos_start + offset
             print("pos_start", get_list[start], pos_end)
             print(cs.the_color)
-            attributes_box.tag_config(name, foreground=str(cs.the_color))
+            attributes_box.tag_config(name, background=str(cs.the_color))
             attributes_box.tag_add(name, pos_start, pos_end)
             start += 1
 
