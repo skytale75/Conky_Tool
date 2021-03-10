@@ -115,6 +115,7 @@ def load_theme(get_theme_list, file_display, presets_window):
     check_line = theme_split.splitlines()
     for l in cs.color_aliass:
         for t in check_line:
+            print(t)
             if l in t and "-[[" not in t:
                 t = str(t).strip()
                 presets_window.insert(INSERT, t+"\n")
@@ -371,7 +372,7 @@ def syntax_basic(file_display):
                 a = t[t.find("{"):t.find("}")+1]
                 offset = '+%dc' % len(a)
                 pos_start = file_display.search(a, '1.0', END)
-                if "{" and "}" in str(a):
+                if "{" and "}" in str(a) and "scroll" not in str(a):
                     while pos_start:
                         pos_end = pos_start + offset
                         file_display.tag_add("{", pos_start, pos_end)

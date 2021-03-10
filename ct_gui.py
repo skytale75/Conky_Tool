@@ -12,10 +12,9 @@ from gui_names import gui_names as gn
 import subprocess
 from tkcolorpicker import askcolor
 from tkinter.filedialog import askopenfilename
-from tool_tips import CreateToolTip
+from new_tips import Tooltip as tt
 
-
-class Utilize_Conky:
+class Utilize_Conky():
 
     def __init__(self, title):
         self.root = Tk()
@@ -69,25 +68,26 @@ class Utilize_Conky:
         uc.com_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_commands, variable=uc.v, value=1, command = cr_com)
         uc.com_radio.grid_configure(row=0, column=0, columnspan=5, sticky="NSEW")
         uc.com_radio.select()
-        uc.com_radio_tt = CreateToolTip(uc.com_radio, "Click to Show list \n of conky commands", text_size=tooltip_size)
+        uc.com_radio_tt = tt(uc.com_radio, "Click to Show list \n of conky commands", text_size=tooltip_size)
 
         uc.con_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_configs, variable=uc.v, value=2, command = cr_con)
         uc.con_radio.grid_configure(row=1, column=0, columnspan=5, sticky="NSEW")
 
         uc.lua_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_lua, variable=uc.v, value=3, command = cr_lua)
         uc.lua_radio.grid_configure(row=2, column=0, columnspan=5, sticky="NSEW")
+        uc.lua_tt = tt(uc.lua_radio, "try this", text_size=tooltip_size)
 
         uc.options_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_options, variable=uc.v, value=4, command = cr_options)
         uc.options_radio.grid_configure(row=3, column=0, columnspan=5, sticky="NSEW")
-        uc.or_tt = CreateToolTip(uc.options_radio, "click to show startup\noptions for conky.\nWill be adding conky\nconfiguration tips eventually", text_size=tooltip_size)
+        uc.or_tt = tt(uc.options_radio, "click to show startup\noptions for conky.\nWill be adding conky\nconfiguration tips eventually", text_size=tooltip_size)
 
         uc.command_find =Entry(uc.frame, width=20, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
         uc.command_find.grid_configure(row=4, column=0, columnspan=5, sticky="NSEW")
-        uc.command_find_tt = CreateToolTip(uc.command_find, "^ Search for commands", text_size=tooltip_size)
+        uc.command_find_tt = tt(uc.command_find, "^ Search for commands", text_size=tooltip_size)
 
         uc.conky_label =Label(uc.frame, bg=cs.bgc, text=cs.config_file, justify='left')
         uc.conky_label.grid_configure(row=0, column=10, columnspan=11, sticky="NSEW")
-        uc.fd_tt = CreateToolTip(uc.conky_label, \
+        uc.fd_tt = tt(uc.conky_label, \
         """Ctrl-LeftClick to add highlighted commands,\n\
 Ctrl-Shift-LeftClick to insert highlighted color\n\
 Make sure cursor isn't sitting to the right of \n\
@@ -104,7 +104,7 @@ welcome""", text_size=tooltip_size)
 
         uc.com_list_box =Text(uc.frame, height=10, width=20, bg="lightblue", font= ('Deja Vu Serif', 10))
         uc.com_list_box.grid_configure(row=5, column=0, columnspan=5, sticky="NSEW")
-        uc.clb_tt = CreateToolTip(uc.com_list_box, "click to highlight command,\ninsert to file by pressing\nctrl-leftClick or Ctrl-Enter", text_size=tooltip_size)
+        uc.clb_tt = tt(uc.com_list_box, "click to highlight command,\ninsert to file by pressing\nctrl-leftClick or Ctrl-Enter", text_size=tooltip_size)
 
         uc.lnText = Text(uc.frame, width = 4, padx = 4, highlightthickness = 0, takefocus = 0,
                 bd = 0, background = 'lightgrey', foreground = 'magenta', state='disabled')
@@ -115,7 +115,7 @@ welcome""", text_size=tooltip_size)
 
         uc.wiki_label =Label(uc.frame, width=40, bg=cs.bgc, text=gn.lbl_description)
         uc.wiki_label.grid_configure(row=6, column=0, columnspan=10)
-        uc.wl_tt = CreateToolTip(uc.wiki_label, "definitions and examples of all the commands", text_size=tooltip_size)
+        uc.wl_tt = tt(uc.wiki_label, "definitions and examples of all the commands", text_size=tooltip_size)
 
         uc.wiki_window =Text(uc.frame, wrap='word', width=20, bg = "lightyellow", font= ('Deja Vu Serif', 10))
         uc.wiki_window.grid_configure(row=7, column=0, rowspan=14, columnspan=10, sticky="NSEW")
@@ -124,19 +124,19 @@ welcome""", text_size=tooltip_size)
         uc.color_button =Button(uc.frame, image=color_img, command=uc.add_color_window)
         uc.color_button.grid_configure(row=21, column=10, sticky="NESW")
         uc.color_button.image=color_img
-        uc.cb_tt = CreateToolTip(uc.color_button, "Open Color Manager", text_size=tooltip_size)
+        uc.cb_tt = tt(uc.color_button, "Open Color Manager", text_size=tooltip_size)
 
         fonts_img = ImageTk.PhotoImage(Image.open (cs.image_path+"fonts.png"))
         uc.fonts_button =Button(uc.frame, image=fonts_img, command=lambda: uc.font_window_fun(uc.file_display))
         uc.fonts_button.grid_configure(row=21, column=11, sticky='NSEW')
         uc.fonts_button.image=fonts_img
-        uc.fontButton_tt = CreateToolTip(uc.fonts_button, "Choose Font and Size", text_size=tooltip_size)
+        uc.fontButton_tt = tt(uc.fonts_button, "Choose Font and Size", text_size=tooltip_size)
 
         image_img = ImageTk.PhotoImage(Image.open (cs.image_path+"images.png"))
         uc.image_button =Button(uc.frame, image=image_img, command =uc.image_window_fun)
         uc.image_button.grid_configure(row=21, column=12, sticky="NSEW")
         uc.image_button.image=image_img
-        uc.Img_button_tt = CreateToolTip(uc.image_button, "Add Image", text_size=tooltip_size)
+        uc.Img_button_tt = tt(uc.image_button, "Add Image", text_size=tooltip_size)
 
         page_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_page_border.png"))
         uc.page_borders =Button(uc.frame, image=page_borders_img, command=lambda: toggle_pb(uc.file_display, uc.custom_window))
@@ -152,13 +152,13 @@ welcome""", text_size=tooltip_size)
         uc.pagify =Button(uc.frame, image=pagify_img, command=lambda: uc.conky_by_line(self))
         uc.pagify.grid_configure(row=21, column=15, sticky="NSEW")
         uc.pagify.image=pagify_img
-        uc.pagify_tt = CreateToolTip(uc.pagify, "View and edit current\nline in a new window\nas a list.", text_size=tooltip_size)
+        uc.pagify_tt = tt(uc.pagify, "View and edit current\nline in a new window\nas a list.", text_size=tooltip_size)
 
         themes_img = ImageTk.PhotoImage(Image.open (cs.image_path+"themes.png"))
         uc.themes_button =Button(uc.frame, image=themes_img, command=uc.themes_window)
         uc.themes_button.grid_configure(row=21, column=16, sticky='NSEW')
         uc.themes_button.image=themes_img
-        uc.cb_tt = CreateToolTip(uc.themes_button, "Load and save themes\nwill be adding standard\ndialogue box soon.", text_size=tooltip_size)
+        uc.cb_tt = tt(uc.themes_button, "Load and save themes\nwill be adding standard\ndialogue box soon.", text_size=tooltip_size)
 
         uc.custom = Label(uc.frame, width=20, bg=cs.bgc, text="Colors In File")
         uc.custom.grid_configure(row=0, column=5, columnspan=5)
@@ -168,7 +168,7 @@ welcome""", text_size=tooltip_size)
 
         uc.save_button =Button(uc.frame, text=gn.btn_save, fg='red', command=lambda: save_file(uc.file_display, uc.custom_window))
         uc.save_button.grid_configure(row=21, column=19, sticky='NSEW')
-        uc.save_tt = CreateToolTip(uc.save_button, "Saves config file.\nsave theme when you\nare at a good save point.", text_size=tooltip_size)
+        uc.save_tt = tt(uc.save_button, "Saves config file.\nsave theme when you\nare at a good save point.", text_size=tooltip_size)
 
         uc.quit =Button(uc.frame,text=gn.btn_quit, fg="red", command=self.root.destroy)
         uc.quit.grid_configure(row=21, column=20, sticky='NSEW')
@@ -324,12 +324,14 @@ welcome""", text_size=tooltip_size)
 
         theme_name =Label(uc.window, bg=cs.bgc, text=gn.lbl_theme_name)
         theme_name.grid_configure(row=0, column=0, columnspan=1)
+        theme_name_tt = tt(theme_name, "load themes here, will be replacing with a standard dialog box soon", waittime=100, wraplength=250, text_size=12)
 
         theme_display =Entry(uc.window)
         theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
 
         save_theme_button =Button(uc.window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, uc.file_display))
         save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
+        save_theme_tt = tt(save_theme_button, "save current config to theme, if you type an existing theme name it will overwrite it")
 
         open_theme_label =Label(uc.window, text=gn.lbl_open_theme)
         open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
@@ -340,11 +342,12 @@ welcome""", text_size=tooltip_size)
 
         themes_list =OptionMenu(uc.window, option_header, *theme_list)
         themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
+        themes_list_tt = tt(themes_list, "select name of theme you want to load", text_size=12)
 
         theme_button =Button(uc.window, text=gn.btn_load_theme)
         theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
         theme_button.config(command=lambda: get_theme(uc.file_display, option_header, uc.custom_window))
-
+        theme_button_tt = tt(theme_button, "load selected theme", text_size=12)
         uc.window.mainloop()
 
     def font_window_fun(self, file_display):
@@ -373,11 +376,13 @@ welcome""", text_size=tooltip_size)
         font_search_bar.insert(INSERT, "Search fonts . . .")
         font_search_bar.bind("<Button-1>", clear_entry)
         font_search_bar.bind("<KeyPress>", font_search)
+        fsb_tt = tt(font_search_bar, "search fonts here", text_size=12)
 
         # "Font Name:" label
 
         font_label = Label(uc.font_window, bg=cs.bgc, text=gn.lbl_font_name)
         font_label.grid_configure(row=16, columnspan=1, sticky="NSW")
+        font_label_tt = tt(font_label, "selected font will  be displayed below the dialog box, if you enter a font size it will give the example at that font size", text_size=12)
 
         # Font "size" label
 
@@ -431,7 +436,6 @@ welcome""", text_size=tooltip_size)
 
         uc.font_window.mainloop()
 
-
     def add_color_window(self):
         """color management window"""
         uc.color_manager_window = Tk()
@@ -454,7 +458,6 @@ welcome""", text_size=tooltip_size)
                 color_out.insert(INSERT, color_code[1][1:])
                 mbutton.config(bg=color_code[1])
 
-        
         def pre_update():
             uc.custom_window.delete(0.0, END)
             current_config = uc.file_display.get(0.0, END) #
@@ -465,9 +468,9 @@ welcome""", text_size=tooltip_size)
             for line in upper_config:
                 for item in cs.color_aliass:
                     alias = str(item.split()[0])
-                    if alias not in str(line) and line not in new_config and "  color" not in str(line) and "default_color =" not in str(line):
+                    if str(alias) not in str(line) and str(line) not in new_config and "  color" not in str(line) and "default_color =" not in str(line) and "-[[color" not in str(line):
                         new_config.append(line)
-                    if alias in str(line) and line not in new_config:
+                    if str(alias) in str(line) and line not in new_config:
                         color = str("uc."+item+"_entry")
                         grab_color = eval(color).get()
                         new_config.append("    "+item+" = '"+grab_color+"',")
@@ -480,25 +483,35 @@ welcome""", text_size=tooltip_size)
             update_gui(cs.ab_colors)
             save_file(uc.file_display, uc.custom_window)
 
+        def filter_color_list(read_colors):
+            color_list = []
+            if len(read_colors.splitlines()) == 1:
+                color_list = read_colors.replace(",", " ").replace("#", "").split()
+            if len(read_colors.splitlines()) > 1:
+                color_list = read_colors.replace(",", " ").replace("#", "").split()
+            finish = 0
+            while finish < len(color_list):
+                chooser = eval("uc.color"+str(finish)+"_chooser")
+                the_entry = eval("uc.color"+str(finish)+"_entry")
+                chooser.config(bg="#"+color_list[finish])
+                the_entry.delete(0, END)
+                the_entry.insert(INSERT, color_list[finish])
+                finish = finish + 1
+
         def open_color_file():
             name = askopenfilename(initialdir="~/Documents/")
             if len(name) != 0:
                 open_file = open(name, 'r')
-                read_file = open_file.read()
+                read_colors = open_file.read()
                 open_file.close()
-                color_list = []
-                if len(read_file.splitlines()) == 1:
-                    color_list = read_file.replace(",", " ").replace("#", "").split()
-                if len(read_file.splitlines()) > 1:
-                    color_list = read_file.replace(",", " ").replace("#", "").split()
-                finish = 0
-                while finish < len(color_list):
-                    chooser = eval("uc.color"+str(finish)+"_chooser")
-                    the_entry = eval("uc.color"+str(finish)+"_entry")
-                    chooser.config(bg="#"+color_list[finish])
-                    the_entry.delete(0, END)
-                    the_entry.insert(INSERT, color_list[finish])
-                    finish = finish + 1
+                filter_color_list(read_colors)
+
+        def open_color_dialog():
+            read_colors = uc.import_dialog.get(0.0, END)
+            if len(read_colors) > 5:
+                filter_color_list(read_colors)
+            if len(read_colors) < 5:
+                uc.import_dialog.insert(INSERT, "Add list of colors here . . .")
 
         def update_gui(color_list):
             for color in color_list:
@@ -520,11 +533,11 @@ welcome""", text_size=tooltip_size)
 
         uc.sel_col_label = Label(uc.color_manager_window, width=10, text="Select Color")
         uc.sel_col_label.grid_configure(row=0, column=0)
-        uc.sel_col_tt = CreateToolTip(uc.sel_col_label, "Opens a color chooser", tts)
+        uc.sel_col_tt = tt(uc.sel_col_label, "Opens a color chooser", text_size=tts)
 
         uc.current_color_label = Label(uc.color_manager_window, width=10, text="Current Color")
         uc.current_color_label.grid_configure(row=0, column=2)
-        uc.sel_col_tt = CreateToolTip(uc.current_color_label, "color currently in the file", tts)
+        uc.sel_col_tt = tt(uc.current_color_label, "color currently in the file", text_size=tts)            
 
         uc.default_color_chooser = Button(uc.color_manager_window, text="default", command=lambda: color_chooser(uc.default_color_entry, uc.default_color_chooser))
         uc.default_color_chooser.grid_configure(row=1, column=0, sticky="NSEW")
@@ -624,14 +637,22 @@ welcome""", text_size=tooltip_size)
 
         uc.color9_button = Label(uc.color_manager_window, width=10)
         uc.color9_button.grid_configure(sticky="NSEW", row=11, column=2)
-
-        uc.import_button = Button(uc.color_manager_window, text="Import Color Pallet", command=open_color_file)
-        uc.import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
-        uc.imp_but_tt = CreateToolTip(uc.import_button, "import list of colors from file", tts)
             
         uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=pre_update)
-        uc.update_all_button.grid_configure(row=14, columnspan=3, sticky="NSEW")
-        up_all_tt = CreateToolTip(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
+        uc.update_all_button.grid_configure(row=12, columnspan=3, sticky="NSEW")
+        up_all_tt = tt(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
+
+        uc.import_dialog = Text(uc.color_manager_window, width=1, height=10, bg='black', foreground='cyan')
+        uc.import_dialog.grid_configure(row=13, column=0, columnspan=3, sticky="NSEW")
+        uc.imp_d_tt = tt(uc.import_dialog, "paste list of colors here", text_size=tts)
+
+        uc.import_dialog_button = Button(uc.color_manager_window, text="Import Colors", command=open_color_dialog)
+        uc.import_dialog_button.grid_configure(row=14, column=0, columnspan=3, sticky="NSEW")
+        uc.idb_tt = tt(uc.import_dialog_button, "Import from Dialog ^", text_size=tts)
+
+        uc.import_button = Button(uc.color_manager_window, text="Import Color File", command=open_color_file)
+        uc.import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
+        uc.imp_but_tt = tt(uc.import_button, "import list of colors from file", text_size=tts)
 
         update_gui(file_colors)
 
@@ -700,8 +721,8 @@ welcome""", text_size=tooltip_size)
 
         image_path_label =Label(uc.image_window, bg=cs.bgc, text="Image Path:")
         image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
-        img_path_tt = CreateToolTip(image_path_label, "Add image to conky,\nif you need to adjust size\nor place you can\n\
-hit enter again. No need\nto delete manually", ts)
+        img_path_tt = tt(image_path_label, "Add image to conky,\nif you need to adjust size\nor place you can\n\
+hit enter again. No need\nto delete manually", text_size=ts)
 
         image_dialogue = Button(uc.image_window, width=15, fg="#ffffff", bg="#000000", command= open_file, text="Select Image")
         image_dialogue.grid_configure(row=1, column=0, columnspan=3, sticky="NSEW")
@@ -711,15 +732,15 @@ hit enter again. No need\nto delete manually", ts)
 
         x_label = Label(uc.image_window, bg="black", fg="white", text="x")
         x_label.grid_configure(row=2, column=1, sticky="NSEW")
-        aix_tt = CreateToolTip(x_label, "horizontal", ts)
+        aix_tt = tt(x_label, "horizontal", text_size=ts)
 
         y_label = Label(uc.image_window, bg="black", fg="white", text="y")
         y_label.grid_configure(row=2, column=2, sticky="NSEW")
-        aiy_tt = CreateToolTip(y_label, "vertical", ts)
+        aiy_tt = tt(y_label, "vertical", text_size=ts)
 
         size_label =Label(uc.image_window, bg=cs.bgc, text=gn.lbl_size, justify="left", width=20)
         size_label.grid_configure(row=3, column=0, columnspan=1, sticky="NSEW")
-        sl_tt = CreateToolTip(size_label, "Once you load the image\nthe dimensions will\nbe added. If you\nchange the size\n\
+        sl_tt = tt(size_label, "Once you load the image\nthe dimensions will\nbe added. If you\nchange the size\n\
 of either x or y\nand press enter\nthe value of the\nother will change\nto maintain x:y ratio.")
 
         size_x =Entry(uc.image_window, width=5)
@@ -731,7 +752,7 @@ of either x or y\nand press enter\nthe value of the\nother will change\nto maint
 
         im_align =Label(uc.image_window, bg=cs.bgc, text=gn.lbl_align, justify="left")
         im_align.grid_configure(row=4, column=0, columnspan=1, sticky="NSEW")
-        im_al_tt = CreateToolTip(im_align, "default value 0 0 will put\nthe top left hand\ncorner of the image\nat the top left\nhand corner of the\nconky window", text_size=ts)
+        im_al_tt = tt(im_align, "default value 0 0 will put\nthe top left hand\ncorner of the image\nat the top left\nhand corner of the\nconky window", text_size=ts)
 
         align_image_x =Entry(uc.image_window, width=5)
         align_image_x.grid_configure(row=4, column=1, sticky='NSE')
@@ -777,3 +798,5 @@ font_list()
 theme_list()
 
 uc.run()
+
+#797 lines
