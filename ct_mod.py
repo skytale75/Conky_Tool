@@ -9,6 +9,7 @@ from pathlib import Path
 from gui_names import gui_names as gn
 import subprocess
 from tkinter.filedialog import askopenfilename
+from tkcolorpicker import askcolor
 
 def search_su(entry_name):
     if cs.toggle == 0:
@@ -68,19 +69,25 @@ def add_cc_update(the_list, Custom_AB):
                     Custom_AB.insert(INSERT, the_list[start].strip()+"\n")
             start += 1
 
-def load_conf(the_path, file_display, custom_AB):
+def load_conf(uc, the_path, file_display, custom_AB):
     """ load conf file """
-
+    uc.file_display.tag_config("grey", background = "#201a09")
     open_file = open(the_path, 'r')
     read_file = open_file.read()
     open_file.close()
+    x = 1
     if len(read_file) > 10:
         # add_cc(read_file, custom_AB)
-        file_display.insert(INSERT, read_file)
+        for line in read_file.splitlines():
+            uc.file_display.insert(INSERT, line+"\n")
+            x = x * -1
+            if x == -1:
+                print(x)
+                uc.file_display.tag_add("grey", "insert-1l linestart", "insert-1l lineend")
     if len(read_file) == 0:
-        file_display.insert(INSERT, "file empty\nplease load theme.")
+        uc.file_display.insert(INSERT, "file empty\nplease load theme.")
 
-def open_file(file_display, custom_AB):
+def open_file(uc, file_display, custom_AB):
     """look for current conky file
     and prepare it for editing and
     save as conky.conf, autoname 
@@ -88,15 +95,15 @@ def open_file(file_display, custom_AB):
     if "conky.conf" in listdir(cs.conky_config_path):
         print("conky.conf found")
         the_path = cs.conky_config_path+"conky.conf"
-        load_conf(the_path, file_display, custom_AB)
+        load_conf(uc, the_path, file_display, custom_AB)
     elif ".conkyrc" in listdir(cs.user_home_path):
         print('.conkyrc found')
         the_path = cs.user_home_path+".conkyrc"
-        load_conf(the_path, file_display, custom_AB)
+        load_conf(uc, the_path, file_display, custom_AB)
     else:
         print("nothing found")
 
-def load_theme(get_theme_list, file_display, presets_window):
+def load_theme(uc, get_theme_list, file_display, presets_window):
     """get theme name from options menu and
     open corresponding theme file in Conky_Themes"""
     theme = get_theme_list.get()
@@ -121,6 +128,7 @@ def load_theme(get_theme_list, file_display, presets_window):
                 presets_window.insert(INSERT, t+"\n")
     # cb_syntax(presets_window)
     print(len(cs.ab_colors))
+    add_cc_update(cs.ab_colors, uc.custom_window)
 
 def theme_list():
     """.themes.txt is a list of themes
@@ -186,7 +194,7 @@ def check_file(file_display):
         file_display.delete(0.0, END)
         file_display.insert(INSERT, get_text)
 
-def save_file(file_display, Custom_AB):
+def save_file(uc, file_display, Custom_AB):
     """open file and save to .conkyrc"""
     check_file(file_display)
     open_file = open(cs.conky_config_path+"conky.conf", "w")
@@ -195,7 +203,7 @@ def save_file(file_display, Custom_AB):
     open_file.write(file_display.get(0.0, END))
     open_file.close() 
     add_cc_update(write_this, Custom_AB)
-    load_the_colors()
+    load_the_colors(uc, file_display)
     print(cs.ab_colors)
     cb_syntax(Custom_AB)
     syntax_basic(file_display)
@@ -249,6 +257,7 @@ def font_list():
             cs.font_list.append(l)
 
 def make_font(font_n, font_s, file_display, cbl_window):
+    """format font and insert to file"""
     name = font_n
     size = font_s.get()
     font_output = ("${font "+name+":size="+size+"}")
@@ -401,7 +410,7 @@ def search_for2(file_display, word, tag):
                 file_display.tag_add(tag, pos_start, pos_end)
                 pos_start = file_display.search(t, pos_end, END)
 
-def add_image(ip, isx, isy, iax, iay, file_display, Custom_AB):
+def add_image(uc, ip, isx, isy, iax, iay, file_display, Custom_AB):
     """get image path and dimensions/placement from
     appropriate entry widgets, format and paste to
     file_display"""
@@ -411,7 +420,7 @@ def add_image(ip, isx, isy, iax, iay, file_display, Custom_AB):
     pst = "${image "+ip.get()+" (-p "+iax.get()+","+iay.get()+ " ) "+"(-s "+ isx.get()+ "x"+ isy.get()+ " )"+"}"
     cs.image_hold = pst
     file_display.insert(INSERT, pst)
-    save_file(file_display, Custom_AB)
+    save_file(uc, file_display, Custom_AB)
 
 def image_from_line(file_display, file_path, size_x, size_y, align_x, align_y):
     current_line = file_display.get("insert linestart", "insert lineend")
@@ -449,7 +458,7 @@ def load_hold_color(attribute):
     attribute.tag_add("custom_BG", "insert linestart", "insert lineend-9c")
     cs.hold_color = attribute.get("insert linestart", "insert lineend")
 
-def add_custom(attribute, file_display):
+def add_custom(attribute, file_display, x):
     """get custom command and add it to the file"""
     if cs.hold_color != '':
         line = cs.hold_color
@@ -458,6 +467,8 @@ def add_custom(attribute, file_display):
             file_display.insert(INSERT, "${"+com+"}")
         if com == "default_color":
             file_display.insert(INSERT, "${color}")
+    if x == 1:
+        return 'break'
 
 def cb_syntax(attributes_box):
     """custom box add list items and syntax highlighting"""
@@ -489,9 +500,9 @@ def cb_syntax(attributes_box):
         get_list = attributes_box.get(0.0, "end-1c").splitlines()
         add_color(attributes_box)
 
-def get_theme(file_display, option_header, presets_window):
+def get_theme(uc, file_display, option_header, presets_window):
     """load theme and highlights"""
-    load_theme(option_header, file_display, presets_window)
+    load_theme(uc, option_header, file_display, presets_window)
     syntax_basic(file_display)
     fd_syntax_highlighting(file_display)
     cb_syntax(presets_window)
@@ -543,7 +554,7 @@ def load_by_line(command_box, custom_box, file_display):
         if len(check) == 1 and check[0] != '':
             cs.line_list.append("$"+check[0]+"}")
 
-def cbl_update(cbl_text, command_box, custom_box, file_display):
+def cbl_update(uc, cbl_text, command_box, custom_box, file_display):
     """updates current line of nb.file_display
     from conky by line window in appropriate format"""
     cs.line_list = cbl_text.get(0.0, END).splitlines()
@@ -551,14 +562,14 @@ def cbl_update(cbl_text, command_box, custom_box, file_display):
     for line in cs.line_list:
         file_display.insert(INSERT, line)
     load_by_line(command_box, custom_box, file_display)
-    save_file(file_display, custom_box)
+    save_file(uc, file_display, custom_box)
 
 def insert_line(cbl_text):
     cbl_text.delete(0.0, END)
     for line in cs.line_list:
         cbl_text.insert(INSERT, line+"\n")
 
-def toggle_gb(file_display, custom_window):
+def toggle_gb(uc, file_display, custom_window):
     """toggles graph borders"""
     cs.file_list = file_display.get(0.0, "end-1c")
     true_false(file_display)
@@ -569,9 +580,9 @@ def toggle_gb(file_display, custom_window):
         cs.file_list = cs.file_list.replace("draw_graph_borders = false,", "draw_graph_borders = true,")
     file_display.insert(INSERT, cs.file_list)
     cs.graph_border_toggle = cs.graph_border_toggle * -1
-    save_file(file_display, custom_window)
+    save_file(uc, file_display, custom_window)
 
-def toggle_pb(file_display, custom_window):
+def toggle_pb(uc, file_display, custom_window):
     """toggles page_borders"""
     where = file_display.index(INSERT)
     cs.file_list = file_display.get(0.0, "end-1c")
@@ -583,7 +594,7 @@ def toggle_pb(file_display, custom_window):
         cs.file_list = cs.file_list.replace("draw_borders = false,", "draw_borders = true,")
     file_display.insert(INSERT, cs.file_list)
     cs.page_border_toggle = cs.page_border_toggle * -1
-    save_file(file_display, custom_window)
+    save_file(uc, file_display, custom_window)
     file_display.see(where)
     file_display.mark_set("CURSOR", where)
 
@@ -601,11 +612,11 @@ def true_false(file_display):
             if "false" in str(l):
                 cs.graph_border_toggle = 1
 
-def load_the_colors():
+def load_the_colors(uc, get_from="fd"):
     ccl = []
-    if len(cs.ab_colors) != 0 and cs.color_toggle != 0:
+    if get_from == "list":
         ccl=cs.ab_colors
-    if len(cs.ab_colors) == 0 and cs.color_toggle != 0:
+    if get_from =="fd":
         make_from_widget = uc.file_display.get(0.0, END).splitlines
         for l in make_from_widget:
             if "    default_color =" in str(l):
@@ -613,7 +624,7 @@ def load_the_colors():
             if "    color" in str(l) and "=" in str(l):
                 cs.ab_colors.append(str(l).strip())
         ccl=cs.ab_colors
-    if len(cs.ab_colors) == 0 and cs.color_toggle == 0:
+    if get_from == "file":
         get_from_file = open(cs.config_file, 'r')
         make_from_file = get_from_file.read().splitlines()
         get_from_file.close()
@@ -625,3 +636,83 @@ def load_the_colors():
         ccl=cs.ab_colors
         cs.color_toggle = 1
     return ccl
+
+def update_colors(uc):
+    uc.custom_window.delete(0.0, END)
+    current_config = uc.file_display.get(0.0, END) #
+    upper_config = current_config.split("conky.text")[0].splitlines() #
+    lower_config = "conky.text" + current_config.split("conky.text")[1]
+    new_config = []
+    cs.ab_colors = [] #
+    for line in upper_config:
+        for item in cs.color_aliass:
+            alias = str(item.split()[0])
+            if str(alias) not in str(line) and str(line) not in new_config and "  color" not in str(line) and "default_color =" not in str(line) and "-[[color" not in str(line):
+                new_config.append(line)
+            if str(alias) in str(line) and line not in new_config:
+                color = str("uc."+item+"_entry")
+                grab_color = eval(color).get()
+                new_config.append("    "+item+" = '"+grab_color+"',")
+                cs.ab_colors.append(item+" = '"+grab_color+"',")
+    uc.file_display.delete(0.0, END)
+    for f in new_config:
+        uc.file_display.insert(INSERT, f+"\n")
+    uc.file_display.insert(INSERT, lower_config)
+    save_file(uc, uc.file_display, uc.custom_window)
+    add_cc_update(cs.ab_colors, uc.custom_window)
+    update_gui(uc, cs.ab_colors)
+
+def update_gui(uc, color_list):
+    for color in color_list:
+        name = "uc."+color.split()[0]
+        value = str(color.split()[2][1:-2])
+        entry_name = eval(name+"_entry")
+        entry_name.delete(0, END)
+        entry_name.insert(INSERT, value)
+        button_name = eval(name+"_button")
+        button_name.config(bg="#"+value)
+        label_name = eval(name+"_chooser")
+        label_name.config(bg='#'+value)
+
+def color_chooser(color_out, mbutton):
+    if color_out.get() != "":
+        grab_color = color_out.get()
+        color_code = askcolor("#"+grab_color, title ="Choose color")
+        if "None" not in str(color_code):
+            color_out.delete(0, END)
+            color_out.insert(INSERT, color_code[1][1:])
+            mbutton.config(bg=color_code[1])
+    if color_out.get() == "":
+        color_code = askcolor("#F3F3F3")
+        color_out.insert(INSERT, color_code[1][1:])
+        mbutton.config(bg=color_code[1])
+
+def filter_color_list(uc, read_colors):
+    color_list = []
+    if len(read_colors.splitlines()) == 1:
+        color_list = read_colors.replace(",", " ").replace("#", "").split()
+    if len(read_colors.splitlines()) > 1:
+        color_list = read_colors.replace(",", " ").replace("#", "").split()
+    finish = 0
+    while finish < len(color_list):
+        chooser = eval("uc.color"+str(finish)+"_chooser")
+        the_entry = eval("uc.color"+str(finish)+"_entry")
+        chooser.config(bg="#"+color_list[finish])
+        the_entry.delete(0, END)
+        the_entry.insert(INSERT, color_list[finish])
+        finish = finish + 1
+
+def open_color_file(uc):
+    name = askopenfilename(initialdir="~/Documents/")
+    if len(name) != 0:
+        open_file = open(name, 'r')
+        read_colors = open_file.read()
+        open_file.close()
+        filter_color_list(uc, read_colors)
+
+def open_color_dialog(uc):
+    read_colors = uc.import_dialog.get(0.0, END)
+    if len(read_colors) > 5:
+        filter_color_list(uc, read_colors)
+    if len(read_colors) < 5:
+        uc.import_dialog.insert(INSERT, "Add list of colors here . . .")

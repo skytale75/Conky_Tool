@@ -4,13 +4,13 @@ from ct_mod import search_su, load_commands, load_configs, load_lua, load_option
     save_file, show_def, add_custom, search, load_hold_color, duplicate_press, open_file, load_by_line, \
     insert_line, insert_line, syntax_basic, fd_syntax_highlighting, cbl_update, theme_prompt, read_theme_list, \
     get_theme, make_font, resize_x, resize_y, image_dimensions, add_image, image_from_line, color_separator, \
-    cb_syntax, font_list, theme_list, add_cc_update, load_the_colors
+    cb_syntax, font_list, theme_list, add_cc_update, load_the_colors, update_colors, update_gui, color_chooser, \
+    filter_color_list, open_color_dialog, open_color_file
 from common_stuff import Common_Stuff as cs
 from os import listdir
 from PIL import Image, ImageTk
 from gui_names import gui_names as gn
 import subprocess
-from tkcolorpicker import askcolor
 from tkinter.filedialog import askopenfilename
 from new_tips import Tooltip as tt
 
@@ -111,7 +111,7 @@ welcome""", text_size=tooltip_size)
 
         uc.file_display =Text(uc.frame, wrap = 'word', undo=True, height=80)
         uc.file_display.grid_configure(row=1, column=10, columnspan=11, rowspan=20, sticky="NSEW")
-        uc.file_display.config(bg="black", fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
+        uc.file_display.config(bg='black', fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
 
         uc.wiki_label =Label(uc.frame, width=40, bg=cs.bgc, text=gn.lbl_description)
         uc.wiki_label.grid_configure(row=6, column=0, columnspan=10)
@@ -139,12 +139,12 @@ welcome""", text_size=tooltip_size)
         uc.Img_button_tt = tt(uc.image_button, "Add Image", text_size=tooltip_size)
 
         page_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_page_border.png"))
-        uc.page_borders =Button(uc.frame, image=page_borders_img, command=lambda: toggle_pb(uc.file_display, uc.custom_window))
+        uc.page_borders =Button(uc.frame, image=page_borders_img, command=lambda: toggle_pb(uc, uc.file_display, uc.custom_window))
         uc.page_borders.grid_configure(row=21, column=13)
         uc.page_borders.image=page_borders_img
 
         graph_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_graph_border.png"))
-        uc.graph_borders =Button(uc.frame, image=graph_borders_img, command=lambda: toggle_gb(uc.file_display, uc.custom_window))
+        uc.graph_borders =Button(uc.frame, image=graph_borders_img, command=lambda: toggle_gb(uc, uc.file_display, uc.custom_window))
         uc.graph_borders.grid_configure(row=21, column=14, sticky="NSEW")
         uc.graph_borders.image=graph_borders_img
 
@@ -166,7 +166,7 @@ welcome""", text_size=tooltip_size)
         uc.custom_window = Text(uc.frame, height=10, width=20, wrap="word", bg="darkgrey", fg="cyan", font=("times", "14", "normal"))
         uc.custom_window.grid_configure(row=1, column=5, columnspan=5, rowspan=5, sticky="NWSE")
 
-        uc.save_button =Button(uc.frame, text=gn.btn_save, fg='red', command=lambda: save_file(uc.file_display, uc.custom_window))
+        uc.save_button =Button(uc.frame, text=gn.btn_save, fg='red', command=lambda: save_file(uc, uc.file_display, uc.custom_window))
         uc.save_button.grid_configure(row=21, column=19, sticky='NSEW')
         uc.save_tt = tt(uc.save_button, "Saves config file.\nsave theme when you\nare at a good save point.", text_size=tooltip_size)
 
@@ -179,19 +179,13 @@ welcome""", text_size=tooltip_size)
             if cs.hold_command != '':
                 if cs.selected == "commands":
                     the_input = cs.hold_command
-                    functions[the_input](uc.file_display)
-            
+                    functions[the_input](uc.file_display)           
             return "break"
 
-        def definition(self):
-            """tie into show_def, which automatically
-            displays definition iadd_cc window"""
-            show_def(uc.com_list_box, uc.wiki_window)
         def ps_command(self):
             """tie into add_custom, which adds custom
             color or font to file"""
-            add_custom(uc.custom_window, uc.file_display)
-            return 'break'
+            add_custom(uc.custom_window, uc.file_display, x=1)
         def search_com(self):
             if uc.command_find.get() == '' and cs.hold_command == "commands":
                 cs.results = []
@@ -207,15 +201,11 @@ welcome""", text_size=tooltip_size)
                 cs.editable = 'off'
             else:
                 search(uc.command_find, uc.com_list_box)
-        def force_def(self):
-            Commands.force_file(self, uc.wiki_window, uc.file_display)
         def clear_tag(self):
             uc.com_list_box.tag_remove("command", 0.0, END)
         def tab(self):
             uc.file_display.insert(INSERT, "    ")
             return "break"
-        def hc(self):
-            load_hold_color(uc.custom_window)
         def dup_down(self):
             duplicate_press(uc.file_display)
             return "break"
@@ -231,7 +221,7 @@ welcome""", text_size=tooltip_size)
         def custom_help(self):
             uc.help_window(self, "help_custom.txt", "Custom Colors Help")
         def save_kc(self):
-            save_file(uc.file_display, uc.custom_window)
+            save_file(uc, uc.file_display, uc.custom_window)
         def launch_conky(self):
             subprocess.call('conky &',shell="true")
         def delete_cl(self):
@@ -240,13 +230,13 @@ welcome""", text_size=tooltip_size)
                 cs.cl_toggle = 0
 
         uc.com_list_box.tag_config("command", background="white")
-        uc.com_list_box.bind('<KeyRelease-Down>', definition)
+        uc.com_list_box.bind('<KeyRelease-Down>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
         uc.com_list_box.bind('<Down>', clear_tag)
-        uc.com_list_box.bind('<KeyRelease-Up>', definition)
+        uc.com_list_box.bind('<KeyRelease-Up>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
         uc.com_list_box.bind('<Up>', clear_tag)
         uc.com_list_box.bind('<Control-Return>', command_line)
         uc.com_list_box.bind('<Button-1>', clear_tag)
-        uc.com_list_box.bind('<ButtonRelease-1>', definition)
+        uc.com_list_box.bind('<ButtonRelease-1>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
         uc.com_list_box.bind('<Control-h>', command_box_help)
         uc.file_display.bind('<Alt-p>', uc.conky_by_line)
         uc.file_display.bind("<Tab>", tab)
@@ -256,21 +246,21 @@ welcome""", text_size=tooltip_size)
         uc.file_display.bind('<Shift-Control-ButtonRelease-1>', ps_command)
         uc.file_display.bind('<Control-d>', dup_down)
         uc.file_display.bind('<Control-s>', save_kc)
-        uc.wiki_window.bind('<Control-Return>', force_def)
-        uc.wiki_window.bind('<Control-Button-1>', force_def)
+        uc.wiki_window.bind('<Control-Return>', lambda event, a=self, b=uc.wiki_window, c=uc.file_display: Commands.force_file(a, b, c))
+        uc.wiki_window.bind('<Control-Button-1>', lambda event, a=self, b=uc.wiki_window, c=uc.file_display: Commands.force_file(a, b, c))
         uc.wiki_window.bind('<Control-h>', definitions_help)
         uc.command_find.bind('<ButtonRelease-1>', delete_cl)
         uc.command_find.bind('<KeyRelease>', search_com)
         uc.command_find.bind('<Control-h>', search_help)
         uc.custom_window.bind('<Shift-Control-Return>', ps_command)
-        uc.custom_window.bind('<ButtonRelease-1>', hc)
-        uc.custom_window.bind('<KeyRelease-Up>', hc)
-        uc.custom_window.bind('<KeyRelease-Down>', hc)
+        uc.custom_window.bind('<ButtonRelease-1>', lambda event, a=uc.custom_window: load_hold_color(a))
+        uc.custom_window.bind('<KeyRelease-Up>', lambda event, a=uc.custom_window: load_hold_color(a))
+        uc.custom_window.bind('<KeyRelease-Down>', lambda event, a=uc.custom_window: load_hold_color(a))
         uc.custom_window.bind('<Control-h>', custom_help)
         uc.file_display.bind("<Control-l>", launch_conky)
         uc.file_display.bind("<Control-h>", file_display_help)
 
-        open_file(uc.file_display, uc.custom_window)
+        open_file(uc, uc.file_display, uc.custom_window)
         uc.command_find.insert(INSERT, "Search commands . . .")
 
     def conky_by_line(self, foo):
@@ -285,7 +275,7 @@ welcome""", text_size=tooltip_size)
 
         def cbl_command_custom(self):
             """add_custom to conky by line window"""
-            add_custom(uc.custom_window, uc.cbl_text)
+            add_custom(uc.custom_window, uc.cbl_text, x=0)
         def cbl_command_enter(self):
             if cs.selected == "commands":
                 the_input = cs.hold_command
@@ -298,7 +288,7 @@ welcome""", text_size=tooltip_size)
         syntax_basic(uc.cbl_text)
         fd_syntax_highlighting(uc.cbl_text)
 
-        uc.cbl_enter =Button(uc.cbl_window, text="Update", command=lambda: cbl_update(uc.cbl_text, uc.com_list_box, uc.custom_window, uc.file_display))
+        uc.cbl_enter =Button(uc.cbl_window, text="Update", command=lambda: cbl_update(uc, uc.cbl_text, uc.com_list_box, uc.custom_window, uc.file_display))
         uc.cbl_enter.grid_configure(row=2, column=4, sticky="NSEW")
 
         uc.cbl_font =Button(uc.cbl_window, text="fonts", command = lambda: uc.font_window_fun(uc.cbl_text))
@@ -313,42 +303,6 @@ welcome""", text_size=tooltip_size)
         uc.cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
 
         uc.cbl_window.after(5000, lambda: uc.cbl_window.focus_force())
-
-    def themes_window(self):
-        """create themes properties window"""
-
-        uc.window = Tk()
-        uc.window.grid()
-        uc.window.title(gn.win_themes)
-        uc.window.attributes("-topmost", True)
-
-        theme_name =Label(uc.window, bg=cs.bgc, text=gn.lbl_theme_name)
-        theme_name.grid_configure(row=0, column=0, columnspan=1)
-        theme_name_tt = tt(theme_name, "load themes here, will be replacing with a standard dialog box soon", waittime=100, wraplength=250, text_size=12)
-
-        theme_display =Entry(uc.window)
-        theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
-
-        save_theme_button =Button(uc.window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, uc.file_display))
-        save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
-        save_theme_tt = tt(save_theme_button, "save current config to theme, if you type an existing theme name it will overwrite it")
-
-        open_theme_label =Label(uc.window, text=gn.lbl_open_theme)
-        open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
-
-        theme_list = read_theme_list()
-        option_header =StringVar(uc.window)
-        option_header.set(theme_list[0])
-
-        themes_list =OptionMenu(uc.window, option_header, *theme_list)
-        themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
-        themes_list_tt = tt(themes_list, "select name of theme you want to load", text_size=12)
-
-        theme_button =Button(uc.window, text=gn.btn_load_theme)
-        theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
-        theme_button.config(command=lambda: get_theme(uc.file_display, option_header, uc.custom_window))
-        theme_button_tt = tt(theme_button, "load selected theme", text_size=12)
-        uc.window.mainloop()
 
     def font_window_fun(self, file_display):
         """create font properties window"""
@@ -444,90 +398,6 @@ welcome""", text_size=tooltip_size)
         uc.color_manager_window.attributes("-topmost", False)
         uc.color_manager_window.config(bg="#000000")
         file_colors = uc.custom_window.get(0.0, "end-1c").splitlines()
-
-        def color_chooser(color_out, mbutton):
-            if color_out.get() != "":
-                grab_color = color_out.get()
-                color_code = askcolor("#"+grab_color, title ="Choose color")
-                if "None" not in str(color_code):
-                    color_out.delete(0, END)
-                    color_out.insert(INSERT, color_code[1][1:])
-                    mbutton.config(bg=color_code[1])
-            if color_out.get() == "":
-                color_code = askcolor("#F3F3F3")
-                color_out.insert(INSERT, color_code[1][1:])
-                mbutton.config(bg=color_code[1])
-
-        def pre_update():
-            uc.custom_window.delete(0.0, END)
-            current_config = uc.file_display.get(0.0, END) #
-            upper_config = current_config.split("conky.text")[0].splitlines() #
-            lower_config = "conky.text" + current_config.split("conky.text")[1]
-            new_config = []
-            cs.ab_colors = [] #
-            for line in upper_config:
-                for item in cs.color_aliass:
-                    alias = str(item.split()[0])
-                    if str(alias) not in str(line) and str(line) not in new_config and "  color" not in str(line) and "default_color =" not in str(line) and "-[[color" not in str(line):
-                        new_config.append(line)
-                    if str(alias) in str(line) and line not in new_config:
-                        color = str("uc."+item+"_entry")
-                        grab_color = eval(color).get()
-                        new_config.append("    "+item+" = '"+grab_color+"',")
-                        cs.ab_colors.append(item+" = '"+grab_color+"',")
-            uc.file_display.delete(0.0, END)
-            for f in new_config:
-                uc.file_display.insert(INSERT, f+"\n")
-            uc.file_display.insert(INSERT, lower_config)
-            add_cc_update(cs.ab_colors, uc.custom_window)
-            update_gui(cs.ab_colors)
-            save_file(uc.file_display, uc.custom_window)
-
-        def filter_color_list(read_colors):
-            color_list = []
-            if len(read_colors.splitlines()) == 1:
-                color_list = read_colors.replace(",", " ").replace("#", "").split()
-            if len(read_colors.splitlines()) > 1:
-                color_list = read_colors.replace(",", " ").replace("#", "").split()
-            finish = 0
-            while finish < len(color_list):
-                chooser = eval("uc.color"+str(finish)+"_chooser")
-                the_entry = eval("uc.color"+str(finish)+"_entry")
-                chooser.config(bg="#"+color_list[finish])
-                the_entry.delete(0, END)
-                the_entry.insert(INSERT, color_list[finish])
-                finish = finish + 1
-
-        def open_color_file():
-            name = askopenfilename(initialdir="~/Documents/")
-            if len(name) != 0:
-                open_file = open(name, 'r')
-                read_colors = open_file.read()
-                open_file.close()
-                filter_color_list(read_colors)
-
-        def open_color_dialog():
-            read_colors = uc.import_dialog.get(0.0, END)
-            if len(read_colors) > 5:
-                filter_color_list(read_colors)
-            if len(read_colors) < 5:
-                uc.import_dialog.insert(INSERT, "Add list of colors here . . .")
-
-        def update_gui(color_list):
-            for color in color_list:
-                name = color.split()[0]
-                value = str(color.split()[2][1:-2])
-                entry_name = eval("uc."+name+"_entry")
-                entry_name.delete(0, END)
-                entry_name.insert(INSERT, value)
-                button_name = eval("uc."+name+"_button")
-                button_name.config(bg="#"+value)
-                label_name = eval("uc."+name+"_chooser")
-                label_name.config(bg='#'+value)
-
-        def update(color_alias, field_entry, my_button):
-            pre_update(color_alias, field_entry, my_button)
-            save_file(uc.file_display, uc.custom_window)
 
         tts = 12
 
@@ -638,7 +508,7 @@ welcome""", text_size=tooltip_size)
         uc.color9_button = Label(uc.color_manager_window, width=10)
         uc.color9_button.grid_configure(sticky="NSEW", row=11, column=2)
             
-        uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=pre_update)
+        uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=lambda: update_colors(uc))
         uc.update_all_button.grid_configure(row=12, columnspan=3, sticky="NSEW")
         up_all_tt = tt(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
 
@@ -646,16 +516,15 @@ welcome""", text_size=tooltip_size)
         uc.import_dialog.grid_configure(row=13, column=0, columnspan=3, sticky="NSEW")
         uc.imp_d_tt = tt(uc.import_dialog, "paste list of colors here", text_size=tts)
 
-        uc.import_dialog_button = Button(uc.color_manager_window, text="Import Colors", command=open_color_dialog)
+        uc.import_dialog_button = Button(uc.color_manager_window, text="Import Colors", command=lambda: open_color_dialog(uc))
         uc.import_dialog_button.grid_configure(row=14, column=0, columnspan=3, sticky="NSEW")
         uc.idb_tt = tt(uc.import_dialog_button, "Import from Dialog ^", text_size=tts)
 
-        uc.import_button = Button(uc.color_manager_window, text="Import Color File", command=open_color_file)
+        uc.import_button = Button(uc.color_manager_window, text="Import Color File", command=lambda: open_color_file(uc))
         uc.import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
         uc.imp_but_tt = tt(uc.import_button, "import list of colors from file", text_size=tts)
 
-        update_gui(file_colors)
-
+        update_gui(uc, file_colors)
 
         uc.color_manager_window.mainloop()
 
@@ -769,7 +638,7 @@ of either x or y\nand press enter\nthe value of the\nother will change\nto maint
         exit_button =Button(uc.image_window, text=gn.btn_exit, command=uc.image_window.destroy)
         exit_button.grid_configure(row=6, column=2, sticky="E")
 
-        enter_button.config(command=lambda: add_image(image_entry, size_x, size_y, align_image_x, align_image_y, uc.file_display, uc.custom_window))
+        enter_button.config(command=lambda: add_image(uc, image_entry, size_x, size_y, align_image_x, align_image_y, uc.file_display, uc.custom_window))
 
         image_entry.bind('<Return>', pic_size)
         size_x.bind('<Return>', rs_x)
@@ -783,6 +652,42 @@ of either x or y\nand press enter\nthe value of the\nother will change\nto maint
 
         uc.image_window.mainloop()
 
+    def themes_window(self):
+        """create themes properties window"""
+
+        uc.window = Tk()
+        uc.window.grid()
+        uc.window.title(gn.win_themes)
+        uc.window.attributes("-topmost", True)
+
+        theme_name =Label(uc.window, bg=cs.bgc, text=gn.lbl_theme_name)
+        theme_name.grid_configure(row=0, column=0, columnspan=1)
+        theme_name_tt = tt(theme_name, "load themes here, will be replacing with a standard dialog box soon", waittime=100, wraplength=250, text_size=12)
+
+        theme_display =Entry(uc.window)
+        theme_display.grid_configure(row=0, column=1, columnspan=1, sticky="NSEW")
+
+        save_theme_button =Button(uc.window, text=gn.btn_save_theme, command=lambda: theme_prompt(theme_display, uc.file_display))
+        save_theme_button.grid_configure(row=0, column=2, columnspan=1, sticky="NSEW")
+        save_theme_tt = tt(save_theme_button, "save current config to theme, if you type an existing theme name it will overwrite it")
+
+        open_theme_label =Label(uc.window, text=gn.lbl_open_theme)
+        open_theme_label.grid_configure(row=1, column=0, sticky='NSEW')
+
+        theme_list = read_theme_list()
+        option_header =StringVar(uc.window)
+        option_header.set(theme_list[0])
+
+        themes_list =OptionMenu(uc.window, option_header, *theme_list)
+        themes_list.grid_configure(row=1, column=1, columnspan=1, sticky="NSEW")
+        themes_list_tt = tt(themes_list, "select name of theme you want to load", text_size=12)
+
+        theme_button =Button(uc.window, text=gn.btn_load_theme)
+        theme_button.grid_configure(row=1, column=2, columnspan=1, sticky="NSEW")
+        theme_button.config(command=lambda: get_theme(uc, uc.file_display, option_header, uc.custom_window))
+        theme_button_tt = tt(theme_button, "load selected theme", text_size=12)
+        uc.window.mainloop()
+
     def run(self):
         self.root.mainloop()
 
@@ -792,11 +697,9 @@ uc.create_widgets(gn.editor)
 load_commands(uc.com_list_box)
 syntax_basic(uc.file_display)
 fd_syntax_highlighting(uc.file_display)
-load_the_colors()
+load_the_colors(uc, "file")
 cb_syntax(uc.custom_window)
 font_list()
 theme_list()
 
 uc.run()
-
-#797 lines
