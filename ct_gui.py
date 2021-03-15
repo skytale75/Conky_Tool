@@ -30,7 +30,7 @@ class Utilize_Conky():
             rows += 1
 
     def create_widgets(self, title):
-        """create all widgets"""
+        """All the widgets in the main window"""
         uc.frame = Frame(self.root)
         uc.frame.grid(row = 0, columnspan=21)
         uc.frame.grid_configure(sticky="NSEW")
@@ -42,28 +42,44 @@ class Utilize_Conky():
 
         uc.v =IntVar()
 
-        def cr_com():
+        # list of commands to clear com_list_box
+        # and load appropriate commands after pushing
+        # the radio button, top left hand corner of the
+        # main window
 
+        
+
+        def cr_com():
+            """commands button clear box
+            and load commands"""
             uc.com_list_box.delete(0.0, END)
             cs.selected = "commands"
             load_commands(uc.com_list_box)
 
         def cr_con():
+            """configurations button clear box
+            and load configurations"""
             uc.com_list_box.delete(0.0, END)
             cs.selected = "configs"
             load_configs(uc.com_list_box)
 
         def cr_lua():
+            """clear box and do nothing, this
+            is yet to come"""
             uc.com_list_box.delete(0.0, END)
             cs.selected = "lua"
             load_lua(uc.com_list_box)
 
         def cr_options():
+            """clear commands box and load
+            definitions in definiton window"""
             cs.selected = "options"
             uc.com_list_box.delete(0.0, END)
             load_options(uc.wiki_window)
         
         tooltip_size = 12
+
+        # radio button located on top left of main window
 
         uc.com_radio =Radiobutton(uc.frame, indicatoron=0, width=20, bg=cs.bgc, text=gn.rb_commands, variable=uc.v, value=1, command = cr_com)
         uc.com_radio.grid_configure(row=0, column=0, columnspan=5, sticky="NSEW")
@@ -81,9 +97,16 @@ class Utilize_Conky():
         uc.options_radio.grid_configure(row=3, column=0, columnspan=5, sticky="NSEW")
         uc.or_tt = tt(uc.options_radio, "click to show startup\noptions for conky.\nWill be adding conky\nconfiguration tips eventually", text_size=tooltip_size)
 
+        # entry field that allows users to search through the dictionary of commands as defined in the 
+        # ct_mod.py file
+
         uc.command_find =Entry(uc.frame, width=20, bg="darkblue", fg="white", font= ('Deja Vu Serif', 10))
         uc.command_find.grid_configure(row=4, column=0, columnspan=5, sticky="NSEW")
         uc.command_find_tt = tt(uc.command_find, "^ Search for commands", text_size=tooltip_size)
+
+        # conky_label shows a readout of the file location of the current file displayed in the main window,
+        # for now it only displays the .config file, will update to display a theme file if it hasn't been saved
+        # to the .conf file yet.
 
         uc.conky_label =Label(uc.frame, bg=cs.bgc, text=cs.config_file, justify='left')
         uc.conky_label.grid_configure(row=0, column=10, columnspan=11, sticky="NSEW")
@@ -102,6 +125,10 @@ how something works, you can report an issue on the github\n\
 link or the facebook page. Suggestions are more than \n\
 welcome""", text_size=tooltip_size)
 
+        # com_list_box is located under the radio buttons, it shows the output of the users search, if the user
+        # presses ctrl-enter or control-left_click it will insert the command into the file at the point of the
+        # cursors location, unless it needs options, in which case it opens a dialogue box.
+
         uc.com_list_box =Text(uc.frame, height=10, width=20, bg="lightblue", font= ('Deja Vu Serif', 10))
         uc.com_list_box.grid_configure(row=5, column=0, columnspan=5, sticky="NSEW")
         uc.clb_tt = tt(uc.com_list_box, "click to highlight command,\ninsert to file by pressing\nctrl-leftClick or Ctrl-Enter", text_size=tooltip_size)
@@ -109,9 +136,16 @@ welcome""", text_size=tooltip_size)
         uc.lnText = Text(uc.frame, width = 4, padx = 4, highlightthickness = 0, takefocus = 0,
                 bd = 0, background = 'lightgrey', foreground = 'magenta', state='disabled')
 
+        # file_display is the window that shows the current file . . . the bindings for all these widgets are listed
+        # at the bottom of this function.
+
         uc.file_display =Text(uc.frame, wrap = 'word', undo=True, height=80)
         uc.file_display.grid_configure(row=1, column=10, columnspan=11, rowspan=20, sticky="NSEW")
         uc.file_display.config(bg='black', fg="white", insertbackground = 'cyan', font= ('Deja Vu Serif', 10))
+
+        # wiki_window shows the definition of the highlighted command, these definitions are stored as .txt
+        # files in the languages/* directory, I set it up like this because if the program is ever translated
+        # to other languages it would be easy enough to add them one at a time to alternative folders.
 
         uc.wiki_label =Label(uc.frame, width=40, bg=cs.bgc, text=gn.lbl_description)
         uc.wiki_label.grid_configure(row=6, column=0, columnspan=10)
@@ -120,11 +154,15 @@ welcome""", text_size=tooltip_size)
         uc.wiki_window =Text(uc.frame, wrap='word', width=20, bg = "lightyellow", font= ('Deja Vu Serif', 10))
         uc.wiki_window.grid_configure(row=7, column=0, rowspan=14, columnspan=10, sticky="NSEW")
 
+        # the color_button opens the color manager window . . . "add_color_window"
+
         color_img = ImageTk.PhotoImage(Image.open (cs.image_path+"colors.png"))
         uc.color_button =Button(uc.frame, image=color_img, command=uc.add_color_window)
         uc.color_button.grid_configure(row=21, column=10, sticky="NESW")
         uc.color_button.image=color_img
         uc.cb_tt = tt(uc.color_button, "Open Color Manager", text_size=tooltip_size)
+
+        # the fonts_button opens the font manager window "font_window_fun"
 
         fonts_img = ImageTk.PhotoImage(Image.open (cs.image_path+"fonts.png"))
         uc.fonts_button =Button(uc.frame, image=fonts_img, command=lambda: uc.font_window_fun(uc.file_display))
@@ -132,21 +170,34 @@ welcome""", text_size=tooltip_size)
         uc.fonts_button.image=fonts_img
         uc.fontButton_tt = tt(uc.fonts_button, "Choose Font and Size", text_size=tooltip_size)
 
+        # the image_button opens the image dialogue. The image dialogue allows the user to open a file
+        # dialog and select an image from the directory. When they do the dimensions of the image will
+        # automatically be added to the dialog. This dialog needs a little improvement, but it works.
+
         image_img = ImageTk.PhotoImage(Image.open (cs.image_path+"images.png"))
         uc.image_button =Button(uc.frame, image=image_img, command =uc.image_window_fun)
         uc.image_button.grid_configure(row=21, column=12, sticky="NSEW")
         uc.image_button.image=image_img
         uc.Img_button_tt = tt(uc.image_button, "Add Image", text_size=tooltip_size)
 
+        # page_borders is a button that allows the user to toggle the page borders on the active conky window
+
         page_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_page_border.png"))
         uc.page_borders =Button(uc.frame, image=page_borders_img, command=lambda: toggle_pb(uc, uc.file_display, uc.custom_window))
         uc.page_borders.grid_configure(row=21, column=13)
         uc.page_borders.image=page_borders_img
 
+        # graph_borders allows the user to toggle the border around graphs to make it easier to place them.
+
         graph_borders_img = ImageTk.PhotoImage(Image.open (cs.image_path+"tog_graph_border.png"))
         uc.graph_borders =Button(uc.frame, image=graph_borders_img, command=lambda: toggle_gb(uc, uc.file_display, uc.custom_window))
         uc.graph_borders.grid_configure(row=21, column=14, sticky="NSEW")
         uc.graph_borders.image=graph_borders_img
+
+        # pagyify button allows users to trigger the function "conky_by_line", which is a dialogue bocks
+        # that takes a single line of conky code and returns it in the form of a list to make it easier to
+        # read. You can add fonts, colors, commands, directly to this dialogue, it works . . .and is probably
+        # my favorite part of this project so far.
 
         pagify_img = ImageTk.PhotoImage(Image.open (cs.image_path+"pagify.png"))
         uc.pagify =Button(uc.frame, image=pagify_img, command=lambda: uc.conky_by_line(self))
@@ -154,11 +205,18 @@ welcome""", text_size=tooltip_size)
         uc.pagify.image=pagify_img
         uc.pagify_tt = tt(uc.pagify, "View and edit current\nline in a new window\nas a list.", text_size=tooltip_size)
 
+        # themes_button allows a really aweful dialog to be opened that allows users to save their file as a theme, it works
+        # but it needs some adjustment so users can understand what they are looking at.
+
         themes_img = ImageTk.PhotoImage(Image.open (cs.image_path+"themes.png"))
         uc.themes_button =Button(uc.frame, image=themes_img, command=uc.themes_window)
         uc.themes_button.grid_configure(row=21, column=16, sticky='NSEW')
         uc.themes_button.image=themes_img
         uc.cb_tt = tt(uc.themes_button, "Load and save themes\nwill be adding standard\ndialogue box soon.", text_size=tooltip_size)
+
+        # custom_window is the name I gave to the area where the custom colors can be accessed by the user, if the user
+        # presses ctrl-shift-enter (thinking about changing it to alt-enter) the color will be added to the file at the cursor
+        # location.
 
         uc.custom = Label(uc.frame, width=20, bg=cs.bgc, text="Colors In File")
         uc.custom.grid_configure(row=0, column=5, columnspan=5)
@@ -166,9 +224,13 @@ welcome""", text_size=tooltip_size)
         uc.custom_window = Text(uc.frame, height=10, width=20, wrap="word", bg="darkgrey", fg="cyan", font=("times", "14", "normal"))
         uc.custom_window.grid_configure(row=1, column=5, columnspan=5, rowspan=5, sticky="NWSE")
 
+        # save button
+
         uc.save_button =Button(uc.frame, text=gn.btn_save, fg='red', command=lambda: save_file(uc, uc.file_display, uc.custom_window))
         uc.save_button.grid_configure(row=21, column=19, sticky='NSEW')
         uc.save_tt = tt(uc.save_button, "Saves config file.\nsave theme when you\nare at a good save point.", text_size=tooltip_size)
+
+        # quit button
 
         uc.quit =Button(uc.frame,text=gn.btn_quit, fg="red", command=self.root.destroy)
         uc.quit.grid_configure(row=21, column=20, sticky='NSEW')
@@ -181,6 +243,9 @@ welcome""", text_size=tooltip_size)
                     the_input = cs.hold_command
                     functions[the_input](uc.file_display)           
             return "break"
+
+        # the following are a list of commands imported from ct_mod for the purpose
+        # of binding them to buttons and commands.
 
         def ps_command(self):
             """tie into add_custom, which adds custom
@@ -229,6 +294,8 @@ welcome""", text_size=tooltip_size)
                 uc.command_find.delete(0, END)
                 cs.cl_toggle = 0
 
+        # binds for the main gui
+
         uc.com_list_box.tag_config("command", background="white")
         uc.com_list_box.bind('<KeyRelease-Down>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
         uc.com_list_box.bind('<Down>', clear_tag)
@@ -260,14 +327,24 @@ welcome""", text_size=tooltip_size)
         uc.file_display.bind("<Control-l>", launch_conky)
         uc.file_display.bind("<Control-h>", file_display_help)
 
+        # open current conky.conf file in the file_display widget
+
         open_file(uc, uc.file_display, uc.custom_window)
         uc.command_find.insert(INSERT, "Search commands . . .")
 
+    # conky by line is a stand alone window dialog that allws the user to grab a line
+    # of code from the conky.conf file, and open it as a list in a new dialog box. The
+    # line can be edited, and re-entered into the main file_display, just like it was 
+    # being edited in the main file itself.
+
     def conky_by_line(self, foo):
+        """dialog window for the "conky_by_line" function"""
         uc.cbl_window = Tk()
         uc.cbl_window.grid()
         uc.cbl_window.attributes("-topmost", 'true')
         uc.cbl_window.title("Conky by line")
+
+        # main display window
 
         uc.cbl_text =Text(uc.cbl_window, width=40, height = 30)
         uc.cbl_text.grid_configure(row=0, column=0, columnspan=5)
@@ -282,14 +359,22 @@ welcome""", text_size=tooltip_size)
                 functions[the_input](uc.cbl_text)
             return "break"
 
+        # load information in the C.B.L. window
+
         load_by_line(uc.com_list_box, uc.custom_window, uc.file_display)
         insert_line(uc.cbl_text)
+
+        # add syntax highlighting to window
 
         syntax_basic(uc.cbl_text)
         fd_syntax_highlighting(uc.cbl_text)
 
-        uc.cbl_enter =Button(uc.cbl_window, text="Update", command=lambda: cbl_update(uc, uc.cbl_text, uc.com_list_box, uc.custom_window, uc.file_display))
+        # replaces the line in the main file, with the line generated in C.B.L
+
+        uc.cbl_enter = Button(uc.cbl_window, text="Update", command=lambda: cbl_update(uc, uc.cbl_text, uc.com_list_box, uc.custom_window, uc.file_display))
         uc.cbl_enter.grid_configure(row=2, column=4, sticky="NSEW")
+
+        #  opens font_dialog from C.B.L.
 
         uc.cbl_font =Button(uc.cbl_window, text="fonts", command = lambda: uc.font_window_fun(uc.cbl_text))
         uc.cbl_font.grid_configure(row=2, column=1, sticky="NWES")
@@ -313,6 +398,8 @@ welcome""", text_size=tooltip_size)
 
         cs.toggle=0
 
+        # searches for the font typed by the user in the font_search_bar
+
         def font_search(foo):
             the_search = font_search_bar.get()
             fn_entry.delete(0.0, END)
@@ -328,8 +415,8 @@ welcome""", text_size=tooltip_size)
         font_search_bar = Entry(uc.font_window, bg="darkblue", fg="white")
         font_search_bar.grid_configure(row=0, column=0, columnspan=2, sticky="NESW")
         font_search_bar.insert(INSERT, "Search fonts . . .")
-        font_search_bar.bind("<Button-1>", clear_entry)
-        font_search_bar.bind("<KeyPress>", font_search)
+        font_search_bar.bind("<Button-1>", clear_entry) # clears search bar when user clicks in it
+        font_search_bar.bind("<KeyPress>", font_search) # searches for fonts after every key pressed
         fsb_tt = tt(font_search_bar, "search fonts here", text_size=12)
 
         # "Font Name:" label
@@ -381,6 +468,8 @@ welcome""", text_size=tooltip_size)
         fn_entry.bind("<Down>", clear_tag)
         fn_entry.bind("<KeyRelease-Down>", tag_it)
 
+        # font_submit inserts font in file_display or C.B.L at cursor location
+
         font_submit = Button(uc.font_window, text=gn.btn_enter)
         font_submit.grid_configure(row=18, column=3, columnspan=1, sticky="NSEW")
         font_submit.config(command=lambda: make_font(cs.font_hold, fs_entry, file_display, uc.conky_by_line))
@@ -399,7 +488,14 @@ welcome""", text_size=tooltip_size)
         uc.color_manager_window.config(bg="#000000")
         file_colors = uc.custom_window.get(0.0, "end-1c").splitlines()
 
+        # tts is the size of the text in the tool tips
+
         tts = 12
+
+        # chooser opens that rows color chooser, entry displays the color hex code, button is a lie,
+        # they were buttons at one point but now they just display the current color of a color alias,
+        # if the color on the color chooser button and the label are differrent, then the user will
+        # know the colors haven't been updated to the file yet. This covers the next 105 lines lol
 
         uc.sel_col_label = Label(uc.color_manager_window, width=10, text="Select Color")
         uc.sel_col_label.grid_configure(row=0, column=0)
@@ -507,10 +603,17 @@ welcome""", text_size=tooltip_size)
 
         uc.color9_button = Label(uc.color_manager_window, width=10)
         uc.color9_button.grid_configure(sticky="NSEW", row=11, column=2)
+
+        # after the user chooses their colors, the update_all_button will gather the info from the dialog boxes
+        # and add it to the file, and save :).
             
         uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=lambda: update_colors(uc))
         uc.update_all_button.grid_configure(row=12, columnspan=3, sticky="NSEW")
         up_all_tt = tt(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
+
+        # import dialog is a place for the user to add a list of colors in multiple formats and when they push the
+        # import_dialog_button, the colors will be loaded into the entry widgets listed above, allowing for quick
+        # theme changes
 
         uc.import_dialog = Text(uc.color_manager_window, width=1, height=10, bg='black', foreground='cyan')
         uc.import_dialog.grid_configure(row=13, column=0, columnspan=3, sticky="NSEW")
@@ -520,13 +623,20 @@ welcome""", text_size=tooltip_size)
         uc.import_dialog_button.grid_configure(row=14, column=0, columnspan=3, sticky="NSEW")
         uc.idb_tt = tt(uc.import_dialog_button, "Import from Dialog ^", text_size=tts)
 
+        # does the same thing as above, but instead of pasting a list into a dialog box, they can open it from a file
+        # I will be setting this up to automatically add color files to the user directory so they can access it later.
+
         uc.import_button = Button(uc.color_manager_window, text="Import Color File", command=lambda: open_color_file(uc))
         uc.import_button.grid_configure(row=15, columnspan=3, sticky="NSEW")
         uc.imp_but_tt = tt(uc.import_button, "import list of colors from file", text_size=tts)
 
+        # update_gui changes the gui color to match the file colors
+
         update_gui(uc, file_colors)
 
         uc.color_manager_window.mainloop()
+
+    # help_window is being replaced by tool tips.
 
     def help_window(self, foo, help_file, help_title):
         def save_help():
@@ -559,10 +669,13 @@ welcome""", text_size=tooltip_size)
 
         uc.help_win.mainloop()
 
+    # image_window_fun is the function to spawn the "add image" dialog
+
     def image_window_fun(self):
         """create image command window"""
 
         def open_file():
+            """spawns a file dialogue and loads file to image_window_fun"""
             name = askopenfilename(initialdir="~/Pictures/")
             image_entry.delete(0, END)
             image_entry.insert(INSERT, name)
@@ -577,6 +690,8 @@ welcome""", text_size=tooltip_size)
             resize_y(size_x, size_y)
 
         def pic_size(self):
+            """gets the dimensions of the image and
+            loads them appropriately"""
             image_dimensions(image_entry, size_x, size_y)
             align_image_x.insert(INSERT, '0')
             align_image_y.insert(INSERT, '0')
@@ -587,6 +702,8 @@ welcome""", text_size=tooltip_size)
         uc.image_window.grid()
         uc.image_window.config(bg="white")
         uc.image_window.attributes("-topmost", True)
+
+        # shows path to image, allows user to add their own path
 
         image_path_label =Label(uc.image_window, bg=cs.bgc, text="Image Path:")
         image_path_label.grid_configure(row=0, column=0, columnspan=3, sticky="NSEW")
