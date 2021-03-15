@@ -1,5 +1,14 @@
 # Conky_Tool
 
+Conky Tool (Utilise Conky), is a program I decided to put
+together to try to help make the process of making a conky
+file easier for everyone. It isn't like conky manager, it 
+essentially is a text editor, with syntax highlighting that
+has the entire catalogue of definitions built in, and ready
+to add at the push of a button. It has a long way to go, but
+I am looking for brave testers :).
+
+
 Contact Information
 
 Facebook group for questions and answers is 
