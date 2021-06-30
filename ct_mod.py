@@ -25,10 +25,10 @@ def duplicate_press(file_display):
 
 def color_separator():
     """separate color names from color hex and build dictionary"""
-    open_file = open(cs.options_path+"colornames.txt", 'r')
-    read_file = open_file.read().splitlines()
-    open_file.close()
-    for line in read_file:
+    open_color_file = open(cs.options_path+"colornames.txt", 'r')
+    color_file = open_color_file.read().splitlines()
+    open_color_file.close()
+    for line in color_file:
         color_split = line.split("*")
         color_name = str(color_split[1]).lower()
         color_code = color_split[0]
