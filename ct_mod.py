@@ -238,8 +238,8 @@ def font_list():
     """go to directory, copy file names,
     convert them to font names"""
     font_list = []
-    get = subprocess.Popen("fc-list", shell=True, stdout=subprocess.PIPE)
-    grab_output = str(get.stdout.read())
+    get_fonts = subprocess.Popen("fc-list", shell=True, stdout=subprocess.PIPE)
+    grab_output = str(get_fonts.stdout.read())
 
     temp_list = grab_output.split("share")
     for t in temp_list:
