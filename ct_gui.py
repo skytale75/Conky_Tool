@@ -1,5 +1,6 @@
 #testing
 from tkinter import Frame, Radiobutton, ttk, Entry, Label, Text, Button, Tk, END, INSERT, StringVar, OptionMenu, IntVar, colorchooser, PhotoImage, LEFT
+from webbrowser import get
 from ct_fun import Commands, functions
 from ct_mod import search_su, load_commands, load_configs, load_lua, load_options, toggle_gb, toggle_pb, \
     save_file, show_def, add_custom, search, load_hold_color, duplicate_press, open_file, load_by_line, \
@@ -29,6 +30,12 @@ class Utilize_Conky():
             self.root.rowconfigure(rows, weight = 100)
             self.root.columnconfigure(rows, weight = 100)
             rows += 1
+    def initiate_binds(self, file):
+        with open(f"{cs.binds_path}{file}") as get_binds:
+            add_binds = get_binds.read().splitlines()
+            for bind in add_binds:
+                print(bind)
+                exec(str(bind))
 
     def create_widgets(self, title):
         """All the widgets in the main window"""
@@ -297,36 +304,13 @@ welcome""", text_size=tooltip_size)
 
         # binds for the main gui
 
-        uc.com_list_box.tag_config("command", background="white")
-        uc.com_list_box.bind('<KeyRelease-Down>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
-        uc.com_list_box.bind('<Down>', clear_tag)
-        uc.com_list_box.bind('<KeyRelease-Up>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
-        uc.com_list_box.bind('<Up>', clear_tag)
-        uc.com_list_box.bind('<Control-Return>', command_line)
-        uc.com_list_box.bind('<Button-1>', clear_tag)
-        uc.com_list_box.bind('<ButtonRelease-1>', lambda event, a=uc.com_list_box,b=uc.wiki_window: show_def(a, b))
-        uc.com_list_box.bind('<Control-h>', command_box_help)
-        uc.file_display.bind('<Alt-p>', uc.conky_by_line)
-        uc.file_display.bind("<Tab>", tab)
-        uc.file_display.bind('<Control-Return>', command_line)
-        uc.file_display.bind('<Control-ButtonRelease-1>', command_line)
-        uc.file_display.bind('<Shift-Control-Return>', ps_command)
-        uc.file_display.bind('<Shift-Control-ButtonRelease-1>', ps_command)
-        uc.file_display.bind('<Control-d>', dup_down)
-        uc.file_display.bind('<Control-s>', save_kc)
-        uc.wiki_window.bind('<Control-Return>', lambda event, a=self, b=uc.wiki_window, c=uc.file_display: Commands.force_file(a, b, c))
-        uc.wiki_window.bind('<Control-Button-1>', lambda event, a=self, b=uc.wiki_window, c=uc.file_display: Commands.force_file(a, b, c))
-        uc.wiki_window.bind('<Control-h>', definitions_help)
-        uc.command_find.bind('<ButtonRelease-1>', delete_cl)
-        uc.command_find.bind('<KeyRelease>', search_com)
-        uc.command_find.bind('<Control-h>', search_help)
-        uc.custom_window.bind('<Shift-Control-Return>', ps_command)
-        uc.custom_window.bind('<ButtonRelease-1>', lambda event, a=uc.custom_window: load_hold_color(a))
-        uc.custom_window.bind('<KeyRelease-Up>', lambda event, a=uc.custom_window: load_hold_color(a))
-        uc.custom_window.bind('<KeyRelease-Down>', lambda event, a=uc.custom_window: load_hold_color(a))
-        uc.custom_window.bind('<Control-h>', custom_help)
-        uc.file_display.bind("<Control-l>", launch_conky)
-        uc.file_display.bind("<Control-h>", file_display_help)
+        # uc.initiate_binds("mainw_binds.txt")
+
+        with open(f"{cs.binds_path}mainw_binds.txt") as get_binds:
+            add_binds = get_binds.read().splitlines()
+            for bind in add_binds:
+                print(bind)
+                exec(str(bind))
 
         # open current conky.conf file in the file_display widget
 
@@ -383,10 +367,12 @@ welcome""", text_size=tooltip_size)
         uc.cbl_exit =Button(uc.cbl_window, text="Exit", command=uc.cbl_window.destroy)
         uc.cbl_exit.grid_configure(row=2, column=0, sticky="NSEW")
         
-        uc.cbl_text.bind("<Control-Return>", cbl_command_enter)
-        uc.cbl_text.bind("<Control-Button-1>", cbl_command_enter)
-        uc.cbl_text.bind("<Shift-Control-Return>", cbl_command_custom)
-        uc.cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
+        with open(f"{cs.binds_path}cbl_binds.txt") as get_binds:
+            add_binds = get_binds.read().splitlines()
+            for bind in add_binds:
+                print(bind)
+                exec(str(bind))
+
 
         uc.cbl_window.after(5000, lambda: uc.cbl_window.focus_force())
 
@@ -485,13 +471,23 @@ welcome""", text_size=tooltip_size)
         uc.color_manager_window = Tk()
         uc.color_manager_window.grid()
         uc.color_manager_window.title(gn.win_colors)
-        uc.color_manager_window.attributes("-topmost", False)
+        uc.color_manager_window.attributes("-topmost", True)
         uc.color_manager_window.config(bg="#000000")
         file_colors = uc.custom_window.get(0.0, "end-1c").splitlines()
 
         # tts is the size of the text in the tool tips
 
         tts = 12
+
+        def color_widgets(color_title, color_row):
+            exec(f"uc.{color_title}_chooser = Button(uc.color_manager_window, text='{color_title}', command=lambda: color_chooser(uc.{color_title}_entry, uc.{color_title}_chooser))")
+            exec(f"uc.{color_title}_chooser.grid_configure(row={color_row}, column=0, sticky='NSEW')")
+
+            exec(f"uc.{color_title}_entry = Entry(uc.color_manager_window, width=10)")
+            exec(f"uc.{color_title}_entry.grid_configure(sticky='NSEW', row={color_row}, column=1)")
+
+            exec(f"uc.{color_title}_button = Label(uc.color_manager_window, width=10)")
+            exec(f"uc.{color_title}_button.grid_configure(sticky='NSEW', row={color_row}, column=2)")
 
         # chooser opens that rows color chooser, entry displays the color hex code, button is a lie,
         # they were buttons at one point but now they just display the current color of a color alias,
@@ -506,108 +502,18 @@ welcome""", text_size=tooltip_size)
         uc.current_color_label.grid_configure(row=0, column=2)
         uc.sel_col_tt = tt(uc.current_color_label, "color currently in the file", text_size=tts)            
 
-        uc.default_color_chooser = Button(uc.color_manager_window, text="default", command=lambda: color_chooser(uc.default_color_entry, uc.default_color_chooser))
-        uc.default_color_chooser.grid_configure(row=1, column=0, sticky="NSEW")
-
-        uc.default_color_entry =Entry(uc.color_manager_window, width=10)
-        uc.default_color_entry.grid_configure(sticky="NSEW", row=1, column=1)    
-
-        uc.default_color_button = Label(uc.color_manager_window, width=10)
-        uc.default_color_button.grid_configure(sticky="NSEW", row=1, column=2)
+        color_widgets("default_color", 1)
+        color_widgets("color0", 2)
+        color_widgets("color1", 3)
+        color_widgets("color2", 4)
+        color_widgets("color3", 5)
+        color_widgets("color4", 6)
+        color_widgets("color5", 7)
+        color_widgets("color6", 8)
+        color_widgets("color7", 9)
+        color_widgets("color8", 10)
+        color_widgets("color9", 11)
         
-        uc.color0_chooser = Button(uc.color_manager_window, text="color0", command=lambda: color_chooser(uc.color0_entry, uc.color0_chooser))
-        uc.color0_chooser.grid_configure(row=2, column=0, sticky="NSEW")
-
-        uc.color0_entry = Entry(uc.color_manager_window, width=10)
-        uc.color0_entry.grid_configure(sticky="NSEW", row=2, column=1)
-
-        uc.color0_button = Label(uc.color_manager_window, width=10)
-        uc.color0_button.grid_configure(sticky="NSEW", row=2, column=2)
-    
-        uc.color1_chooser = Button(uc.color_manager_window, text="color1", command=lambda: color_chooser(uc.color1_entry, uc.color1_chooser))
-        uc.color1_chooser.grid_configure(row=3, column=0, sticky="NSEW")
-
-        uc.color1_entry = Entry(uc.color_manager_window, width=10)
-        uc.color1_entry.grid_configure(sticky="NSEW", row=3, column=1)
-
-        uc.color1_button = Label(uc.color_manager_window, width=10)
-        uc.color1_button.grid_configure(sticky="NSEW", row=3, column=2)
-    
-        uc.color2_chooser = Button(uc.color_manager_window, text="color2", command=lambda: color_chooser(uc.color2_entry, uc.color2_chooser))
-        uc.color2_chooser.grid_configure(row=4, column=0, sticky="NSEW")
-
-        uc.color2_entry = Entry(uc.color_manager_window, width=10)
-        uc.color2_entry.grid_configure(sticky="NSEW", row=4, column=1)
-
-        uc.color2_button = Label(uc.color_manager_window, width=10)
-        uc.color2_button.grid_configure(sticky="NSEW", row=4, column=2)
-    
-        uc.color3_chooser = Button(uc.color_manager_window, text="color3", command=lambda: color_chooser(uc.color3_entry, uc.color3_chooser))
-        uc.color3_chooser.grid_configure(row=5, column=0, sticky="NSEW")
-
-        uc.color3_entry = Entry(uc.color_manager_window, width=10)
-        uc.color3_entry.grid_configure(sticky="NSEW", row=5, column=1)
-
-        uc.color3_button = Label(uc.color_manager_window, width=10)
-        uc.color3_button.grid_configure(sticky="NSEW", row=5, column=2)
-    
-        uc.color4_chooser = Button(uc.color_manager_window, text="color4", command=lambda: color_chooser(uc.color4_entry, uc.color4_chooser))
-        uc.color4_chooser.grid_configure(row=6, column=0, sticky="NSEW")
-
-        uc.color4_entry = Entry(uc.color_manager_window, width=10)
-        uc.color4_entry.grid_configure(sticky="NSEW", row=6, column=1)
-
-        uc.color4_button = Label(uc.color_manager_window, width=10)
-        uc.color4_button.grid_configure(sticky="NSEW", row=6, column=2)
-        
-        uc.color5_chooser = Button(uc.color_manager_window, text="color5", command=lambda: color_chooser(uc.color5_entry, uc.color5_chooser))
-        uc.color5_chooser.grid_configure(row=7, column=0, sticky="NSEW")
-
-        uc.color5_entry = Entry(uc.color_manager_window, width=10)
-        uc.color5_entry.grid_configure(sticky="NSEW", row=7, column=1)
-
-        uc.color5_button = Label(uc.color_manager_window, width=10)
-        uc.color5_button.grid_configure(sticky="NSEW", row=7, column=2)
-        
-        uc.color6_chooser = Button(uc.color_manager_window, text="color6", command=lambda: color_chooser(uc.color6_entry, uc.color6_chooser))
-        uc.color6_chooser.grid_configure(row=8, column=0, sticky="NSEW")
-
-        uc.color6_entry = Entry(uc.color_manager_window, width=10)
-        uc.color6_entry.grid_configure(sticky="NSEW", row=8, column=1)
-
-        uc.color6_button = Label(uc.color_manager_window, width=10)
-        uc.color6_button.grid_configure(sticky="NSEW", row=8, column=2)
-        
-        uc.color7_chooser = Button(uc.color_manager_window, text="color7", command=lambda: color_chooser(uc.color7_entry, uc.color7_chooser))
-        uc.color7_chooser.grid_configure(row=9, column=0, sticky="NSEW")
-
-        uc.color7_entry = Entry(uc.color_manager_window, width=10)
-        uc.color7_entry.grid_configure(sticky="NSEW", row=9, column=1)
-
-        uc.color7_button = Label(uc.color_manager_window, width=10)
-        uc.color7_button.grid_configure(sticky="NSEW", row=9, column=2)
-        
-        uc.color8_chooser = Button(uc.color_manager_window, text="color8", command=lambda: color_chooser(uc.color8_entry, uc.color8_chooser))
-        uc.color8_chooser.grid_configure(row=10, column=0, sticky="NSEW")
-
-        uc.color8_entry = Entry(uc.color_manager_window, width=10)
-        uc.color8_entry.grid_configure(sticky="NSEW", row=10, column=1)
-
-        uc.color8_button = Label(uc.color_manager_window, width=10)
-        uc.color8_button.grid_configure(sticky="NSEW", row=10, column=2)
-        
-        uc.color9_chooser = Button(uc.color_manager_window, text="color9", command=lambda: color_chooser(uc.color9_entry, uc.color9_chooser))
-        uc.color9_chooser.grid_configure(row=11, column=0, sticky="NSEW")
-
-        uc.color9_entry = Entry(uc.color_manager_window, width=10)
-        uc.color9_entry.grid_configure(sticky="NSEW", row=11, column=1)
-
-        uc.color9_button = Label(uc.color_manager_window, width=10)
-        uc.color9_button.grid_configure(sticky="NSEW", row=11, column=2)
-
-        # after the user chooses their colors, the update_all_button will gather the info from the dialog boxes
-        # and add it to the file, and save :).
-            
         uc.update_all_button = Button(uc.color_manager_window, text="update-all", command=lambda: update_colors(uc))
         uc.update_all_button.grid_configure(row=12, columnspan=3, sticky="NSEW")
         up_all_tt = tt(uc.update_all_button, "Save new colors to file\nand update 'colors in use'.", text_size=tts)
@@ -820,4 +726,4 @@ cb_syntax(uc.custom_window)
 font_list()
 theme_list()
 
-uc.run()
+uc.run() #824

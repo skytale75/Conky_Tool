@@ -1,12 +1,9 @@
-from ct_fun import Commands, active_highlighting
+from ct_fun import active_highlighting
 from common_stuff import Common_Stuff as cs
-from tkinter import Label, END, INSERT
-from tkinter import simpledialog as sd
+from tkinter import END, INSERT
 from os import listdir, path
 from PIL import Image
-from re import sub
 from pathlib import Path
-from gui_names import gui_names as gn
 import subprocess
 from tkinter.filedialog import askopenfilename
 from tkcolorpicker import askcolor

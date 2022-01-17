@@ -52,7 +52,6 @@ class Commands:
         cd_output.delete(0.0, END)
         cd_output.insert(INSERT, self.com_des)
 
-
 def def_file(my_input):
     """open definition file and return as a string"""
     open_file = open(cs.coms_path+my_input+".txt")

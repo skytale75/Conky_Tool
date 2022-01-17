@@ -1,0 +1,4 @@
+uc.cbl_text.bind("<Control-Return>", cbl_command_enter)
+uc.cbl_text.bind("<Control-Button-1>", cbl_command_enter)
+uc.cbl_text.bind("<Shift-Control-Return>", cbl_command_custom)
+uc.cbl_text.bind("<Shift-Control-Button-1>", cbl_command_custom)
