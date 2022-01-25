@@ -190,6 +190,10 @@ def check_file(file_display):
         get_text = get_text.replace("$$", "$")
         file_display.delete(0.0, END)
         file_display.insert(INSERT, get_text)
+    if "}{" in get_text:
+        get_text = get_text.replace("}{", "}${")
+        file_display.delete(0.0, END)
+        file_display.insert(INSERT, get_text)
 
 def save_file(uc, file_display, Custom_AB):
     """open file and save to .conkyrc"""
@@ -275,19 +279,13 @@ def search(csi, clo):
     list"""
     if len(cs.results) == 0:
         for file in Path(cs.search_path).glob('**/*.txt'): # change cs.coms_path to cs.search_path, change search path based on radio button selection
-            open_file = open(file, 'r')
-            read_file = open_file.read()
-            open_file.close()
-            cf_str = str(file)
-            cf_spl = cf_str.split('/')
-            cf = str(cf_spl[-1])
-            cf = cf.replace('.txt', '')
-            cs.results.append(cf+" "+read_file)
+            with open(file, 'r') as open_file:
+                cs.results.append(f"{str(str(file).split('/')[-1]).replace('.txt', '')} {open_file.read()}")
     clo.delete(0.0, END)
-    for l in cs.results:
-        x = str(l)
-        if str(csi.get()) in x:
-            humph = x.split()[0]
+    for list_result in cs.results:
+        result = str(list_result)
+        if str(csi.get()) in result:
+            humph = result.split()[0]
             clo.insert(INSERT, humph+'\n')
 
 def load_commands(clo):
@@ -295,14 +293,15 @@ def load_commands(clo):
     cs.results = []
     clo.delete(0.0, END)
     for file in Path(cs.coms_path).glob('**/*.txt'):
-        open_file = open(file, 'r')
-        read_file = open_file.read()
-        open_file.close()
-        cf_str = str(file)
-        cf_spl = cf_str.split('/')
-        cf = str(cf_spl[-1])
-        cf = cf.replace('.txt', '')
-        cs.results.append(cf+" "+read_file)
+        with open(file, 'r') as open_file:
+            cs.results.append(f"{str(str(file).split('/')[-1]).replace('.txt', '')} {open_file.read()}")
+        # read_file = open_file.read()
+        # open_file.close()
+        # cf_str = str(file)
+        # cf_spl = cf_str.split('/')
+        # cf = str(cf_spl[-1])
+        # cf = cf.replace('.txt', '')
+        # cs.results.append(cf+" "+read_file)
     command_list = sorted(cs.results)
     start = 0
     while start < len(command_list):
@@ -315,14 +314,9 @@ def load_configs(clo):
     cs.results = []
     clo.delete(0.0, END)
     for file in Path(cs.configs_path).glob('**/*.txt'):
-        open_file = open(file, 'r')
-        read_file = open_file.read()
-        open_file.close()
-        cf_str = str(file)
-        cf_spl = cf_str.split('/')
-        cf = str(cf_spl[-1])
-        cf = cf.replace('.txt', '')
-        cs.results.append(cf+" "+read_file)
+        with open(file, 'r') as open_file:
+            cs.results.append(f"{str(str(file).split('/')[-1]).replace('.txt', '')}\
+                 {open_file.read()}")
     configs_list = sorted(cs.results)
     start = 0
     while start < len(configs_list):
@@ -483,10 +477,14 @@ def cb_syntax(attributes_box):
             offset = '+%dc' % len(get_list[start])
             pos_start = attributes_box.search(get_list[start], '0.0', END)
             pos_end = pos_start + offset
-            print("pos_start", get_list[start], pos_end)
+            print("pos_start", get_list[start], '-', pos_end)
             print(cs.the_color)
-            attributes_box.tag_config(name, background=str(cs.the_color))
-            attributes_box.tag_add(name, pos_start, pos_end)
+            if "''" not in str(get_list[start]):
+                attributes_box.tag_config(name, background=str(cs.the_color))
+                attributes_box.tag_add(name, pos_start, pos_end)
+            if "''" in str(get_list[start]):
+                attributes_box.tag_config(name, background="#555555")
+                attributes_box.tag_add(name, pos_start, "7.0+19c")
             start += 1
 
     color_open.close()
@@ -661,15 +659,16 @@ def update_colors(uc):
 
 def update_gui(uc, color_list):
     for color in color_list:
-        name = "uc."+color.split()[0]
-        value = str(color.split()[2][1:-2])
-        entry_name = eval(name+"_entry")
-        entry_name.delete(0, END)
-        entry_name.insert(INSERT, value)
-        button_name = eval(name+"_button")
-        button_name.config(bg="#"+value)
-        label_name = eval(name+"_chooser")
-        label_name.config(bg='#'+value)
+        if "''" not in str(color):
+            name = "uc."+color.split()[0]
+            value = str(color.split()[2][1:-2])
+            entry_name = eval(name+"_entry")
+            entry_name.delete(0, END)
+            entry_name.insert(INSERT, value)
+            button_name = eval(name+"_button")
+            button_name.config(bg="#"+value)
+            label_name = eval(name+"_chooser")
+            label_name.config(bg='#'+value)
 
 def color_chooser(color_out, mbutton):
     if color_out.get() != "":
